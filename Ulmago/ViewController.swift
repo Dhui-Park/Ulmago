@@ -52,7 +52,13 @@ class ViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        //We make a call to our keyboard handling function as soon as the view is loaded.
+        initializeHideKeyboard()
     }
+   
     
     
     /// 텍스트필드 세팅
@@ -66,6 +72,14 @@ class ViewController: UIViewController {
         textField.autocorrectionType = .no
         textField.borderStyle = .roundedRect
         textField.tintColor = .systemOrange
+    }
+    
+    @objc func keyboardWillShow(_ sender:Notification){
+        self.view.frame.origin.y = -100
+    }
+        
+    @objc func keyboardWillHide(_ sender:Notification){
+        self.view.frame.origin.y = 0
     }
 
     @IBAction func submitBtnClicked(_ sender: UIButton) {
@@ -85,4 +99,27 @@ extension ViewController: UITextFieldDelegate {
         
         return newString.count <= maxLength
     }
+    
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        textField.becomeFirstResponder()
+//    }
 }
+
+extension ViewController {
+    func initializeHideKeyboard(){
+        //Declare a Tap Gesture Recognizer which will trigger our dismissMyKeyboard() function
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissMyKeyboard))
+        
+        //Add this tap gesture recognizer to the parent view
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissMyKeyboard(){
+        //endEditing causes the view (or one of its embedded text fields) to resign the first responder status.
+        //In short- Dismiss the active keyboard.
+        view.endEditing(true)
+    }
+    
+    
+}
+
