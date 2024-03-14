@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.navigationController?.isNavigationBarHidden = true
         textFieldSetting(self.goalTextField)
         self.goalTextField.delegate = self
         
@@ -61,29 +62,24 @@ class ViewController: UIViewController {
    
     
     
-    /// 텍스트필드 세팅
-    /// - Parameters:
-    ///   - textField: 텍스트필드 이름
-    ///   - placeholder: 플레이스홀더
-    ///   - keyboardType: 키보드 타입
-    func textFieldSetting(_ textField: UITextField, _ placeholder: String = "맥북 프로 / 괌 여행 / 자전거", keyboardType: UIKeyboardType = .default) {
-        textField.placeholder = placeholder
-        textField.keyboardType = .default
-        textField.autocorrectionType = .no
-        textField.borderStyle = .roundedRect
-        textField.tintColor = .systemOrange
-    }
     
-    @objc func keyboardWillShow(_ sender:Notification){
-        self.view.frame.origin.y = -100
-    }
-        
-    @objc func keyboardWillHide(_ sender:Notification){
-        self.view.frame.origin.y = 0
-    }
+    
 
     @IBAction func submitBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- 목표 설정 완료 버튼 클릭")
+        
+//        if let vc = WholeCostSettingVC.getInstance() {
+//            self.navigationController?.pushViewController(vc, animated: true)
+//        }
+        
+        guard let dataToSend: String = self.goalTextField.text else { return }
+        
+        let storyboard = UIStoryboard(name: WholeCostSettingVC.reuseIdentifier, bundle: .main)
+        let vc = storyboard.instantiateViewController(identifier: WholeCostSettingVC.reuseIdentifier, creator: { coder in
+            return WholeCostSettingVC(coder: coder, goalText: dataToSend)
+        })
+        
+        self.navigationController?.pushViewController(vc, animated: true)
         
     }
     
@@ -105,7 +101,29 @@ extension ViewController: UITextFieldDelegate {
 //    }
 }
 
-extension ViewController {
+extension UIViewController {
+    
+    /// 텍스트필드 세팅
+    /// - Parameters:
+    ///   - textField: 텍스트필드 이름
+    ///   - placeholder: 플레이스홀더
+    ///   - keyboardType: 키보드 타입
+    func textFieldSetting(_ textField: UITextField, _ placeholder: String = "맥북 프로 / 괌 여행 / 자전거", keyboardType: UIKeyboardType = .default) {
+        textField.placeholder = placeholder
+        textField.textColor = UIColor(named: "redBean")
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = UIColor(named: "redBean")?.cgColor
+        textField.layer.cornerRadius = 8
+        textField.keyboardType = keyboardType
+        textField.autocorrectionType = .no
+        textField.borderStyle = .roundedRect
+        textField.tintColor = UIColor(named: "redBean")
+    }
+    
+    
+    
+    
+    
     func initializeHideKeyboard(){
         //Declare a Tap Gesture Recognizer which will trigger our dismissMyKeyboard() function
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissMyKeyboard))
@@ -121,5 +139,11 @@ extension ViewController {
     }
     
     
+    @objc func keyboardWillShow(_ sender:Notification){
+        self.view.frame.origin.y = -100
+    }
+        
+    @objc func keyboardWillHide(_ sender:Notification){
+        self.view.frame.origin.y = 0
+    }
 }
-

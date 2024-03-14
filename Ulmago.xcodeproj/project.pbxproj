@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B7CE47462BA2FEAA00F2805F /* ReuseIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CE47452BA2FEAA00F2805F /* ReuseIdentifiable.swift */; };
+		B7CE47482BA314C700F2805F /* WholeCostSettingVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7CE47472BA314C700F2805F /* WholeCostSettingVC.storyboard */; };
+		B7CE474A2BA314D800F2805F /* WholeCostSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CE47492BA314D800F2805F /* WholeCostSettingVC.swift */; };
+		B7CE474C2BA316A300F2805F /* StoryboardInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CE474B2BA316A300F2805F /* StoryboardInstance.swift */; };
+		B7CE474E2BA3630600F2805F /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CE474D2BA3630600F2805F /* SplashViewController.swift */; };
 		B7F012102B9F2E74004027CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F0120F2B9F2E74004027CA /* AppDelegate.swift */; };
 		B7F012122B9F2E74004027CA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F012112B9F2E74004027CA /* SceneDelegate.swift */; };
 		B7F012142B9F2E74004027CA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F012132B9F2E74004027CA /* ViewController.swift */; };
@@ -40,6 +45,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B7CE47452BA2FEAA00F2805F /* ReuseIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifiable.swift; sourceTree = "<group>"; };
+		B7CE47472BA314C700F2805F /* WholeCostSettingVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WholeCostSettingVC.storyboard; sourceTree = "<group>"; };
+		B7CE47492BA314D800F2805F /* WholeCostSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WholeCostSettingVC.swift; sourceTree = "<group>"; };
+		B7CE474B2BA316A300F2805F /* StoryboardInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardInstance.swift; sourceTree = "<group>"; };
+		B7CE474D2BA3630600F2805F /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		B7F0120C2B9F2E74004027CA /* Ulmago.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ulmago.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7F0120F2B9F2E74004027CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B7F012112B9F2E74004027CA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -84,6 +94,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B7CE473F2BA2DCE400F2805F /* GoalSettingFlow */ = {
+			isa = PBXGroup;
+			children = (
+				B7CE47472BA314C700F2805F /* WholeCostSettingVC.storyboard */,
+				B7CE47492BA314D800F2805F /* WholeCostSettingVC.swift */,
+			);
+			path = GoalSettingFlow;
+			sourceTree = "<group>";
+		};
+		B7CE47442BA2FE9600F2805F /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				B7CE47452BA2FEAA00F2805F /* ReuseIdentifiable.swift */,
+				B7CE474B2BA316A300F2805F /* StoryboardInstance.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		B7F012032B9F2E74004027CA = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +135,8 @@
 		B7F0120E2B9F2E74004027CA /* Ulmago */ = {
 			isa = PBXGroup;
 			children = (
+				B7CE47442BA2FE9600F2805F /* Extension */,
+				B7CE473F2BA2DCE400F2805F /* GoalSettingFlow */,
 				B7F0120F2B9F2E74004027CA /* AppDelegate.swift */,
 				B7F012112B9F2E74004027CA /* SceneDelegate.swift */,
 				B7F012132B9F2E74004027CA /* ViewController.swift */,
@@ -115,6 +145,7 @@
 				B7F012182B9F2E76004027CA /* Assets.xcassets */,
 				B7F0121A2B9F2E76004027CA /* LaunchScreen.storyboard */,
 				B7F0121D2B9F2E76004027CA /* Info.plist */,
+				B7CE474D2BA3630600F2805F /* SplashViewController.swift */,
 			);
 			path = Ulmago;
 			sourceTree = "<group>";
@@ -251,6 +282,7 @@
 				B7F012192B9F2E76004027CA /* Assets.xcassets in Resources */,
 				B7F0121C2B9F2E76004027CA /* Base in Resources */,
 				B7F012172B9F2E74004027CA /* Base in Resources */,
+				B7CE47482BA314C700F2805F /* WholeCostSettingVC.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,10 +307,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7CE474A2BA314D800F2805F /* WholeCostSettingVC.swift in Sources */,
 				B7F012142B9F2E74004027CA /* ViewController.swift in Sources */,
 				B7F012102B9F2E74004027CA /* AppDelegate.swift in Sources */,
 				B7F012122B9F2E74004027CA /* SceneDelegate.swift in Sources */,
+				B7CE474C2BA316A300F2805F /* StoryboardInstance.swift in Sources */,
+				B7CE47462BA2FEAA00F2805F /* ReuseIdentifiable.swift in Sources */,
 				B7F012472B9F4543004027CA /* MainVM.swift in Sources */,
+				B7CE474E2BA3630600F2805F /* SplashViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
