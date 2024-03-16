@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Daily MainVC-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="DailyMainVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Y6W-OH-hqX" customClass="DailyMainVC" customModule="Ulmago" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hag-DM-Ji6" customClass="ALProgressRing" customModule="ALProgressView">
+                                <rect key="frame" x="76" y="168.66666666666663" width="241" height="220"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_letsGo" translatesAutoresizingMaskIntoConstraints="NO" id="GiT-uc-Nzh">
+                                        <rect key="frame" x="40" y="45" width="161" height="130"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" name="backgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="220" id="9KR-cF-MdN"/>
+                                    <constraint firstItem="GiT-uc-Nzh" firstAttribute="centerX" secondItem="hag-DM-Ji6" secondAttribute="centerX" id="MfJ-k3-IUN"/>
+                                    <constraint firstItem="GiT-uc-Nzh" firstAttribute="centerY" secondItem="hag-DM-Ji6" secondAttribute="centerY" id="NGK-zb-4Dy"/>
+                                    <constraint firstItem="GiT-uc-Nzh" firstAttribute="leading" secondItem="hag-DM-Ji6" secondAttribute="leading" constant="40" id="cNe-Yf-WLE"/>
+                                    <constraint firstAttribute="bottom" secondItem="GiT-uc-Nzh" secondAttribute="bottom" constant="45" id="m4y-rw-CmG"/>
+                                    <constraint firstItem="GiT-uc-Nzh" firstAttribute="top" secondItem="hag-DM-Ji6" secondAttribute="top" constant="45" id="uao-3q-UUn"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U1D-nq-7ij">
+                                <rect key="frame" x="30" y="112.33333333333333" width="333" height="26.333333333333329"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Cf-kj-7ob">
+                                <rect key="frame" x="30" y="408.66666666666669" width="333" height="26.333333333333314"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Omx-Di-ISd" customClass="ALProgressBar" customModule="ALProgressView">
+                                <rect key="frame" x="30" y="485" width="333" height="30"/>
+                                <color key="backgroundColor" name="backgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="2b3-IB-fgB"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오늘은 이만큼 썼어요!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yIe-i1-8ZV">
+                                <rect key="frame" x="30" y="535" width="333" height="26.333333333333371"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Fbk-55-2di">
+                                <rect key="frame" x="30" y="611.33333333333337" width="333" height="76.666666666666629"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eLt-gP-3I5">
+                                        <rect key="frame" x="0.0" y="0.0" width="333" height="34.333333333333336"/>
+                                        <color key="backgroundColor" name="redBean"/>
+                                        <color key="tintColor" name="redBean"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="오늘 가계부 쓰러가기">
+                                            <color key="baseBackgroundColor" name="redBean"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="dailyBudgetSubmitBtnClicked:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="h2s-nU-MZ6"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DFb-Ay-QzB">
+                                        <rect key="frame" x="0.0" y="42.333333333333258" width="333" height="34.333333333333343"/>
+                                        <color key="backgroundColor" name="redBean"/>
+                                        <color key="tintColor" name="redBean"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="이전 가계부들 보러가기">
+                                            <color key="baseBackgroundColor" name="redBean"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="previousBudgetSubmitBtnClicked:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="mKv-jW-UPo"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" name="backgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="U1D-nq-7ij" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="CEb-4k-2ij"/>
+                            <constraint firstItem="hag-DM-Ji6" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="Eis-lL-3m5"/>
+                            <constraint firstItem="Fbk-55-2di" firstAttribute="top" secondItem="yIe-i1-8ZV" secondAttribute="bottom" constant="50" id="Fpv-x1-qZL"/>
+                            <constraint firstItem="yIe-i1-8ZV" firstAttribute="top" secondItem="Omx-Di-ISd" secondAttribute="bottom" constant="20" id="Hj0-xM-fHD"/>
+                            <constraint firstItem="Omx-Di-ISd" firstAttribute="top" secondItem="1Cf-kj-7ob" secondAttribute="bottom" constant="50" id="Hk7-Pi-HrK"/>
+                            <constraint firstItem="hag-DM-Ji6" firstAttribute="top" secondItem="U1D-nq-7ij" secondAttribute="bottom" constant="30" id="Hnd-U8-TV9"/>
+                            <constraint firstItem="Omx-Di-ISd" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="PaE-RF-tee"/>
+                            <constraint firstItem="yIe-i1-8ZV" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="SFG-pB-bav"/>
+                            <constraint firstItem="U1D-nq-7ij" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="Yr7-3t-E1Z"/>
+                            <constraint firstItem="Fbk-55-2di" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="b24-mI-Bha"/>
+                            <constraint firstItem="yIe-i1-8ZV" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="cga-VX-nJr"/>
+                            <constraint firstItem="hag-DM-Ji6" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="76" id="fC9-BW-nb3"/>
+                            <constraint firstItem="Fbk-55-2di" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="jUo-DG-V7w"/>
+                            <constraint firstItem="Omx-Di-ISd" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="kiC-K1-hl7"/>
+                            <constraint firstItem="U1D-nq-7ij" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="53.333333333333329" id="rMd-iN-6dR"/>
+                            <constraint firstItem="1Cf-kj-7ob" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="v3E-nT-P1Y"/>
+                            <constraint firstItem="1Cf-kj-7ob" firstAttribute="top" secondItem="hag-DM-Ji6" secondAttribute="bottom" constant="20" id="w4h-GC-FTr"/>
+                            <constraint firstItem="1Cf-kj-7ob" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="zlH-fx-xpT"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="dailyBudgetSubmitBtn" destination="eLt-gP-3I5" id="x92-yU-XXr"/>
+                        <outlet property="dailyProgressBar" destination="Omx-Di-ISd" id="GnV-ot-g9B"/>
+                        <outlet property="goalTextLabel" destination="U1D-nq-7ij" id="eyw-o6-Y9z"/>
+                        <outlet property="previousBudgetSubmitBtn" destination="DFb-Ay-QzB" id="J7l-UL-zma"/>
+                        <outlet property="progressRing" destination="hag-DM-Ji6" id="CRs-uz-3HR"/>
+                        <outlet property="progressTextLabel" destination="1Cf-kj-7ob" id="bM0-aV-Ljn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="140" y="-2"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="logo_letsGo" width="250" height="250"/>
+        <namedColor name="backgroundColor">
+            <color red="0.94901960784313721" green="0.9137254901960784" blue="0.88235294117647056" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="redBean">
+            <color red="0.77647058823529413" green="0.396078431372549" blue="0.32941176470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

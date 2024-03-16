@@ -65,6 +65,7 @@ class DailyExpenseSettingVC: UIViewController {
         
         self.submitBtn.isEnabled = false
         self.submitBtn.alpha = 0.8
+        self.submitBtn.submitButtonSetting()
         
         let textFieldInt = Int(self.dailyExpenseTextField.text!) ?? 0
         let wholeCostInt = Int(self.wholeCostText) ?? 0
@@ -86,6 +87,14 @@ class DailyExpenseSettingVC: UIViewController {
     
     @IBAction func submitBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- ")
+        
+        
+        
+        let storyboard = UIStoryboard(name: DailyMainVC.reuseIdentifier, bundle: .main)
+        let vc = storyboard.instantiateViewController(identifier: DailyMainVC.reuseIdentifier, creator: { coder in
+            return DailyMainVC(coder: coder, goalText: self.goalText, wholeCostText: self.wholeCostText)
+        })
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     

@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		B772A0AF2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B772A0AE2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard */; };
 		B772A0B12BA4A5DE001059B6 /* DailyExpenseSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B772A0B02BA4A5DE001059B6 /* DailyExpenseSettingVC.swift */; };
+		B772A0B42BA55404001059B6 /* DailyMainVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B772A0B32BA55404001059B6 /* DailyMainVC.storyboard */; };
+		B772A0B62BA5540B001059B6 /* DailyMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B772A0B52BA5540B001059B6 /* DailyMainVC.swift */; };
+		B772A0BF2BA5BD9B001059B6 /* ALProgressView in Frameworks */ = {isa = PBXBuildFile; productRef = B772A0BE2BA5BD9B001059B6 /* ALProgressView */; };
 		B7CE47462BA2FEAA00F2805F /* ReuseIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CE47452BA2FEAA00F2805F /* ReuseIdentifiable.swift */; };
 		B7CE47482BA314C700F2805F /* WholeCostSettingVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7CE47472BA314C700F2805F /* WholeCostSettingVC.storyboard */; };
 		B7CE474A2BA314D800F2805F /* WholeCostSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CE47492BA314D800F2805F /* WholeCostSettingVC.swift */; };
@@ -49,6 +52,8 @@
 /* Begin PBXFileReference section */
 		B772A0AE2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DailyExpenseSettingVC.storyboard; sourceTree = "<group>"; };
 		B772A0B02BA4A5DE001059B6 /* DailyExpenseSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyExpenseSettingVC.swift; sourceTree = "<group>"; };
+		B772A0B32BA55404001059B6 /* DailyMainVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DailyMainVC.storyboard; sourceTree = "<group>"; };
+		B772A0B52BA5540B001059B6 /* DailyMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyMainVC.swift; sourceTree = "<group>"; };
 		B7CE47452BA2FEAA00F2805F /* ReuseIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifiable.swift; sourceTree = "<group>"; };
 		B7CE47472BA314C700F2805F /* WholeCostSettingVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WholeCostSettingVC.storyboard; sourceTree = "<group>"; };
 		B7CE47492BA314D800F2805F /* WholeCostSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WholeCostSettingVC.swift; sourceTree = "<group>"; };
@@ -78,6 +83,7 @@
 				B7F012452B9F44F1004027CA /* RxSwift in Frameworks */,
 				B7F012432B9F44F1004027CA /* RxRelay in Frameworks */,
 				B7F012412B9F44F1004027CA /* RxCocoa in Frameworks */,
+				B772A0BF2BA5BD9B001059B6 /* ALProgressView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,9 +104,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B772A0B22BA553C8001059B6 /* DailyBudgetFlow */ = {
+			isa = PBXGroup;
+			children = (
+				B772A0B32BA55404001059B6 /* DailyMainVC.storyboard */,
+				B772A0B52BA5540B001059B6 /* DailyMainVC.swift */,
+			);
+			path = DailyBudgetFlow;
+			sourceTree = "<group>";
+		};
 		B7CE473F2BA2DCE400F2805F /* GoalSettingFlow */ = {
 			isa = PBXGroup;
 			children = (
+				B7CE474D2BA3630600F2805F /* SplashViewController.swift */,
+				B7F012152B9F2E74004027CA /* Main.storyboard */,
+				B7F012132B9F2E74004027CA /* ViewController.swift */,
+				B7F012462B9F4543004027CA /* MainVM.swift */,
 				B7CE47472BA314C700F2805F /* WholeCostSettingVC.storyboard */,
 				B7CE47492BA314D800F2805F /* WholeCostSettingVC.swift */,
 				B772A0AE2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard */,
@@ -143,15 +162,12 @@
 			children = (
 				B7CE47442BA2FE9600F2805F /* Extension */,
 				B7CE473F2BA2DCE400F2805F /* GoalSettingFlow */,
+				B772A0B22BA553C8001059B6 /* DailyBudgetFlow */,
 				B7F0120F2B9F2E74004027CA /* AppDelegate.swift */,
 				B7F012112B9F2E74004027CA /* SceneDelegate.swift */,
-				B7F012132B9F2E74004027CA /* ViewController.swift */,
-				B7F012152B9F2E74004027CA /* Main.storyboard */,
-				B7F012462B9F4543004027CA /* MainVM.swift */,
 				B7F012182B9F2E76004027CA /* Assets.xcassets */,
 				B7F0121A2B9F2E76004027CA /* LaunchScreen.storyboard */,
 				B7F0121D2B9F2E76004027CA /* Info.plist */,
-				B7CE474D2BA3630600F2805F /* SplashViewController.swift */,
 			);
 			path = Ulmago;
 			sourceTree = "<group>";
@@ -193,6 +209,7 @@
 				B7F012402B9F44F1004027CA /* RxCocoa */,
 				B7F012422B9F44F1004027CA /* RxRelay */,
 				B7F012442B9F44F1004027CA /* RxSwift */,
+				B772A0BE2BA5BD9B001059B6 /* ALProgressView */,
 			);
 			productName = Ulmago;
 			productReference = B7F0120C2B9F2E74004027CA /* Ulmago.app */;
@@ -268,6 +285,7 @@
 			mainGroup = B7F012032B9F2E74004027CA;
 			packageReferences = (
 				B7F0123F2B9F44F1004027CA /* XCRemoteSwiftPackageReference "RxSwift" */,
+				B772A0BD2BA5BD9B001059B6 /* XCRemoteSwiftPackageReference "ALProgressView" */,
 			);
 			productRefGroup = B7F0120D2B9F2E74004027CA /* Products */;
 			projectDirPath = "";
@@ -289,6 +307,7 @@
 				B7F0121C2B9F2E76004027CA /* Base in Resources */,
 				B772A0AF2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard in Resources */,
 				B7F012172B9F2E74004027CA /* Base in Resources */,
+				B772A0B42BA55404001059B6 /* DailyMainVC.storyboard in Resources */,
 				B7CE47482BA314C700F2805F /* WholeCostSettingVC.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -317,6 +336,7 @@
 				B7CE474A2BA314D800F2805F /* WholeCostSettingVC.swift in Sources */,
 				B7F012142B9F2E74004027CA /* ViewController.swift in Sources */,
 				B7F012102B9F2E74004027CA /* AppDelegate.swift in Sources */,
+				B772A0B62BA5540B001059B6 /* DailyMainVC.swift in Sources */,
 				B7F012122B9F2E74004027CA /* SceneDelegate.swift in Sources */,
 				B772A0B12BA4A5DE001059B6 /* DailyExpenseSettingVC.swift in Sources */,
 				B7CE474C2BA316A300F2805F /* StoryboardInstance.swift in Sources */,
@@ -671,6 +691,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B772A0BD2BA5BD9B001059B6 /* XCRemoteSwiftPackageReference "ALProgressView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alxrguz/ALProgressView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		B7F0123F2B9F44F1004027CA /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
@@ -682,6 +710,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B772A0BE2BA5BD9B001059B6 /* ALProgressView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B772A0BD2BA5BD9B001059B6 /* XCRemoteSwiftPackageReference "ALProgressView" */;
+			productName = ALProgressView;
+		};
 		B7F012402B9F44F1004027CA /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B7F0123F2B9F44F1004027CA /* XCRemoteSwiftPackageReference "RxSwift" */;

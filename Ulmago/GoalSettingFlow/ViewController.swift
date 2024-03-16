@@ -26,6 +26,7 @@ class ViewController: UIViewController {
         
         self.submitBtn.isEnabled = false
         self.submitBtn.alpha = 0.8
+        self.submitBtn.submitButtonSetting()
 
         
 //        self.goalTextField.rx.text.orEmpty
@@ -141,5 +142,12 @@ extension UIViewController {
         
     @objc func keyboardWillHide(_ sender:Notification){
         self.view.frame.origin.y = 0
+    }
+}
+
+extension UIButton {
+    func submitButtonSetting() {
+        self.layer.masksToBounds = true
+        self.layer.cornerRadius = 10
     }
 }
