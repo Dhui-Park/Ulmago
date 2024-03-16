@@ -79,6 +79,15 @@ class WholeCostSettingVC: UIViewController {
     
     @IBAction func submitBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- 총 비용 설정 완료 버튼 클릭")
+        
+        guard let wholeCostText: String = self.wholeCostTextField.text else { return }
+        
+        let storyboard = UIStoryboard(name: DailyExpenseSettingVC.reuseIdentifier, bundle: .main)
+        let vc = storyboard.instantiateViewController(identifier: DailyExpenseSettingVC.reuseIdentifier, creator: { coder in
+            return DailyExpenseSettingVC(coder: coder, goalText: self.goalText, wholeCostText: wholeCostText)
+        })
+        
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 }

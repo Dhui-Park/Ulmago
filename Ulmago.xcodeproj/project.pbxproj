@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B772A0AF2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B772A0AE2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard */; };
+		B772A0B12BA4A5DE001059B6 /* DailyExpenseSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B772A0B02BA4A5DE001059B6 /* DailyExpenseSettingVC.swift */; };
 		B7CE47462BA2FEAA00F2805F /* ReuseIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CE47452BA2FEAA00F2805F /* ReuseIdentifiable.swift */; };
 		B7CE47482BA314C700F2805F /* WholeCostSettingVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7CE47472BA314C700F2805F /* WholeCostSettingVC.storyboard */; };
 		B7CE474A2BA314D800F2805F /* WholeCostSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CE47492BA314D800F2805F /* WholeCostSettingVC.swift */; };
@@ -45,6 +47,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B772A0AE2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DailyExpenseSettingVC.storyboard; sourceTree = "<group>"; };
+		B772A0B02BA4A5DE001059B6 /* DailyExpenseSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyExpenseSettingVC.swift; sourceTree = "<group>"; };
 		B7CE47452BA2FEAA00F2805F /* ReuseIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifiable.swift; sourceTree = "<group>"; };
 		B7CE47472BA314C700F2805F /* WholeCostSettingVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WholeCostSettingVC.storyboard; sourceTree = "<group>"; };
 		B7CE47492BA314D800F2805F /* WholeCostSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WholeCostSettingVC.swift; sourceTree = "<group>"; };
@@ -99,6 +103,8 @@
 			children = (
 				B7CE47472BA314C700F2805F /* WholeCostSettingVC.storyboard */,
 				B7CE47492BA314D800F2805F /* WholeCostSettingVC.swift */,
+				B772A0AE2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard */,
+				B772A0B02BA4A5DE001059B6 /* DailyExpenseSettingVC.swift */,
 			);
 			path = GoalSettingFlow;
 			sourceTree = "<group>";
@@ -281,6 +287,7 @@
 			files = (
 				B7F012192B9F2E76004027CA /* Assets.xcassets in Resources */,
 				B7F0121C2B9F2E76004027CA /* Base in Resources */,
+				B772A0AF2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard in Resources */,
 				B7F012172B9F2E74004027CA /* Base in Resources */,
 				B7CE47482BA314C700F2805F /* WholeCostSettingVC.storyboard in Resources */,
 			);
@@ -311,6 +318,7 @@
 				B7F012142B9F2E74004027CA /* ViewController.swift in Sources */,
 				B7F012102B9F2E74004027CA /* AppDelegate.swift in Sources */,
 				B7F012122B9F2E74004027CA /* SceneDelegate.swift in Sources */,
+				B772A0B12BA4A5DE001059B6 /* DailyExpenseSettingVC.swift in Sources */,
 				B7CE474C2BA316A300F2805F /* StoryboardInstance.swift in Sources */,
 				B7CE47462BA2FEAA00F2805F /* ReuseIdentifiable.swift in Sources */,
 				B7F012472B9F4543004027CA /* MainVM.swift in Sources */,

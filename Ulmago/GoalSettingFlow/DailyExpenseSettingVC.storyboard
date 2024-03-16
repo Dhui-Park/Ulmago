@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Daily Expense SettingVC-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="DailyExpenseSettingVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Y6W-OH-hqX" customClass="DailyExpenseSettingVC" customModule="Ulmago" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="5cQ-r5-9jz">
+                                <rect key="frame" x="30" y="333" width="333" height="211"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DailyExpenseSettingVC" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fIE-je-c6d">
+                                        <rect key="frame" x="0.0" y="0.0" width="333" height="26.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="하루의 한도를 얼마로 정할까요?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gfq-fd-CsF">
+                                        <rect key="frame" x="0.0" y="56.333333333333321" width="333" height="26.333333333333336"/>
+                                        <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="IPg-FC-IZU">
+                                        <rect key="frame" x="0.0" y="112.66666666666669" width="333" height="34"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="x84-ja-dTG">
+                                                <rect key="frame" x="0.0" y="0.0" width="288.33333333333331" height="34"/>
+                                                <color key="backgroundColor" name="backgroundColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="원" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TCg-Yl-Roo">
+                                                <rect key="frame" x="298.33333333333331" y="0.0" width="34.666666666666686" height="34"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="34.670000000000002" id="NMT-Ry-QTs"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vMY-H0-U99">
+                                        <rect key="frame" x="0.0" y="176.66666666666669" width="333" height="34.333333333333343"/>
+                                        <color key="tintColor" name="redBean"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="하루 한도 설정 완료!"/>
+                                        <connections>
+                                            <action selector="submitBtnClicked:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="1SQ-C1-4X3"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" name="backgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="5cQ-r5-9jz" firstAttribute="centerY" secondItem="vDu-zF-Fre" secondAttribute="centerY" id="0JK-g1-Bq5"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="5cQ-r5-9jz" secondAttribute="trailing" constant="30" id="hws-fg-6fR"/>
+                            <constraint firstItem="5cQ-r5-9jz" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="iaw-0w-ff3"/>
+                            <constraint firstItem="5cQ-r5-9jz" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="tdm-el-ycl"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="dailyExpenseTextField" destination="x84-ja-dTG" id="heV-JA-T9w"/>
+                        <outlet property="goalLabel" destination="fIE-je-c6d" id="1nj-KB-hDw"/>
+                        <outlet property="submitBtn" destination="vMY-H0-U99" id="Llq-9l-gvr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="140" y="-2"/>
+        </scene>
+    </scenes>
+    <resources>
+        <namedColor name="backgroundColor">
+            <color red="0.94901960784313721" green="0.9137254901960784" blue="0.88235294117647056" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="redBean">
+            <color red="0.77647058823529413" green="0.396078431372549" blue="0.32941176470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

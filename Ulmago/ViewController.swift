@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.navigationController?.isNavigationBarHidden = true
+        self.navigationItem.hidesBackButton = true
         textFieldSetting(self.goalTextField)
         self.goalTextField.delegate = self
         
@@ -60,10 +60,6 @@ class ViewController: UIViewController {
         initializeHideKeyboard()
     }
    
-    
-    
-    
-    
 
     @IBAction func submitBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- 목표 설정 완료 버튼 클릭")
