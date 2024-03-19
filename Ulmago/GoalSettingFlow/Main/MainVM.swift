@@ -13,19 +13,43 @@ import RxCocoa
 
 class MainVM {
     
-    var isTextFieldEmpty: BehaviorRelay<Bool> = BehaviorRelay(value: true)
+    struct Input {
+        let textFieldText: Observable<String>
+    }
+    
+    struct Output {
+        let isTextFieldEmpty: Observable<Bool>
+    }
+    
+    func transform(input: Input) -> Output {
+        
+        self.isTextFieldEmpty = input.textFieldText
+            .map { $0.count }
+            .map { $0 == 0 }
+        
+        return Output(isTextFieldEmpty: isTextFieldEmpty)
+    }
+    
+    // input
+    var textFieldText: PublishRelay<String> = PublishRelay()
+    
+    // output
+    var isTextFieldEmpty: Observable<Bool> = Observable.empty()
     
     init() {
         
+        
+        self.isTextFieldEmpty = self.textFieldText
+            .map { $0.count }
+            .map { $0 == 0 }
+        
+        
+        
+        
     }
     
-    func checkTextFieldEmpty(textField: UITextField, button: UIButton) {
-        
-        if textField.text?.count != 0 {
-            isTextFieldEmpty.accept(false)
-        } else {
-            isTextFieldEmpty.accept(true)
-        }
-    }
+    
+    
+
     
 }

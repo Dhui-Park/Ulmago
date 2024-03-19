@@ -82,7 +82,7 @@ class DailyExpenseSettingVC: UIViewController {
         
         guard let vm = self.vm else { return }
         
-        let input = DailyExpenseSettingVM.Input(expenseInput: self.dailyExpenseTextField.rx.text.orEmpty.asObservable())
+        let input = DailyExpenseSettingVM.Input(expenseInput: self.dailyExpenseTextField.rx.text.orEmpty.asObservable()) // Observable<String>
         
         let output = vm.transform(input: input)
         

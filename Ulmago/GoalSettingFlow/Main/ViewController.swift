@@ -16,6 +16,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var submitBtn: UIButton!
     
+    var vm: MainVM = MainVM()
+    
     var disposeBag: DisposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -31,6 +33,7 @@ class ViewController: UIViewController {
         self.submitBtn.alpha = 0.8
         self.submitBtn.submitButtonSetting()
         
+        #warning("TODO: - 노티피케이션 & 키보드 처리 - 정대리님 영상 보고 공부하기")
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         
@@ -38,41 +41,25 @@ class ViewController: UIViewController {
         initializeHideKeyboard()
 
         
-//        self.goalTextField.rx.text.orEmpty
-//            .scan("", accumulator: { (previous, new) -> String in
-//                if new.count > 15 {
-//                    print(#fileID, #function, #line, "- ")
-//                    return previous
-//                } else {
-//                    return new
-//                }
-//            })
-//            .bind(to: self.goalTextField.rx.text)
-//            .disposed(by: disposeBag)
         
-        self.goalTextField.rx.text
-            .map { $0?.count != 0 }
-            .bind(onNext: { isEmpty in
-                if isEmpty {
-                    self.submitBtn.isEnabled = true
-                    self.submitBtn.alpha = 1.0
-                } else {
-                    self.submitBtn.isEnabled = false
-                    self.submitBtn.alpha = 0.8
-                }
-            })
+        //MARK: - Rx로 데이터 짜기
+        
+        let input = MainVM.Input(textFieldText: self.goalTextField.rx.text.orEmpty.asObservable())
+        
+        let output = vm.transform(input: input)
+        
+        
+        output
+            .isTextFieldEmpty
+            .bind(to: self.submitBtn.rx.disabled)
             .disposed(by: disposeBag)
         
         
-    }
+    } // viewDidLoad()
    
 
     @IBAction func submitBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- 목표 설정 완료 버튼 클릭")
-        
-//        if let vc = WholeCostSettingVC.getInstance() {
-//            self.navigationController?.pushViewController(vc, animated: true)
-//        }
         
         guard let dataToSend: String = self.goalTextField.text else { return }
         
@@ -85,7 +72,7 @@ class ViewController: UIViewController {
         
     }
     
-    
+    //MARK: - keyboard 처리
     func initializeHideKeyboard(){
         //Declare a Tap Gesture Recognizer which will trigger our dismissMyKeyboard() function
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissMyKeyboard))
@@ -121,6 +108,7 @@ class ViewController: UIViewController {
     
 }
 
+//MARK: - UITextFieldDelegate
 extension ViewController: UITextFieldDelegate {
     
     // 텍스트필드 글자 수 제한
@@ -131,32 +119,7 @@ extension ViewController: UITextFieldDelegate {
         
         return newString.count <= maxLength
     }
-    
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        textField.becomeFirstResponder()
-//    }
 }
 
-extension UIViewController {
-    
-    /// 텍스트필드 세팅
-    /// - Parameters:
-    ///   - textField: 텍스트필드 이름
-    ///   - placeholder: 플레이스홀더
-    ///   - keyboardType: 키보드 타입
-    func textFieldSetting(_ textField: UITextField, _ placeholder: String = "맥북 프로 / 괌 여행 / 자전거", keyboardType: UIKeyboardType = .default) {
-        textField.placeholder = placeholder
-        textField.textColor = UIColor(named: "redBean")
-        textField.layer.borderWidth = 1
-        textField.layer.borderColor = UIColor(named: "redBean")?.cgColor
-        textField.layer.cornerRadius = 8
-        textField.keyboardType = keyboardType
-        textField.autocorrectionType = .no
-        textField.borderStyle = .roundedRect
-        textField.tintColor = UIColor(named: "redBean")
-    }
-    
-    
-}
 
 
