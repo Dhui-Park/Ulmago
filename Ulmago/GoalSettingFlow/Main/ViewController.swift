@@ -11,6 +11,7 @@ import RxCocoa
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var goalTextField: UITextField!
     
     @IBOutlet weak var submitBtn: UIButton!
@@ -24,9 +25,17 @@ class ViewController: UIViewController {
         textFieldSetting(self.goalTextField)
         self.goalTextField.delegate = self
         
+        self.goalTextField.becomeFirstResponder()
+        
         self.submitBtn.isEnabled = false
         self.submitBtn.alpha = 0.8
         self.submitBtn.submitButtonSetting()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        //We make a call to our keyboard handling function as soon as the view is loaded.
+        initializeHideKeyboard()
 
         
 //        self.goalTextField.rx.text.orEmpty
@@ -54,11 +63,7 @@ class ViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         
-        //We make a call to our keyboard handling function as soon as the view is loaded.
-        initializeHideKeyboard()
     }
    
 
@@ -78,6 +83,40 @@ class ViewController: UIViewController {
         
         self.navigationController?.pushViewController(vc, animated: true)
         
+    }
+    
+    
+    func initializeHideKeyboard(){
+        //Declare a Tap Gesture Recognizer which will trigger our dismissMyKeyboard() function
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissMyKeyboard))
+        
+        //Add this tap gesture recognizer to the parent view
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissMyKeyboard(){
+        //endEditing causes the view (or one of its embedded text fields) to resign the first responder status.
+        //In short- Dismiss the active keyboard.
+        view.endEditing(true)
+    }
+    
+    
+    @objc func keyboardWillShow(_ sender: Notification){
+        
+        dump(sender)
+        
+//        self.view.frame.origin.y = 0
+        self.bottomConstraint.constant = 400
+        
+//        UIView.animate(withDuration: <#T##TimeInterval#>, delay: <#T##TimeInterval#>, animations: <#T##() -> Void#>)
+        
+        // 1. 오토레이아웃 건드리기
+        // 2. UI 자체를 원래 올려서 보여주기
+    }
+        
+    @objc func keyboardWillHide(_ sender: Notification){
+//        self.view.frame.origin.y = 0
+        self.bottomConstraint.constant = 120
     }
     
 }
@@ -118,36 +157,6 @@ extension UIViewController {
     }
     
     
-    
-    
-    
-    func initializeHideKeyboard(){
-        //Declare a Tap Gesture Recognizer which will trigger our dismissMyKeyboard() function
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissMyKeyboard))
-        
-        //Add this tap gesture recognizer to the parent view
-        view.addGestureRecognizer(tap)
-    }
-    
-    @objc func dismissMyKeyboard(){
-        //endEditing causes the view (or one of its embedded text fields) to resign the first responder status.
-        //In short- Dismiss the active keyboard.
-        view.endEditing(true)
-    }
-    
-    
-    @objc func keyboardWillShow(_ sender:Notification){
-        self.view.frame.origin.y = -100
-    }
-        
-    @objc func keyboardWillHide(_ sender:Notification){
-        self.view.frame.origin.y = 0
-    }
 }
 
-extension UIButton {
-    func submitButtonSetting() {
-        self.layer.masksToBounds = true
-        self.layer.cornerRadius = 10
-    }
-}
+

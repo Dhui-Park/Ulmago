@@ -75,6 +75,7 @@ class DailyMainVC: UIViewController {
         
 //        self.dailyProgressBar.setProgress(0.6, animated: true)
         
+        
     }
     
     func setProgressRing() {
@@ -95,6 +96,10 @@ class DailyMainVC: UIViewController {
     
     @IBAction func dailyBudgetSubmitBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- ")
+        let storyboard = UIStoryboard(name: DailyBudgetVC.reuseIdentifier, bundle: .main)
+        let vc = storyboard.instantiateViewController(withIdentifier: DailyBudgetVC.reuseIdentifier)
+        
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     

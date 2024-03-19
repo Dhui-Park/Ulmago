@@ -24,19 +24,28 @@ class DailyExpenseSettingVC: UIViewController {
         }
     }
     
-    var wholeCostText: String = "" {
+    // 원자재
+    var wholeCost: Int = 0 {
         didSet {
-            print(#fileID, #function, #line, "- wholeCostText: \(wholeCostText)")
+            print(#fileID, #function, #line, "- wholeCost: \(wholeCost)")
         }
     }
     
+    // presentation layer
+    private var wholeCostText: String {
+        "\(self.wholeCost / 10000)만원"
+    }
+    
+    var vm: DailyExpenseSettingVM? = nil
     
     
     var disposeBag: DisposeBag = DisposeBag()
     
-    init?(coder: NSCoder, goalText: String, wholeCostText: String) {
+    init?(coder: NSCoder, goalText: String, wholeCost: Int) {
         self.goalText = goalText
-        self.wholeCostText = wholeCostText + "만원"
+        self.wholeCost = wholeCost * 10000
+        self.vm = DailyExpenseSettingVM(wholeCost: self.wholeCost)
+//        self.wholeCostText = wholeCost + "만원"
         super.init(coder: coder)
         print(#fileID, #function, #line, "- goalText from ViewController: \(goalText), wholeCostText from WholeCostSettingVC: \(wholeCostText) ")
     }
@@ -49,6 +58,9 @@ class DailyExpenseSettingVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(#fileID, #function, #line, "- ")
+        
+        self.dailyExpenseTextField.delegate = self
+        self.dailyExpenseTextField.becomeFirstResponder()
         
         let mainString = "\(goalText)을/를 위해\n"
         let secondString = "\(wholeCostText)을 모을거에요!"
@@ -67,28 +79,31 @@ class DailyExpenseSettingVC: UIViewController {
         self.submitBtn.alpha = 0.8
         self.submitBtn.submitButtonSetting()
         
-        let textFieldInt = Int(self.dailyExpenseTextField.text!) ?? 0
-        let wholeCostInt = Int(self.wholeCostText) ?? 0
         
-        self.dailyExpenseTextField.rx.text
-            .map { $0?.count != 0 }
-            .bind(onNext: { isEmpty in
-                if isEmpty {
-                    self.submitBtn.isEnabled = true
-                    self.submitBtn.alpha = 1.0
-                } else {
-                    self.submitBtn.isEnabled = false
-                    self.submitBtn.alpha = 0.8
-                }
-            })
+        guard let vm = self.vm else { return }
+        
+        let input = DailyExpenseSettingVM.Input(expenseInput: self.dailyExpenseTextField.rx.text.orEmpty.asObservable())
+        
+        let output = vm.transform(input: input)
+        
+        output
+            .expenseValidation
+            .bind(to: self.submitBtn.rx.disabled)
             .disposed(by: disposeBag)
         
+        vm.expenseValidation
+            .bind(to: self.submitBtn.rx.disabled)
+            .disposed(by: disposeBag)
+         
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        //We make a call to our keyboard handling function as soon as the view is loaded.
+//        initializeHideKeyboard()
     }
     
     @IBAction func submitBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- ")
-        
-        
         
         let storyboard = UIStoryboard(name: DailyMainVC.reuseIdentifier, bundle: .main)
         let vc = storyboard.instantiateViewController(identifier: DailyMainVC.reuseIdentifier, creator: { coder in
@@ -98,4 +113,30 @@ class DailyExpenseSettingVC: UIViewController {
     }
     
     
+}
+
+
+extension DailyExpenseSettingVC: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if CharacterSet(charactersIn: "0123456789").isSuperset(of: CharacterSet(charactersIn: string)) {
+            return true
+        }
+        
+        return false
+    }
+}
+
+extension Reactive where Base: UIButton {
+    var disabled: Binder<Bool> {
+        return Binder(base, binding: { target, value in
+            if value {
+                target.isEnabled = false
+                target.alpha = 0.8
+            } else {
+                target.isEnabled = true
+                target.alpha = 1.0
+            }
+        })
+    }
 }

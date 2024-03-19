@@ -41,6 +41,8 @@ class WholeCostSettingVC: UIViewController {
         super.viewDidLoad()
         print(#fileID, #function, #line, "- ")
         
+        self.wholeCostTextField.becomeFirstResponder()
+        
         let mainString = "\(goalText)을/를 위해\n 얼마고와 함께 모을\n 총 비용은 얼마인가요?"
         let range = (mainString as NSString).range(of: goalText)
         let mutableAttributedString = NSMutableAttributedString.init(string: mainString)
@@ -69,11 +71,11 @@ class WholeCostSettingVC: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         //We make a call to our keyboard handling function as soon as the view is loaded.
-        initializeHideKeyboard()
+//        initializeHideKeyboard()
         
     }
     
@@ -84,7 +86,7 @@ class WholeCostSettingVC: UIViewController {
         
         let storyboard = UIStoryboard(name: DailyExpenseSettingVC.reuseIdentifier, bundle: .main)
         let vc = storyboard.instantiateViewController(identifier: DailyExpenseSettingVC.reuseIdentifier, creator: { coder in
-            return DailyExpenseSettingVC(coder: coder, goalText: self.goalText, wholeCostText: wholeCostText)
+            return DailyExpenseSettingVC(coder: coder, goalText: self.goalText, wholeCost: Int(wholeCostText) ?? 0)
         })
         
         self.navigationController?.pushViewController(vc, animated: true)
