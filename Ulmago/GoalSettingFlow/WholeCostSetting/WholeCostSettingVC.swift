@@ -18,6 +18,8 @@ class WholeCostSettingVC: UIViewController {
     
     @IBOutlet weak var submitBtn: UIButton!
     
+    var vm: WholeCostSettingVM = WholeCostSettingVM()
+    
     var disposeBag: DisposeBag = DisposeBag()
     
     var goalText: String = "" {
@@ -56,19 +58,13 @@ class WholeCostSettingVC: UIViewController {
         self.submitBtn.isEnabled = false
         self.submitBtn.alpha = 0.8
         
+        let input = WholeCostSettingVM.Input(wholeCostInput: self.wholeCostTextField.rx.text.orEmpty.asObservable())
         
+        let output = self.vm.transform(input: input)
         
-        self.wholeCostTextField.rx.text
-            .map { $0?.count != 0 }
-            .bind(onNext: { isEmpty in
-                if isEmpty {
-                    self.submitBtn.isEnabled = true
-                    self.submitBtn.alpha = 1.0
-                } else {
-                    self.submitBtn.isEnabled = false
-                    self.submitBtn.alpha = 0.8
-                }
-            })
+        output
+            .isTextFieldEmpty
+            .bind(to: self.submitBtn.rx.disabled)
             .disposed(by: disposeBag)
         
 //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
