@@ -18,6 +18,8 @@ class WholeCostSettingVC: UIViewController {
     
     @IBOutlet weak var submitBtn: UIButton!
     
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+    
     var vm: WholeCostSettingVM = WholeCostSettingVM()
     
     var disposeBag: DisposeBag = DisposeBag()
@@ -52,6 +54,7 @@ class WholeCostSettingVC: UIViewController {
         self.goalLabel.attributedText = mutableAttributedString
         
         
+        
         textFieldSetting(self.wholeCostTextField, "50만원 / 100만원", keyboardType: .numberPad)
         self.wholeCostTextField.delegate = self
         
@@ -66,12 +69,6 @@ class WholeCostSettingVC: UIViewController {
             .isTextFieldEmpty
             .bind(to: self.submitBtn.rx.disabled)
             .disposed(by: disposeBag)
-        
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        
-        //We make a call to our keyboard handling function as soon as the view is loaded.
-//        initializeHideKeyboard()
         
     }
     
@@ -100,3 +97,4 @@ extension WholeCostSettingVC: UITextFieldDelegate {
         return false
     }
 }
+

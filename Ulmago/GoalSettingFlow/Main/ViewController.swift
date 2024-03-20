@@ -11,7 +11,9 @@ import RxCocoa
 
 class ViewController: UIViewController {
     
+    
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var goalTextField: UITextField!
     
     @IBOutlet weak var submitBtn: UIButton!
@@ -19,6 +21,22 @@ class ViewController: UIViewController {
     var vm: MainVM = MainVM()
     
     var disposeBag: DisposeBag = DisposeBag()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print(#fileID, #function, #line, "- ")
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print(#fileID, #function, #line, "- ")
+        
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +52,7 @@ class ViewController: UIViewController {
         self.submitBtn.submitButtonSetting()
         
         #warning("TODO: - 노티피케이션 & 키보드 처리 - 정대리님 영상 보고 공부하기")
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+       
         
         //We make a call to our keyboard handling function as soon as the view is loaded.
         initializeHideKeyboard()
@@ -90,20 +107,34 @@ class ViewController: UIViewController {
     
     @objc func keyboardWillShow(_ sender: Notification){
         
-        dump(sender)
+        print(#fileID, #function, #line, "- sender: \(sender)")
+        if let keyboardSize = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+           let duration = sender.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
+           let curve = sender.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt {
+            let keyboardHeight: CGFloat = keyboardSize.height
+            let animationOptions = UIView.AnimationOptions(rawValue: curve)
+            
+            UIView.animate(withDuration: duration, delay: 0, options: animationOptions, animations: {
+                self.bottomConstraint.constant = keyboardHeight
+                self.view.layoutIfNeeded()
+            })
+        }
         
-//        self.view.frame.origin.y = 0
-        self.bottomConstraint.constant = 400
-        
-//        UIView.animate(withDuration: <#T##TimeInterval#>, delay: <#T##TimeInterval#>, animations: <#T##() -> Void#>)
-        
-        // 1. 오토레이아웃 건드리기
-        // 2. UI 자체를 원래 올려서 보여주기
     }
         
     @objc func keyboardWillHide(_ sender: Notification){
-//        self.view.frame.origin.y = 0
-        self.bottomConstraint.constant = 120
+
+        if let keyboardSize = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+           let duration = sender.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
+           let curve = sender.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt {
+            let keyboardHeight: CGFloat = 257.0
+            let animationOptions = UIView.AnimationOptions(rawValue: curve)
+            
+            UIView.animate(withDuration: duration, delay: 0, options: animationOptions, animations: {
+                self.bottomConstraint.constant = keyboardHeight
+                self.view.layoutIfNeeded()
+            })
+        }
     }
     
 }

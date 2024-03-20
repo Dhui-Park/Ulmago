@@ -73,12 +73,13 @@
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
                             <constraint firstItem="Vca-De-bTQ" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="BhQ-HD-jxk"/>
-                            <constraint firstItem="Vca-De-bTQ" firstAttribute="centerY" secondItem="vDu-zF-Fre" secondAttribute="centerY" id="Iph-oE-AhF"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="Vca-De-bTQ" secondAttribute="bottom" constant="302" id="NOY-DT-EZk"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Vca-De-bTQ" secondAttribute="trailing" constant="30" id="ne8-qq-6I7"/>
                             <constraint firstItem="Vca-De-bTQ" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="o6n-Nt-Y1L"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bottomConstraint" destination="NOY-DT-EZk" id="peM-YW-ToI"/>
                         <outlet property="goalLabel" destination="u6H-x6-4NG" id="VHe-Om-d0C"/>
                         <outlet property="submitBtn" destination="gjK-us-5VX" id="W4U-Nt-OXs"/>
                         <outlet property="wholeCostTextField" destination="j2P-QO-bu7" id="YpW-rJ-cz3"/>

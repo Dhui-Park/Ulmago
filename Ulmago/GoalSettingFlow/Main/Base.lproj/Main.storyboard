@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="Ftu-gk-UkI">
-                                <rect key="frame" x="30" y="497" width="333" height="201"/>
+                                <rect key="frame" x="30" y="360" width="333" height="201"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="얼마고와 함께 이루고 싶은 것은 무엇인가요?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eoY-5A-f0Z">
                                         <rect key="frame" x="0.0" y="0.0" width="333" height="52.666666666666664"/>
@@ -26,7 +26,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hp8-Tg-r6n">
-                                        <rect key="frame" x="0.0" y="92.666666666666629" width="333" height="34"/>
+                                        <rect key="frame" x="0.0" y="92.666666666666686" width="333" height="34"/>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -52,13 +52,13 @@
                         <constraints>
                             <constraint firstItem="Ftu-gk-UkI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="Trs-Px-tjI"/>
                             <constraint firstItem="Ftu-gk-UkI" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="mit-rP-ka3"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Ftu-gk-UkI" secondAttribute="bottom" constant="120" id="pme-V9-cc1"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ftu-gk-UkI" secondAttribute="trailing" constant="30" id="qiR-Kg-Y8U"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Ftu-gk-UkI" secondAttribute="bottom" constant="257" id="zrS-Dj-p6t"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="xnR-ab-v2m"/>
                     <connections>
-                        <outlet property="bottomConstraint" destination="pme-V9-cc1" id="CEt-mv-UlU"/>
+                        <outlet property="bottomConstraint" destination="zrS-Dj-p6t" id="P5y-Eb-1cA"/>
                         <outlet property="goalTextField" destination="hp8-Tg-r6n" id="Ipj-Oa-6yK"/>
                         <outlet property="submitBtn" destination="bSV-pu-js6" id="KhI-kN-YtQ"/>
                     </connections>

@@ -73,8 +73,6 @@ class DailyMainVC: UIViewController {
         self.dailyBudgetSubmitBtn.submitButtonSetting()
         self.previousBudgetSubmitBtn.submitButtonSetting()
         
-//        self.dailyProgressBar.setProgress(0.6, animated: true)
-        
         
     }
     
@@ -82,10 +80,8 @@ class DailyMainVC: UIViewController {
         
 //        // Setting progress
         progressRing.setProgress(0.4, animated: true)
-//        progressRing.ringWidth = 15
         progressRing.startColor = UIColor(named: "redBean")?.withAlphaComponent(0.4) ?? UIColor.systemCyan
         progressRing.endColor = UIColor(named: "redBean") ?? UIColor.systemCyan
-//        progressBar.setProgress(0.6, animated: true)
     }
     
     func setDailyProgressBar() {

@@ -18,6 +18,8 @@ class DailyExpenseSettingVC: UIViewController {
     
     @IBOutlet weak var submitBtn: UIButton!
     
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+    
     var goalText: String = "" {
         didSet {
             print(#fileID, #function, #line, "- goalText: \(goalText)")
@@ -55,12 +57,29 @@ class DailyExpenseSettingVC: UIViewController {
         print(#fileID, #function, #line, "- ")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print(#fileID, #function, #line, "- ")
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print(#fileID, #function, #line, "- ")
+        
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print(#fileID, #function, #line, "- ")
         
         self.dailyExpenseTextField.delegate = self
         self.dailyExpenseTextField.becomeFirstResponder()
+        
         
         let mainString = "\(goalText)을/를 위해\n"
         let secondString = "\(wholeCostText)을 모을거에요!"
@@ -95,12 +114,11 @@ class DailyExpenseSettingVC: UIViewController {
             .bind(to: self.submitBtn.rx.disabled)
             .disposed(by: disposeBag)
          
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         //We make a call to our keyboard handling function as soon as the view is loaded.
-//        initializeHideKeyboard()
+        initializeHideKeyboard()
     }
+    
     
     @IBAction func submitBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- ")
@@ -138,5 +156,55 @@ extension Reactive where Base: UIButton {
                 target.alpha = 1.0
             }
         })
+    }
+}
+
+extension DailyExpenseSettingVC {
+    @objc fileprivate func handleKeyboardShow(_ sender: NSNotification) {
+        print(#fileID, #function, #line, "- ")
+        
+        if let keyboardSize = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+           let duration = sender.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
+           let curve = sender.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt {
+            
+            let keyboardHeight: CGFloat = keyboardSize.height
+            let animationOptions = UIView.AnimationOptions(rawValue: curve)
+            
+            UIView.animate(withDuration: duration, delay: 0, options: animationOptions, animations: {
+                self.bottomConstraint.constant = keyboardHeight
+                self.view.layoutIfNeeded()
+            })
+        }
+    }
+    
+    @objc fileprivate func handleKeyboardHide(_ sender: NSNotification) {
+        print(#fileID, #function, #line, "- ")
+        
+        if let keyboardSize = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+           let duration = sender.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
+           let curve = sender.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt {
+            
+            let keyboardHeight: CGFloat = 274.0
+            let animationOptions = UIView.AnimationOptions(rawValue: curve)
+            
+            UIView.animate(withDuration: duration, delay: 0, options: animationOptions, animations: {
+                self.bottomConstraint.constant = keyboardHeight
+                self.view.layoutIfNeeded()
+            })
+        }
+    }
+    
+    func initializeHideKeyboard(){
+        //Declare a Tap Gesture Recognizer which will trigger our dismissMyKeyboard() function
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissMyKeyboard))
+        
+        //Add this tap gesture recognizer to the parent view
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissMyKeyboard(){
+        //endEditing causes the view (or one of its embedded text fields) to resign the first responder status.
+        //In short- Dismiss the active keyboard.
+        view.endEditing(true)
     }
 }

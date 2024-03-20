@@ -66,13 +66,14 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
-                            <constraint firstItem="5cQ-r5-9jz" firstAttribute="centerY" secondItem="vDu-zF-Fre" secondAttribute="centerY" id="0JK-g1-Bq5"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="5cQ-r5-9jz" secondAttribute="bottom" constant="274" id="0D5-YO-Ct9"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="5cQ-r5-9jz" secondAttribute="trailing" constant="30" id="hws-fg-6fR"/>
                             <constraint firstItem="5cQ-r5-9jz" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="iaw-0w-ff3"/>
                             <constraint firstItem="5cQ-r5-9jz" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="tdm-el-ycl"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bottomConstraint" destination="0D5-YO-Ct9" id="xp4-fL-xRd"/>
                         <outlet property="dailyExpenseTextField" destination="x84-ja-dTG" id="heV-JA-T9w"/>
                         <outlet property="goalLabel" destination="fIE-je-c6d" id="1nj-KB-hDw"/>
                         <outlet property="submitBtn" destination="vMY-H0-U99" id="Llq-9l-gvr"/>
