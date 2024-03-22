@@ -21,37 +21,42 @@ class DailyMainVC: UIViewController {
     @IBOutlet weak var dailyBudgetSubmitBtn: UIButton!
     @IBOutlet weak var previousBudgetSubmitBtn: UIButton!
     
+    // 목표
     var goalText: String = "" {
         didSet {
             print(#fileID, #function, #line, "- goalText: \(goalText)")
         }
     }
-    
+    // 총 비용
     var wholeCostText: String = "" {
         didSet {
             print(#fileID, #function, #line, "- wholeCostText: \(wholeCostText)")
         }
     }
-    
+    // 소비 한도
     var dailyExpenseText: String = "" {
         didSet {
             print(#fileID, #function, #line, "- dailyExpenseText: \(dailyExpenseText)")
         }
     }
     
+    // [{(하루 소비한도) - (1일차 소비한 금액)} + {(하루 소비한도) - (2일차 소비한 금액)} + {(하루 소비한도) - (3일차 소비한 금액)} + ... + {(하루 소비한도) - (가장 최근 날짜 소비한 금액)}] / 총 비용
     var progressPercentText: String = "40%"
     
-    init?(coder: NSCoder, goalText: String, wholeCostText: String) {
+    init?(coder: NSCoder, goalText: String, wholeCostText: String, dailyExpense: String) {
         self.goalText = goalText
         self.wholeCostText = wholeCostText + "만원"
+        self.dailyExpenseText = dailyExpense
         super.init(coder: coder)
         print(#fileID, #function, #line, "- goalText from ViewController: \(goalText), wholeCostText from WholeCostSettingVC: \(wholeCostText) ")
+
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         print(#fileID, #function, #line, "- ")
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,11 +66,13 @@ class DailyMainVC: UIViewController {
         let newBackButton = UIBarButtonItem(title: "다시 설정하기", style: UIBarButtonItem.Style.plain, target: self, action: #selector(backAction(_:)))
         self.navigationItem.leftBarButtonItem = newBackButton
         
+        print(#fileID, #function, #line, "- Before Notification")
+        #warning("TODO: - 왜 NotificationCenter가 작동이 안될까?")
         NotificationCenter.default.addObserver(self, selector: #selector(handleUsersCostSetting(_:)), name: .usersCostSettings, object: nil)
         
         self.setProgressRing()
         self.setDailyProgressBar()
-        
+        print(#fileID, #function, #line, "- After Notification")
         
         
         let mainString = "\(goalText)을/를 위해 우리는"
@@ -88,20 +95,7 @@ class DailyMainVC: UIViewController {
         
     }
     
-    @objc fileprivate func handleUsersCostSetting(_ sender: Notification) {
-        print(#fileID, #function, #line, "⭐️ - sender: \(sender)")
-        
-        guard let goalText = sender.userInfo?["goalText"] as? String,
-              let wholeCost = sender.userInfo?["wholeCost"] as? String,
-              let dailyExpense = sender.userInfo?["dailyExpense"] as? String else { return }
-        
-        print(#fileID, #function, #line, "⭐️ - goalText: \(goalText), wholeCost: \(wholeCost), dailyExpense: \(dailyExpense)")
-        
-        self.goalText = goalText
-        self.wholeCostText = "\(wholeCost)"
-        self.dailyExpenseText = dailyExpense
-        
-    }
+    
     
     func setProgressRing() {
         
@@ -123,7 +117,7 @@ class DailyMainVC: UIViewController {
        
         let storyboard = UIStoryboard(name: DailyBudgetVC.reuseIdentifier, bundle: .main)
         let vc = storyboard.instantiateViewController(identifier: DailyBudgetVC.reuseIdentifier, creator: { coder in
-            return DailyBudgetVC(coder: coder, wholeCost: self.wholeCostText)
+            return DailyBudgetVC(coder: coder, wholeCost: self.wholeCostText, dailyExpense: self.dailyExpenseText)
         })
         
         self.navigationController?.pushViewController(vc, animated: true)
@@ -157,5 +151,20 @@ extension DailyMainVC {
         alertController.addAction(okAction)
         alertController.addAction(cancelAction)
         self.present(alertController, animated: true)
+    }
+    
+    @objc fileprivate func handleUsersCostSetting(_ sender: Notification) {
+        print(#fileID, #function, #line, "⭐️ - sender: \(sender)")
+        
+        guard let goalText = sender.userInfo?["goalText"] as? String,
+              let wholeCost = sender.userInfo?["wholeCost"] as? String,
+              let dailyExpense = sender.userInfo?["dailyExpense"] as? String else { return }
+        
+        print(#fileID, #function, #line, "⭐️ - goalText: \(goalText), wholeCost: \(wholeCost), dailyExpense: \(dailyExpense)")
+        
+        self.goalText = goalText
+        self.wholeCostText = "\(wholeCost)"
+        self.dailyExpenseText = dailyExpense
+        
     }
 }

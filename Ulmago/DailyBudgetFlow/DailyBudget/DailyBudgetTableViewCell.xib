@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="DailyBudgetTableViewCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DailyBudgetTableViewCell" rowHeight="212" id="SZU-X1-45I" customClass="DailyBudgetTableViewCell" customModule="Ulmago" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="518" height="212"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SZU-X1-45I" id="VTq-20-Kei">
+                <rect key="frame" x="0.0" y="0.0" width="518" height="212"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" spacing="57" translatesAutoresizingMaskIntoConstraints="NO" id="9Za-KM-O4l">
+                        <rect key="frame" x="104" y="89" width="310" height="34.333333333333343"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DailyBudgetCell" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUe-rw-fR3">
+                                <rect key="frame" x="0.0" y="0.0" width="178" height="34.333333333333336"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kf1-nN-DAY">
+                                <rect key="frame" x="235" y="0.0" width="75" height="34.333333333333336"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                            </button>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <color key="backgroundColor" name="redBean"/>
+                <constraints>
+                    <constraint firstItem="9Za-KM-O4l" firstAttribute="centerX" secondItem="VTq-20-Kei" secondAttribute="centerX" id="Msb-9g-dEn"/>
+                    <constraint firstItem="9Za-KM-O4l" firstAttribute="centerY" secondItem="VTq-20-Kei" secondAttribute="centerY" id="jub-Up-6fi"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="174.04580152671755" y="27.464788732394368"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="redBean">
+            <color red="0.77647058823529413" green="0.396078431372549" blue="0.32941176470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

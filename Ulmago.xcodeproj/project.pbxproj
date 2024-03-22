@@ -24,6 +24,8 @@
 		B7C0BF982BABF40E00EEB03F /* PreviousDailyBudgetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C0BF972BABF40E00EEB03F /* PreviousDailyBudgetVM.swift */; };
 		B7C0BF9A2BABF41700EEB03F /* PreviousDailyBudgetVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7C0BF992BABF41700EEB03F /* PreviousDailyBudgetVC.storyboard */; };
 		B7C0BF9C2BAC573600EEB03F /* NotificationName+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C0BF9B2BAC573600EEB03F /* NotificationName+Ext.swift */; };
+		B7C0BF9E2BADFE1D00EEB03F /* DailyBudgetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7C0BF9D2BADFE1D00EEB03F /* DailyBudgetTableViewCell.xib */; };
+		B7C0BFA02BADFE7400EEB03F /* DailyBudgetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C0BF9F2BADFE7400EEB03F /* DailyBudgetTableViewCell.swift */; };
 		B7CE47462BA2FEAA00F2805F /* ReuseIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CE47452BA2FEAA00F2805F /* ReuseIdentifiable.swift */; };
 		B7CE47482BA314C700F2805F /* WholeCostSettingVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7CE47472BA314C700F2805F /* WholeCostSettingVC.storyboard */; };
 		B7CE474A2BA314D800F2805F /* WholeCostSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CE47492BA314D800F2805F /* WholeCostSettingVC.swift */; };
@@ -78,6 +80,8 @@
 		B7C0BF972BABF40E00EEB03F /* PreviousDailyBudgetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousDailyBudgetVM.swift; sourceTree = "<group>"; };
 		B7C0BF992BABF41700EEB03F /* PreviousDailyBudgetVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PreviousDailyBudgetVC.storyboard; sourceTree = "<group>"; };
 		B7C0BF9B2BAC573600EEB03F /* NotificationName+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Ext.swift"; sourceTree = "<group>"; };
+		B7C0BF9D2BADFE1D00EEB03F /* DailyBudgetTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DailyBudgetTableViewCell.xib; sourceTree = "<group>"; };
+		B7C0BF9F2BADFE7400EEB03F /* DailyBudgetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyBudgetTableViewCell.swift; sourceTree = "<group>"; };
 		B7CE47452BA2FEAA00F2805F /* ReuseIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifiable.swift; sourceTree = "<group>"; };
 		B7CE47472BA314C700F2805F /* WholeCostSettingVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WholeCostSettingVC.storyboard; sourceTree = "<group>"; };
 		B7CE47492BA314D800F2805F /* WholeCostSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WholeCostSettingVC.swift; sourceTree = "<group>"; };
@@ -183,6 +187,8 @@
 			children = (
 				B772A0C02BA609A5001059B6 /* DailyBudgetVC.storyboard */,
 				B772A0C22BA609D4001059B6 /* DailyBudgetVC.swift */,
+				B7C0BF9D2BADFE1D00EEB03F /* DailyBudgetTableViewCell.xib */,
+				B7C0BF9F2BADFE7400EEB03F /* DailyBudgetTableViewCell.swift */,
 			);
 			path = DailyBudget;
 			sourceTree = "<group>";
@@ -391,6 +397,7 @@
 				B7F0121C2B9F2E76004027CA /* Base in Resources */,
 				B772A0AF2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard in Resources */,
 				B7F012172B9F2E74004027CA /* Base in Resources */,
+				B7C0BF9E2BADFE1D00EEB03F /* DailyBudgetTableViewCell.xib in Resources */,
 				B772A0C12BA609A5001059B6 /* DailyBudgetVC.storyboard in Resources */,
 				B772A0B42BA55404001059B6 /* DailyMainVC.storyboard in Resources */,
 				B7C0BF9A2BABF41700EEB03F /* PreviousDailyBudgetVC.storyboard in Resources */,
@@ -435,6 +442,7 @@
 				B7C0BF9C2BAC573600EEB03F /* NotificationName+Ext.swift in Sources */,
 				B79278FA2BA95D12002646F7 /* DailyExpenseSettingVM.swift in Sources */,
 				B7CE47462BA2FEAA00F2805F /* ReuseIdentifiable.swift in Sources */,
+				B7C0BFA02BADFE7400EEB03F /* DailyBudgetTableViewCell.swift in Sources */,
 				B7F012472B9F4543004027CA /* MainVM.swift in Sources */,
 				B7CE474E2BA3630600F2805F /* SplashViewController.swift in Sources */,
 				B79279032BA9FC50002646F7 /* WholeCostSettingVM.swift in Sources */,

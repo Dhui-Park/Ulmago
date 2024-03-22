@@ -100,8 +100,7 @@ class DailyExpenseSettingVC: UIViewController {
         self.submitBtn.alpha = 0.8
         self.submitBtn.submitButtonSetting()
         
-        self.submitBtn.addTarget(self, action: #selector(handleUsersCostSettings(_:)), for: .touchUpInside)
-        
+//        self.submitBtn.addTarget(self, action: #selector(sendUsersCostSettings(_:)), for: .touchUpInside)
         
         guard let vm = self.vm else { return }
         
@@ -123,25 +122,40 @@ class DailyExpenseSettingVC: UIViewController {
         initializeHideKeyboard()
     }
     
-    @objc fileprivate func handleUsersCostSettings(_ sender: UIButton) {
+    @objc fileprivate func sendUsersCostSettings(_ sender: UIButton) {
         print(#fileID, #function, #line, "- ")
         
-        guard let dailyExpense = self.dailyExpenseTextField.text else { return }
+//        guard let dailyExpense = self.dailyExpenseTextField.text else { return }
+//        
+//        let dataToSend = ["goalText" : goalText, "wholeCost" : "\(wholeCost)", "dailyExpense" : dailyExpense]
+//        
+//        print(#fileID, #function, #line, "⭐️ - dataToSend: \(dataToSend)")
+//        
+//        // 방송을 보낸다.
+////        NotificationCenter.default.post(name: .usersCostSettings, object: self, userInfo: dataToSend)
+////        NotificationCenter.default.post(name: .usersCostSettings, object: self)
+//        NotificationCenter.default.post(name: .usersCostSettings, object: self, userInfo: dataToSend)
         
-        let dataToSend = ["goalText" : goalText, "wholeCost" : "\(wholeCost)", "dailyExpense" : dailyExpense]
-        
-        print(#fileID, #function, #line, "⭐️ - dataToSend: \(dataToSend)")
-        
-        NotificationCenter.default.post(name: .usersCostSettings, object: nil, userInfo: dataToSend)
     }
     
     @IBAction func submitBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- ")
         
+        guard let dailyExpense = self.dailyExpenseTextField.text else { return }
+        
+//        let dataToSend = ["goalText" : goalText, "wholeCost" : "\(wholeCost)", "dailyExpense" : dailyExpense]
+//        
+//        print(#fileID, #function, #line, "⭐️ - dataToSend: \(dataToSend)")
+//        
+//        // 방송을 보낸다.
+////        NotificationCenter.default.post(name: .usersCostSettings, object: self, userInfo: dataToSend)
+////        NotificationCenter.default.post(name: .usersCostSettings, object: self)
+//        NotificationCenter.default.post(name: .usersCostSettings, object: self, userInfo: dataToSend)
+//        
         let storyboard = UIStoryboard(name: DailyMainVC.reuseIdentifier, bundle: .main)
         
         let vc = storyboard.instantiateViewController(identifier: DailyMainVC.reuseIdentifier, creator: { coder in
-            return DailyMainVC(coder: coder, goalText: self.goalText, wholeCostText: "\(self.wholeCost / 10000)")
+            return DailyMainVC(coder: coder, goalText: self.goalText, wholeCostText: "\(self.wholeCost / 10000)", dailyExpense: dailyExpense)
         })
         self.navigationController?.pushViewController(vc, animated: true)
     }

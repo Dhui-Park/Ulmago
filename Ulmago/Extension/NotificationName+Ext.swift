@@ -9,5 +9,5 @@ import Foundation
 
 extension Notification.Name {
     
-    static let usersCostSettings = Notification.Name("usersCostSettings")
+    static let usersCostSettings = Notification.Name(rawValue: "usersCostSettings")
 }
