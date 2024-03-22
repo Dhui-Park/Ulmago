@@ -77,6 +77,8 @@ class DailyExpenseSettingVC: UIViewController {
         super.viewDidLoad()
         print(#fileID, #function, #line, "- ")
         
+        
+        
         self.dailyExpenseTextField.delegate = self
         self.dailyExpenseTextField.becomeFirstResponder()
         
@@ -97,6 +99,8 @@ class DailyExpenseSettingVC: UIViewController {
         self.submitBtn.isEnabled = false
         self.submitBtn.alpha = 0.8
         self.submitBtn.submitButtonSetting()
+        
+        self.submitBtn.addTarget(self, action: #selector(handleUsersCostSettings(_:)), for: .touchUpInside)
         
         
         guard let vm = self.vm else { return }
@@ -119,13 +123,25 @@ class DailyExpenseSettingVC: UIViewController {
         initializeHideKeyboard()
     }
     
+    @objc fileprivate func handleUsersCostSettings(_ sender: UIButton) {
+        print(#fileID, #function, #line, "- ")
+        
+        guard let dailyExpense = self.dailyExpenseTextField.text else { return }
+        
+        let dataToSend = ["goalText" : goalText, "wholeCost" : "\(wholeCost)", "dailyExpense" : dailyExpense]
+        
+        print(#fileID, #function, #line, "⭐️ - dataToSend: \(dataToSend)")
+        
+        NotificationCenter.default.post(name: .usersCostSettings, object: nil, userInfo: dataToSend)
+    }
     
     @IBAction func submitBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- ")
         
         let storyboard = UIStoryboard(name: DailyMainVC.reuseIdentifier, bundle: .main)
+        
         let vc = storyboard.instantiateViewController(identifier: DailyMainVC.reuseIdentifier, creator: { coder in
-            return DailyMainVC(coder: coder, goalText: self.goalText, wholeCostText: self.wholeCostText)
+            return DailyMainVC(coder: coder, goalText: self.goalText, wholeCostText: "\(self.wholeCost / 10000)")
         })
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -207,4 +223,6 @@ extension DailyExpenseSettingVC {
         //In short- Dismiss the active keyboard.
         view.endEditing(true)
     }
+    
+    
 }

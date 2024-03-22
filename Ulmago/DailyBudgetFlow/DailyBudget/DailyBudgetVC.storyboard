@@ -16,20 +16,75 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DailyBudgetVC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="noe-pD-MYY">
-                                <rect key="frame" x="82.000000000000014" y="296" width="229.33333333333337" height="36"/>
-                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="30"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Fkx-zv-6cx">
+                                <rect key="frame" x="30" y="178.99999999999997" width="333" height="500.33333333333326"/>
+                                <color key="backgroundColor" name="backgroundColor"/>
+                            </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="IXw-FR-eiU">
+                                <rect key="frame" x="30" y="709.33333333333337" width="333" height="78.666666666666629"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOG-qg-fd4">
+                                        <rect key="frame" x="0.0" y="0.0" width="333" height="34.333333333333336"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="추가하기">
+                                            <color key="baseBackgroundColor" name="redBean"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="addBtnClicked:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="4QP-G2-QcC"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VNK-Rf-OpK">
+                                        <rect key="frame" x="0.0" y="44.333333333333258" width="333" height="34.333333333333343"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="완료">
+                                            <color key="baseBackgroundColor" name="redBean"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="submitBtnClicked:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="02k-C9-Qut"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="8mZ-nD-9N5">
+                                <rect key="frame" x="50" y="76.333333333333314" width="293" height="72.666666666666686"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dailyExpenseLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lnj-gN-Qp3">
+                                        <rect key="frame" x="0.0" y="0.0" width="293" height="26.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                        <color key="textColor" name="redBean"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="todaysExpenseLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RT7-kg-QIX">
+                                        <rect key="frame" x="0.0" y="46.333333333333343" width="293" height="26.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
-                            <constraint firstItem="noe-pD-MYY" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="237" id="pHQ-RE-k4l"/>
-                            <constraint firstItem="noe-pD-MYY" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="zDp-V6-t9V"/>
+                            <constraint firstItem="Fkx-zv-6cx" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="120" id="2Lj-II-Xem"/>
+                            <constraint firstItem="IXw-FR-eiU" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="9Nq-DX-hPG"/>
+                            <constraint firstItem="Fkx-zv-6cx" firstAttribute="top" secondItem="8mZ-nD-9N5" secondAttribute="bottom" constant="30" id="Gq1-SH-Vj9"/>
+                            <constraint firstItem="IXw-FR-eiU" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="HWH-bH-zZx"/>
+                            <constraint firstItem="IXw-FR-eiU" firstAttribute="top" secondItem="Fkx-zv-6cx" secondAttribute="bottom" constant="30" id="TdR-fJ-Ghk"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="IXw-FR-eiU" secondAttribute="bottom" constant="30" id="VoO-qM-Jnw"/>
+                            <constraint firstItem="Fkx-zv-6cx" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="ii0-Ly-QqZ"/>
+                            <constraint firstItem="8mZ-nD-9N5" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="50" id="kiY-5u-Z0Y"/>
+                            <constraint firstItem="Fkx-zv-6cx" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="krw-SE-APK"/>
+                            <constraint firstItem="8mZ-nD-9N5" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="z4I-M3-vfI"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="addBtn" destination="FOG-qg-fd4" id="uKF-aS-gFm"/>
+                        <outlet property="dailyBudgetTableView" destination="Fkx-zv-6cx" id="ohk-m7-mcR"/>
+                        <outlet property="dailyExpenseLabel" destination="lnj-gN-Qp3" id="yXa-J8-6es"/>
+                        <outlet property="submitBtn" destination="VNK-Rf-OpK" id="qdo-mu-4bB"/>
+                        <outlet property="todaysExpenseLabel" destination="RT7-kg-QIX" id="9RX-v0-3TO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -39,6 +94,9 @@
     <resources>
         <namedColor name="backgroundColor">
             <color red="0.94901960784313721" green="0.9137254901960784" blue="0.88235294117647056" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="redBean">
+            <color red="0.77647058823529413" green="0.396078431372549" blue="0.32941176470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
