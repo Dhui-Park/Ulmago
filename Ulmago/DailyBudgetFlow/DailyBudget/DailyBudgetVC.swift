@@ -12,7 +12,8 @@ class DailyBudgetVC: UIViewController {
     
     @IBOutlet weak var dailyExpenseLabel: UILabel!
     
-    var dummies = [0, 1, 2, 3, 4, 5, 6]
+    
+    var budgetList: [Budget] = []
     
     // 목표
     var goalText: String = "" {
@@ -43,6 +44,8 @@ class DailyBudgetVC: UIViewController {
     
     @IBOutlet weak var dailyBudgetTableView: UITableView!
     
+    @IBOutlet weak var dailySpendLabel: UILabel!
+    
     @IBOutlet weak var addBtn: UIButton!
     
     @IBOutlet weak var submitBtn: UIButton!
@@ -72,22 +75,68 @@ class DailyBudgetVC: UIViewController {
         
         self.dailyBudgetTableView.register(cellNib, forCellReuseIdentifier: "DailyBudgetTableViewCell")
         self.dailyBudgetTableView.dataSource = self
+        self.dailyBudgetTableView.delegate = self
         
+        
+        self.updateDailySpend()
+        
+    }
+    
+    // 오늘 소비한 금액 업데이트
+    func updateDailySpend() {
+        let sum = self.budgetList
+            .compactMap { $0.price }
+            .reduce(0, +)
+        
+        print("Sum of budgetList's prices is : ", sum)
+        self.dailySpend = sum
+        self.dailySpendLabel.text = "\(dailySpend)원"
     }
     
     @IBAction func addBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- ")
-        let alert = UIAlertController(title: "추가하시겠습니까?", message: "무엇에 얼마를 썼나요?", preferredStyle: .alert)
-        alert.addTextField()
-        alert.addAction(UIAlertAction(title: "추가혀", style: .default, handler: { action in
-            guard let textField =  alert.textFields?.first else {
-                return
-            }
-            print(#fileID, #function, #line, "- textfield: \(textField.text)")
-        }))
-        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+        let alertController = UIAlertController(title: "추가하시겠습니까?", message: "무엇에 얼마를 썼나요?", preferredStyle: .alert)
         
-        self.present(alert, animated: true, completion: nil)
+        
+        // add textfield at index 0
+        alertController.addTextField(configurationHandler: {(_ textField: UITextField) -> Void in
+            textField.placeholder = "내역"
+            
+        })
+        
+        // add textfield at index 1
+        alertController.addTextField(configurationHandler: {(_ textField: UITextField) -> Void in
+            textField.placeholder = "금액"
+            textField.keyboardType = .numberPad
+            textField.delegate = self
+        })
+        
+        // Alert action confirm
+        let confirmAction = UIAlertAction(title: "OK", style: .default, handler: {(_ action: UIAlertAction) -> Void in
+            
+            guard let newTitle = alertController.textFields?[0].text,
+                  let newPrice = alertController.textFields?[1].text else { return }
+            
+            print("내역: \(newTitle)")
+            print("금액: \(newPrice)")
+            
+            DispatchQueue.main.async {
+                self.budgetList.insert(Budget(title: newTitle, price: Int(newPrice)), at: self.budgetList.count)
+                print(#fileID, #function, #line, "- budgetList: \(self.budgetList)")
+                self.updateDailySpend()
+                self.dailyBudgetTableView.reloadData()
+            }
+        })
+        alertController.addAction(confirmAction)
+        
+        // Alert action cancel
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {(_ action: UIAlertAction) -> Void in
+            print("취소")
+        })
+        alertController.addAction(cancelAction)
+        
+        // Present alert controller
+        present(alertController, animated: true, completion: nil)
     }
     
     @IBAction func submitBtnClicked(_ sender: UIButton) {
@@ -100,14 +149,39 @@ class DailyBudgetVC: UIViewController {
 extension DailyBudgetVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dummies.count
+        return self.budgetList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "DailyBudgetTableViewCell") as? DailyBudgetTableViewCell else { return UITableViewCell() }
         
+        let cellData = self.budgetList[indexPath.row]
+        
+        guard let title = cellData.title,
+              let price = cellData.price else { return cell }
+        
+        cell.titleLabel.text = title
+        cell.priceLabel.text = "\(price)원"
+        
         return cell
     }
     
     
+}
+
+extension DailyBudgetVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(#fileID, #function, #line, "- indexPath: \(indexPath.row)")
+    }
+}
+
+extension DailyBudgetVC: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if CharacterSet(charactersIn: "0123456789").isSuperset(of: CharacterSet(charactersIn: string)) {
+            return true
+        }
+        
+        return false
+    }
 }

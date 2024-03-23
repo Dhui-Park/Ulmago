@@ -16,33 +16,75 @@
                 <rect key="frame" x="0.0" y="0.0" width="518" height="212"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" spacing="57" translatesAutoresizingMaskIntoConstraints="NO" id="9Za-KM-O4l">
-                        <rect key="frame" x="104" y="89" width="310" height="34.333333333333343"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="B3u-Fu-a9p">
+                        <rect key="frame" x="10" y="89" width="498" height="34.333333333333343"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DailyBudgetCell" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUe-rw-fR3">
-                                <rect key="frame" x="0.0" y="0.0" width="178" height="34.333333333333336"/>
-                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fNB-00-BJh">
+                                <rect key="frame" x="0.0" y="0.0" width="288" height="34.333333333333336"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kf1-nN-DAY">
-                                <rect key="frame" x="235" y="0.0" width="75" height="34.333333333333336"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="price" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rnb-BO-d5Q">
+                                <rect key="frame" x="298" y="0.0" width="120" height="34.333333333333336"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="7cX-d8-PIf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mka-8J-Wo9">
+                                <rect key="frame" x="428" y="0.0" width="30" height="34.333333333333336"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="FNt-Nm-ynj"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" image="pencil" catalog="system">
+                                    <color key="baseBackgroundColor" name="redBean"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="editBtnClicked:" destination="SZU-X1-45I" eventType="touchUpInside" id="HpJ-4a-pQY"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FAY-cq-es3">
+                                <rect key="frame" x="468" y="0.0" width="30" height="34.333333333333336"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="VNn-Am-Pbg"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" image="trash.circle" catalog="system">
+                                    <color key="baseBackgroundColor" name="redBean"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="deleteBtnClicked:" destination="SZU-X1-45I" eventType="touchUpInside" id="TIG-cu-Hiu"/>
+                                </connections>
                             </button>
                         </subviews>
                     </stackView>
                 </subviews>
-                <color key="backgroundColor" name="redBean"/>
+                <color key="backgroundColor" name="backgroundColor"/>
                 <constraints>
-                    <constraint firstItem="9Za-KM-O4l" firstAttribute="centerX" secondItem="VTq-20-Kei" secondAttribute="centerX" id="Msb-9g-dEn"/>
-                    <constraint firstItem="9Za-KM-O4l" firstAttribute="centerY" secondItem="VTq-20-Kei" secondAttribute="centerY" id="jub-Up-6fi"/>
+                    <constraint firstItem="B3u-Fu-a9p" firstAttribute="leading" secondItem="VTq-20-Kei" secondAttribute="leading" constant="10" id="6bQ-Tq-KM0"/>
+                    <constraint firstItem="B3u-Fu-a9p" firstAttribute="centerX" secondItem="VTq-20-Kei" secondAttribute="centerX" id="tdy-eh-MO8"/>
+                    <constraint firstItem="B3u-Fu-a9p" firstAttribute="centerY" secondItem="VTq-20-Kei" secondAttribute="centerY" id="yRO-V7-99M"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="deleteBtn" destination="FAY-cq-es3" id="Zx1-0Z-5l7"/>
+                <outlet property="editBtn" destination="Mka-8J-Wo9" id="cna-nD-t11"/>
+                <outlet property="priceLabel" destination="rnb-BO-d5Q" id="sJ4-7i-AcV"/>
+                <outlet property="titleLabel" destination="fNB-00-BJh" id="2Kc-jd-QCg"/>
+            </connections>
             <point key="canvasLocation" x="174.04580152671755" y="27.464788732394368"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="pencil" catalog="system" width="128" height="113"/>
+        <image name="trash.circle" catalog="system" width="128" height="123"/>
+        <namedColor name="backgroundColor">
+            <color red="0.94901960784313721" green="0.9137254901960784" blue="0.88235294117647056" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="redBean">
             <color red="0.77647058823529413" green="0.396078431372549" blue="0.32941176470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

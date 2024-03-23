@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Fkx-zv-6cx">
-                                <rect key="frame" x="30" y="178.99999999999997" width="333" height="500.33333333333326"/>
+                                <rect key="frame" x="2" y="178.99999999999997" width="389" height="470.33333333333326"/>
                                 <color key="backgroundColor" name="backgroundColor"/>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="IXw-FR-eiU">
@@ -62,19 +62,42 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="62Y-hA-5la">
+                                <rect key="frame" x="30" y="667" width="333" height="24"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오늘 하루 소비 금액 : " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q52-Zl-ymP">
+                                        <rect key="frame" x="0.0" y="0.0" width="167" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="167" id="zaR-Ic-Gzu"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OYg-8A-qTk">
+                                        <rect key="frame" x="177" y="0.0" width="156" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
                             <constraint firstItem="Fkx-zv-6cx" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="120" id="2Lj-II-Xem"/>
+                            <constraint firstItem="62Y-hA-5la" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="2Yj-QY-4jX"/>
                             <constraint firstItem="IXw-FR-eiU" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="9Nq-DX-hPG"/>
                             <constraint firstItem="Fkx-zv-6cx" firstAttribute="top" secondItem="8mZ-nD-9N5" secondAttribute="bottom" constant="30" id="Gq1-SH-Vj9"/>
                             <constraint firstItem="IXw-FR-eiU" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="HWH-bH-zZx"/>
-                            <constraint firstItem="IXw-FR-eiU" firstAttribute="top" secondItem="Fkx-zv-6cx" secondAttribute="bottom" constant="30" id="TdR-fJ-Ghk"/>
+                            <constraint firstItem="IXw-FR-eiU" firstAttribute="top" secondItem="Fkx-zv-6cx" secondAttribute="bottom" constant="60" id="TdR-fJ-Ghk"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="IXw-FR-eiU" secondAttribute="bottom" constant="30" id="VoO-qM-Jnw"/>
-                            <constraint firstItem="Fkx-zv-6cx" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="ii0-Ly-QqZ"/>
+                            <constraint firstItem="Fkx-zv-6cx" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="2" id="ii0-Ly-QqZ"/>
                             <constraint firstItem="8mZ-nD-9N5" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="50" id="kiY-5u-Z0Y"/>
                             <constraint firstItem="Fkx-zv-6cx" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="krw-SE-APK"/>
+                            <constraint firstItem="62Y-hA-5la" firstAttribute="top" secondItem="Fkx-zv-6cx" secondAttribute="bottom" constant="17.666666666666742" id="lFh-Gi-5fF"/>
+                            <constraint firstItem="62Y-hA-5la" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="nNr-wE-Zs9"/>
                             <constraint firstItem="8mZ-nD-9N5" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="z4I-M3-vfI"/>
                         </constraints>
                     </view>
@@ -82,6 +105,7 @@
                         <outlet property="addBtn" destination="FOG-qg-fd4" id="uKF-aS-gFm"/>
                         <outlet property="dailyBudgetTableView" destination="Fkx-zv-6cx" id="ohk-m7-mcR"/>
                         <outlet property="dailyExpenseLabel" destination="lnj-gN-Qp3" id="yXa-J8-6es"/>
+                        <outlet property="dailySpendLabel" destination="OYg-8A-qTk" id="ZKf-Qf-ubl"/>
                         <outlet property="submitBtn" destination="VNK-Rf-OpK" id="qdo-mu-4bB"/>
                         <outlet property="todaysExpenseLabel" destination="RT7-kg-QIX" id="9RX-v0-3TO"/>
                     </connections>
