@@ -117,6 +117,7 @@ class DailyBudgetVC: UIViewController {
             guard let newTitle = alertController.textFields?[0].text,
                   let newPrice = alertController.textFields?[1].text else { return }
             
+            
             print("내역: \(newTitle)")
             print("금액: \(newPrice)")
             
@@ -141,6 +142,25 @@ class DailyBudgetVC: UIViewController {
     
     @IBAction func submitBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- ")
+        
+        // 1. tableView에 아무 내역도 없으면 경고 얼럿 띄우기
+        if self.budgetList.isEmpty {
+            // 경고 얼럿 화면 띄우기
+            let alert = UIAlertController(title: "내역 입력 없이 돌아가시겠습니까?", message: "오늘의 소비를 입력하지 않았습니다.", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "입력하기", style: .cancel, handler: {(_ action: UIAlertAction) -> Void in
+                print("돌아가서 입력하기")
+            })
+            alert.addAction(cancelAction)
+            let confirmAction = UIAlertAction(title: "메인으로", style: .default, handler: { _ in
+                print("메인으로 돌아가기")
+                self.navigationController?.popViewController(animated: true)
+            })
+            alert.addAction(confirmAction)
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            // 2. DailyMain 화면으로 돌아가기
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     
