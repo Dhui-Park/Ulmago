@@ -1,5 +1,5 @@
 {
-  "originHash" : "d33cc478699fb064dcb8c288d93710c21ca88f66c3b0940a876d28f16397537b",
+  "originHash" : "8a99cc0f87c52df4203de95fc3cad7a4e2e3445cbd6857c3a67855cadbe056e4",
   "pins" : [
     {
       "identity" : "alprogressview",
@@ -17,6 +17,15 @@
       "state" : {
         "revision" : "9dcaa4b333db437b0fbfaf453fad29069044a8b4",
         "version" : "6.6.0"
+      }
+    },
+    {
+      "identity" : "swiftalertview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/dinhquan/SwiftAlertView",
+      "state" : {
+        "revision" : "601c049861691ea3578e3812d1e9cd548cf46f48",
+        "version" : "2.2.1"
       }
     }
   ],
