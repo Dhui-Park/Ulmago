@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B707182A2BB1603D00A50C64 /* DailyBudgetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70718292BB1603D00A50C64 /* DailyBudgetVM.swift */; };
 		B772A0AF2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B772A0AE2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard */; };
 		B772A0B12BA4A5DE001059B6 /* DailyExpenseSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B772A0B02BA4A5DE001059B6 /* DailyExpenseSettingVC.swift */; };
 		B772A0B42BA55404001059B6 /* DailyMainVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B772A0B32BA55404001059B6 /* DailyMainVC.storyboard */; };
@@ -68,6 +69,7 @@
 
 /* Begin PBXFileReference section */
 		B70718282BB155A200A50C64 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		B70718292BB1603D00A50C64 /* DailyBudgetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyBudgetVM.swift; sourceTree = "<group>"; };
 		B772A0AE2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DailyExpenseSettingVC.storyboard; sourceTree = "<group>"; };
 		B772A0B02BA4A5DE001059B6 /* DailyExpenseSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyExpenseSettingVC.swift; sourceTree = "<group>"; };
 		B772A0B32BA55404001059B6 /* DailyMainVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DailyMainVC.storyboard; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 		B772A0B22BA553C8001059B6 /* DailyBudgetFlow */ = {
 			isa = PBXGroup;
 			children = (
+				B70718292BB1603D00A50C64 /* DailyBudgetVM.swift */,
 				B79278FE2BA9624E002646F7 /* DailyMain */,
 				B79278FF2BA9625E002646F7 /* DailyBudget */,
 				B7C0BF942BABF3EA00EEB03F /* PreviousDailyBudget */,
@@ -469,6 +472,7 @@
 				B79279032BA9FC50002646F7 /* WholeCostSettingVM.swift in Sources */,
 				B7B300982BAEA4CB0082982F /* Budget.swift in Sources */,
 				B79278F82BA93EC9002646F7 /* UIButton+Ext.swift in Sources */,
+				B707182A2BB1603D00A50C64 /* DailyBudgetVM.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

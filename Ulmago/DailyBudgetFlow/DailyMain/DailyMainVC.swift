@@ -7,6 +7,9 @@
 
 import Foundation
 import UIKit
+import RxSwift
+import RxRelay
+import RxCocoa
 import ALProgressView
 
 
@@ -21,33 +24,19 @@ class DailyMainVC: UIViewController {
     @IBOutlet weak var dailyBudgetSubmitBtn: UIButton!
     @IBOutlet weak var previousBudgetSubmitBtn: UIButton!
     
-    // 목표
-    var goalText: String = "" {
-        didSet {
-            print(#fileID, #function, #line, "- goalText: \(goalText)")
-        }
-    }
-    // 총 비용
-    var wholeCostText: String = "" {
-        didSet {
-            print(#fileID, #function, #line, "- wholeCostText: \(wholeCostText)")
-        }
-    }
-    // 소비 한도
-    var dailyExpenseText: String = "" {
-        didSet {
-            print(#fileID, #function, #line, "- dailyExpenseText: \(dailyExpenseText)")
-        }
-    }
+    var vm: DailyBudgetVM = DailyBudgetVM.shared
+    
+    var disposeBag: DisposeBag = DisposeBag()
     
     // [{(하루 소비한도) - (1일차 소비한 금액)} + {(하루 소비한도) - (2일차 소비한 금액)} + {(하루 소비한도) - (3일차 소비한 금액)} + ... + {(하루 소비한도) - (가장 최근 날짜 소비한 금액)}] / 총 비용
-    var progressPercentText: String = "40%"
+
+    
     
     init?(coder: NSCoder, goalText: String, wholeCostText: String, dailyExpense: String) {
-        self.goalText = goalText
-        self.wholeCostText = wholeCostText + "만원"
-        self.dailyExpenseText = dailyExpense
         super.init(coder: coder)
+        self.vm.goalText.accept(goalText)
+        self.vm.wholeCostText.accept(wholeCostText)
+        self.vm.dailyExpenseText.accept(dailyExpense)
         print(#fileID, #function, #line, "- goalText from ViewController: \(goalText), wholeCostText from WholeCostSettingVC: \(wholeCostText) ")
 
     }
@@ -56,6 +45,7 @@ class DailyMainVC: UIViewController {
         super.init(coder: coder)
         print(#fileID, #function, #line, "- ")
     }
+    
     
     
     override func viewDidLoad() {
@@ -70,23 +60,39 @@ class DailyMainVC: UIViewController {
         #warning("TODO: - 왜 NotificationCenter가 작동이 안될까?")
         NotificationCenter.default.addObserver(self, selector: #selector(handleUsersCostSetting(_:)), name: .usersCostSettings, object: nil)
         
-        self.setProgressRing()
-        self.setDailyProgressBar()
+        vm.updateDailySpend()
+        
+        vm.progressPercent
+            .map { Double($0) }
+            .map { Float($0 * 0.01) }
+            .debug("😁")
+            .observe(on: MainScheduler.instance)
+            .map { self.setProgressRing(progressRing: self.progressRing,value: $0) }
+            .bind(to: self.rx.progressRing)
+            .disposed(by: disposeBag)
+        
+        vm.remainedDailyExpense
+            .map { Double($0) }
+            .map { Float($0 * 0.01) }
+            .debug("😁")
+            .observe(on: MainScheduler.instance)
+            .map { self.setDailyProgressBar(progressBar: self.dailyProgressBar, value: $0) }
+            .bind(to: self.rx.dailyProgressBar)
+            .disposed(by: disposeBag)
+        
         print(#fileID, #function, #line, "- After Notification")
         
         
-        let mainString = "\(goalText)을/를 위해 우리는"
-        let range = (mainString as NSString).range(of: goalText)
-        let mutableAttributedString = NSMutableAttributedString.init(string: mainString)
-        mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor(named: "redBean"), range: range)
-        self.goalTextLabel.attributedText = mutableAttributedString
         
+        vm.goalTextLabel
+            .compactMap { $0 }
+            .bind(to: self.goalTextLabel.rx.attributedText)
+            .disposed(by: disposeBag)
         
-        let secondString = "\(progressPercentText)를 모았어요!"
-        let secondRange = (secondString as NSString).range(of: progressPercentText)
-        let secondMutableAttributedString = NSMutableAttributedString.init(string: secondString)
-        secondMutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor(named: "redBean"), range: secondRange)
-        self.progressTextLabel.attributedText = secondMutableAttributedString
+        vm.progressPercentText
+            .compactMap { $0 }
+            .bind(to: self.progressTextLabel.rx.attributedText)
+            .disposed(by: disposeBag)
         
         self.dailyBudgetSubmitBtn.submitButtonSetting()
         self.previousBudgetSubmitBtn.submitButtonSetting()
@@ -97,18 +103,22 @@ class DailyMainVC: UIViewController {
     
     
     
-    func setProgressRing() {
+    func setProgressRing(progressRing: ALProgressRing, value: Float) -> ALProgressRing {
         
 //        // Setting progress
-        progressRing.setProgress(0.4, animated: true)
+        progressRing.setProgress(value, animated: true)
         progressRing.startColor = UIColor(named: "redBean")?.withAlphaComponent(0.4) ?? UIColor.systemCyan
         progressRing.endColor = UIColor(named: "redBean") ?? UIColor.systemCyan
+        
+        return progressRing
     }
     
-    func setDailyProgressBar() {
-        dailyProgressBar.setProgress(0.6, animated: true)
-        dailyProgressBar.startColor = UIColor(named: "redBean")?.withAlphaComponent(0.4) ?? UIColor.systemCyan
-        dailyProgressBar.endColor = UIColor(named: "redBean") ?? UIColor.systemCyan
+    func setDailyProgressBar(progressBar: ALProgressBar, value: Float) -> ALProgressBar {
+        progressBar.setProgress(value, animated: true)
+        progressBar.startColor = UIColor(named: "redBean")?.withAlphaComponent(0.4) ?? UIColor.systemCyan
+        progressBar.endColor = UIColor(named: "redBean") ?? UIColor.systemCyan
+        
+        return progressBar
     }
     
     @IBAction func dailyBudgetSubmitBtnClicked(_ sender: UIButton) {
@@ -117,7 +127,7 @@ class DailyMainVC: UIViewController {
        
         let storyboard = UIStoryboard(name: DailyBudgetVC.reuseIdentifier, bundle: .main)
         let vc = storyboard.instantiateViewController(identifier: DailyBudgetVC.reuseIdentifier, creator: { coder in
-            return DailyBudgetVC(coder: coder, wholeCost: self.wholeCostText, dailyExpense: self.dailyExpenseText)
+            return DailyBudgetVC(coder: coder)
         })
         
         self.navigationController?.pushViewController(vc, animated: true)
@@ -153,6 +163,7 @@ extension DailyMainVC {
         self.present(alertController, animated: true)
     }
     
+    #warning("TODO: - Notification 안됨")
     @objc fileprivate func handleUsersCostSetting(_ sender: Notification) {
         print(#fileID, #function, #line, "⭐️ - sender: \(sender)")
         
@@ -162,9 +173,10 @@ extension DailyMainVC {
         
         print(#fileID, #function, #line, "⭐️ - goalText: \(goalText), wholeCost: \(wholeCost), dailyExpense: \(dailyExpense)")
         
-        self.goalText = goalText
-        self.wholeCostText = "\(wholeCost)"
-        self.dailyExpenseText = dailyExpense
+//        self.goalText = goalText
+//        self.wholeCostText = "\(wholeCost)"
+//        self.dailyExpenseText = dailyExpense
         
     }
 }
+

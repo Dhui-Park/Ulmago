@@ -7,39 +7,16 @@
 
 import Foundation
 import UIKit
+import RxSwift
+import RxRelay
+import RxCocoa
 import SwiftAlertView
 
 class DailyBudgetVC: UIViewController {
     
     @IBOutlet weak var dailyExpenseLabel: UILabel!
     
-    
-    var budgetList: [Budget] = []
-    
-    // 목표
-    var goalText: String = "" {
-        didSet {
-            print(#fileID, #function, #line, "- goalText: \(goalText)")
-        }
-    }
-    // 총 비용
-    var wholeCostText: String = "" {
-        didSet {
-            print(#fileID, #function, #line, "- wholeCostText: \(wholeCostText)")
-        }
-    }
-    // 소비 한도
-    var dailyExpenseText: String = "" {
-        didSet {
-            print(#fileID, #function, #line, "- dailyExpenseText: \(dailyExpenseText)")
-        }
-    }
-    // 오늘 쓴 돈
-    var dailySpend: Int = 0 {
-        didSet {
-            print(#fileID, #function, #line, "- dailySpend: \(dailySpend)")
-        }
-    }
+    @IBOutlet weak var wholeCostLabel: UILabel!
     
     @IBOutlet weak var todaysExpenseLabel: UILabel!
     
@@ -51,12 +28,15 @@ class DailyBudgetVC: UIViewController {
     
     @IBOutlet weak var submitBtn: UIButton!
     
-    init?(coder: NSCoder, wholeCost: String, dailyExpense: String) {
-        self.wholeCostText = wholeCost
-        self.dailyExpenseText = dailyExpense
-        super.init(coder: coder)
-        print(#fileID, #function, #line, "- wholeCost from DailyMainVC: \(wholeCost) ")
-    }
+    var vm: DailyBudgetVM = DailyBudgetVM.shared
+    
+    var disposeBag: DisposeBag = DisposeBag()
+    
+//    init?(coder: NSCoder, vm: DailyBudgetVM) {
+//        self.vm = vm
+//        super.init(coder: coder)
+////        print(#fileID, #function, #line, "- wholeCost from DailyMainVC: \(wholeCost) ")
+//    }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -67,10 +47,33 @@ class DailyBudgetVC: UIViewController {
         super.viewDidLoad()
         print(#fileID, #function, #line, "- ")
         
-        var dailyExpense: Int = Int(self.dailyExpenseText) ?? 0
         
-        self.dailyExpenseLabel.text = "목표가 얼마고? : " + self.wholeCostText
-        self.todaysExpenseLabel.text = "오늘의 소비 한도 : \(dailyExpense - dailySpend)원"
+        // 화면 상단에 사용자가 이전에 설정한 목표 금액 표시
+        vm.wholeCostText
+            .map { "목표가 얼마고? : " + $0 + "만원" }
+            .bind(to: self.wholeCostLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        // 화면 상단에 사용자가 이전에 설정한 오늘의 소비한도금액 표시
+        #warning("TODO: - dailyExpense - dailySpend 로 연동하기")
+        vm.remainedDailyExpense
+            .map { "오늘의 남은 소비 한도: \($0)원" }
+            .bind(to: self.todaysExpenseLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        // 테이블뷰 하단에 오늘 소비한 금액 표시
+        vm.dailySpend
+            .map { "\($0)원" }
+            .bind(to: self.dailySpendLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        // 테이블뷰 삭제, 수정 기능
+        vm.budgetList
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { _ in
+                self.dailyBudgetTableView.reloadData()
+            })
+            .disposed(by: disposeBag)
         
         let cellNib = UINib(nibName: "DailyBudgetTableViewCell", bundle: .main)
         
@@ -79,19 +82,6 @@ class DailyBudgetVC: UIViewController {
         self.dailyBudgetTableView.delegate = self
         
         
-        self.updateDailySpend()
-        
-    }
-    
-    // 오늘 소비한 금액 업데이트
-    func updateDailySpend() {
-        let sum = self.budgetList
-            .compactMap { $0.price }
-            .reduce(0, +)
-        
-        print("Sum of budgetList's prices is : ", sum)
-        self.dailySpend = sum
-        self.dailySpendLabel.text = "\(dailySpend)원"
     }
     
     @IBAction func addBtnClicked(_ sender: UIButton) {
@@ -112,7 +102,9 @@ class DailyBudgetVC: UIViewController {
             alertView.backgroundColor = .backgroundColor
             alertView.buttonTitleColor = .primaryColor ?? .blue
         }
-        .onActionButtonClicked { alertView, buttonIndex in
+        .onActionButtonClicked { [weak self] alertView, buttonIndex in
+            
+            guard let self = self else { return }
             
             guard let breakdown = alertView.textField(at: 0)?.text,
                   let amountOfMoney = alertView.textField(at: 1)?.text else { return }
@@ -128,9 +120,9 @@ class DailyBudgetVC: UIViewController {
                     alertView.validationLabel.text = "금액을 입력해주세요"
                 } else {
                     DispatchQueue.main.async {
-                        self.budgetList.insert(Budget(title: breakdown, price: Int(amountOfMoney)), at: self.budgetList.count)
-                        print(#fileID, #function, #line, "- budgetList: \(self.budgetList)")
-                        self.updateDailySpend()
+                        self.vm.addToTableView(newTitle: breakdown, newPrice: Int(amountOfMoney) ?? 0)
+                        print(#fileID, #function, #line, "- budgetList: \(self.vm.budgetList)")
+                        self.vm.updateDailySpend()
                         self.dailyBudgetTableView.reloadData()
                     }
                     alertView.dismiss()
@@ -146,61 +138,17 @@ class DailyBudgetVC: UIViewController {
             }
         }
         
-        
-//        let alertController = UIAlertController(title: "추가하시겠습니까?", message: "무엇에 얼마를 썼나요?", preferredStyle: .alert)
-//        
-//        
-//        // add textfield at index 0
-//        alertController.addTextField(configurationHandler: {(_ textField: UITextField) -> Void in
-//            textField.placeholder = "내역"
-//            
-//        })
-//        
-//        // add textfield at index 1
-//        alertController.addTextField(configurationHandler: {(_ textField: UITextField) -> Void in
-//            textField.placeholder = "금액"
-//            textField.keyboardType = .numberPad
-//            textField.delegate = self
-//        })
-//        
-//        // Alert action confirm
-//        let confirmAction = UIAlertAction(title: "OK", style: .default, handler: {(_ action: UIAlertAction) -> Void in
-//            
-//            guard let newTitle = alertController.textFields?[0].text,
-//                  let newPrice = alertController.textFields?[1].text else { return }
-//            
-//            
-//            print("내역: \(newTitle)")
-//            print("금액: \(newPrice)")
-//            
-//            DispatchQueue.main.async {
-//                self.budgetList.insert(Budget(title: newTitle, price: Int(newPrice)), at: self.budgetList.count)
-//                print(#fileID, #function, #line, "- budgetList: \(self.budgetList)")
-//                self.updateDailySpend()
-//                self.dailyBudgetTableView.reloadData()
-//            }
-//        })
-//        alertController.addAction(confirmAction)
-//        
-//        // Alert action cancel
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {(_ action: UIAlertAction) -> Void in
-//            print("취소")
-//        })
-//        alertController.addAction(cancelAction)
-//        
-//        // Present alert controller
-//        present(alertController, animated: true, completion: nil)
     }
     
     @IBAction func submitBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- ")
         
+        
         // 1. tableView에 아무 내역도 없으면 경고 얼럿 띄우기
-        if self.budgetList.isEmpty {
+        if vm.budgetList.value.isEmpty {
             // 경고 얼럿 화면 띄우기
             SwiftAlertView.show(title: "내역 입력 없이 돌아가시겠습니까?", message: "오늘의 소비를 입력하지 않았습니다.", buttonTitles: "메인으로", "입력하기") { alertView in
                 alertView.backgroundColor = .backgroundColor
-                //            alertView.backgroundColor = UIColor(named: "redBean")
                 alertView.cancelButtonIndex = 1
                 alertView.buttonTitleColor = .primaryColor ?? .black
                 alertView.transitionType = .fade
@@ -230,14 +178,18 @@ class DailyBudgetVC: UIViewController {
 
 extension DailyBudgetVC: UITableViewDataSource {
     
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.budgetList.count
+        return vm.budgetList.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "DailyBudgetTableViewCell") as? DailyBudgetTableViewCell else { return UITableViewCell() }
         
-        let cellData = self.budgetList[indexPath.row]
+        
+        let cellData = vm.budgetList.value[indexPath.row]
+        cell.cellData = cellData
+        cell.indexPath = indexPath
         
         guard let title = cellData.title,
               let price = cellData.price else { return cell }

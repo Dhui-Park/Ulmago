@@ -48,7 +48,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="8mZ-nD-9N5">
                                 <rect key="frame" x="50" y="76.333333333333314" width="293" height="72.666666666666686"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dailyExpenseLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lnj-gN-Qp3">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="wholeCostLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lnj-gN-Qp3">
                                         <rect key="frame" x="0.0" y="0.0" width="293" height="26.333333333333332"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                         <color key="textColor" name="redBean"/>
@@ -104,10 +104,10 @@
                     <connections>
                         <outlet property="addBtn" destination="FOG-qg-fd4" id="uKF-aS-gFm"/>
                         <outlet property="dailyBudgetTableView" destination="Fkx-zv-6cx" id="ohk-m7-mcR"/>
-                        <outlet property="dailyExpenseLabel" destination="lnj-gN-Qp3" id="yXa-J8-6es"/>
                         <outlet property="dailySpendLabel" destination="OYg-8A-qTk" id="ZKf-Qf-ubl"/>
                         <outlet property="submitBtn" destination="VNK-Rf-OpK" id="qdo-mu-4bB"/>
                         <outlet property="todaysExpenseLabel" destination="RT7-kg-QIX" id="9RX-v0-3TO"/>
+                        <outlet property="wholeCostLabel" destination="lnj-gN-Qp3" id="8mp-1e-4Y6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
