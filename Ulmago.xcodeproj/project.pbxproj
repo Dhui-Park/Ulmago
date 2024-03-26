@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B707182A2BB1603D00A50C64 /* DailyBudgetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70718292BB1603D00A50C64 /* DailyBudgetVM.swift */; };
+		B76465762BB2031C0020F130 /* Formatter+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76465752BB2031C0020F130 /* Formatter+Ext.swift */; };
 		B772A0AF2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B772A0AE2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard */; };
 		B772A0B12BA4A5DE001059B6 /* DailyExpenseSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B772A0B02BA4A5DE001059B6 /* DailyExpenseSettingVC.swift */; };
 		B772A0B42BA55404001059B6 /* DailyMainVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B772A0B32BA55404001059B6 /* DailyMainVC.storyboard */; };
@@ -21,7 +22,6 @@
 		B79278FA2BA95D12002646F7 /* DailyExpenseSettingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79278F92BA95D12002646F7 /* DailyExpenseSettingVM.swift */; };
 		B79279012BA9F817002646F7 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79279002BA9F817002646F7 /* UIViewController+Ext.swift */; };
 		B79279032BA9FC50002646F7 /* WholeCostSettingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79279022BA9FC50002646F7 /* WholeCostSettingVM.swift */; };
-		B79279052BA9FF07002646F7 /* DailyMainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79279042BA9FF07002646F7 /* DailyMainVM.swift */; };
 		B7B300982BAEA4CB0082982F /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B300972BAEA4CB0082982F /* Budget.swift */; };
 		B7C0BF922BAAD08D00EEB03F /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C0BF912BAAD08D00EEB03F /* String+Ext.swift */; };
 		B7C0BF962BABF40400EEB03F /* PreviousDailyBudgetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C0BF952BABF40400EEB03F /* PreviousDailyBudgetVC.swift */; };
@@ -70,6 +70,7 @@
 /* Begin PBXFileReference section */
 		B70718282BB155A200A50C64 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B70718292BB1603D00A50C64 /* DailyBudgetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyBudgetVM.swift; sourceTree = "<group>"; };
+		B76465752BB2031C0020F130 /* Formatter+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+Ext.swift"; sourceTree = "<group>"; };
 		B772A0AE2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DailyExpenseSettingVC.storyboard; sourceTree = "<group>"; };
 		B772A0B02BA4A5DE001059B6 /* DailyExpenseSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyExpenseSettingVC.swift; sourceTree = "<group>"; };
 		B772A0B32BA55404001059B6 /* DailyMainVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DailyMainVC.storyboard; sourceTree = "<group>"; };
@@ -81,7 +82,6 @@
 		B79278F92BA95D12002646F7 /* DailyExpenseSettingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyExpenseSettingVM.swift; sourceTree = "<group>"; };
 		B79279002BA9F817002646F7 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		B79279022BA9FC50002646F7 /* WholeCostSettingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WholeCostSettingVM.swift; sourceTree = "<group>"; };
-		B79279042BA9FF07002646F7 /* DailyMainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyMainVM.swift; sourceTree = "<group>"; };
 		B7B300972BAEA4CB0082982F /* Budget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Budget.swift; sourceTree = "<group>"; };
 		B7C0BF912BAAD08D00EEB03F /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		B7C0BF952BABF40400EEB03F /* PreviousDailyBudgetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousDailyBudgetVC.swift; sourceTree = "<group>"; };
@@ -187,7 +187,6 @@
 			children = (
 				B772A0B32BA55404001059B6 /* DailyMainVC.storyboard */,
 				B772A0B52BA5540B001059B6 /* DailyMainVC.swift */,
-				B79279042BA9FF07002646F7 /* DailyMainVM.swift */,
 			);
 			path = DailyMain;
 			sourceTree = "<group>";
@@ -242,6 +241,7 @@
 				B7C0BF912BAAD08D00EEB03F /* String+Ext.swift */,
 				B7C0BF9B2BAC573600EEB03F /* NotificationName+Ext.swift */,
 				B7742B632BB08B9100B2480B /* UIColor+Ext.swift */,
+				B76465752BB2031C0020F130 /* Formatter+Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -458,13 +458,13 @@
 				B772A0C32BA609D4001059B6 /* DailyBudgetVC.swift in Sources */,
 				B7F012122B9F2E74004027CA /* SceneDelegate.swift in Sources */,
 				B7C0BF962BABF40400EEB03F /* PreviousDailyBudgetVC.swift in Sources */,
-				B79279052BA9FF07002646F7 /* DailyMainVM.swift in Sources */,
 				B7742B642BB08B9100B2480B /* UIColor+Ext.swift in Sources */,
 				B772A0B12BA4A5DE001059B6 /* DailyExpenseSettingVC.swift in Sources */,
 				B7CE474C2BA316A300F2805F /* StoryboardInstance.swift in Sources */,
 				B7C0BF982BABF40E00EEB03F /* PreviousDailyBudgetVM.swift in Sources */,
 				B7C0BF9C2BAC573600EEB03F /* NotificationName+Ext.swift in Sources */,
 				B79278FA2BA95D12002646F7 /* DailyExpenseSettingVM.swift in Sources */,
+				B76465762BB2031C0020F130 /* Formatter+Ext.swift in Sources */,
 				B7CE47462BA2FEAA00F2805F /* ReuseIdentifiable.swift in Sources */,
 				B7C0BFA02BADFE7400EEB03F /* DailyBudgetTableViewCell.swift in Sources */,
 				B7F012472B9F4543004027CA /* MainVM.swift in Sources */,

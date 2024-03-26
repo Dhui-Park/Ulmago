@@ -96,14 +96,31 @@ class DailyBudgetTableViewCell: UITableViewCell {
     @IBAction func deleteBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- sender: \(sender)")
         // 목표: 테이블뷰쎌의 해당 쎌의 삭제 버튼을 클릭하면 해당 쎌을 테이블뷰에서 삭제한다.
-        // 1. 클릭한 쎌의 인덱스패스로 어떤 쎌인지 받아온다.
-        guard let indexPath = indexPath else { return }
-        print("indexPath from tableView: \(indexPath)")
-        // 2. 해당 쎌을 데이터리스트에서 삭제한다.
-        // 3. 삭제한 내용을 테이블뷰에 반영한다.
-        vm.deleteTableViewItem(indexPath: indexPath)
-        // 오늘 하루 소비 금액 업데이트
-        vm.updateDailySpend()
+        // 0. 삭제하시겠습니까? 경고 얼럿 화면을 띄운다.
+        SwiftAlertView.show(title: "삭제하시겠습니까?", buttonTitles: "취소", "삭제") { alertView in
+            alertView.backgroundColor = .backgroundColor
+            alertView.buttonTitleColor = .primaryColor ?? .black
+        }
+        .onButtonClicked({ [weak self] alertView, buttonIndex in
+            guard let self = self else { return }
+            switch buttonIndex {
+            case 0:
+                print("buttonIndex: \(buttonIndex)")
+            case 1:
+                print("buttonIndex: \(buttonIndex)")
+                // 1. 클릭한 쎌의 인덱스패스로 어떤 쎌인지 받아온다.
+                guard let indexPath = indexPath else { return }
+                print("indexPath from tableView: \(indexPath)")
+                // 2. 해당 쎌을 데이터리스트에서 삭제한다.
+                // 3. 삭제한 내용을 테이블뷰에 반영한다.
+                self.vm.deleteTableViewItem(indexPath: indexPath)
+                // 오늘 하루 소비 금액 업데이트
+                self.vm.updateDailySpend()
+            default:
+                print("default btn clicked")
+            }
+        })
+
     }
     
     

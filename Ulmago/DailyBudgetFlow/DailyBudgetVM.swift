@@ -56,6 +56,7 @@ class DailyBudgetVM {
         self.progressPercentText = self.progressPercent
             .map { self.changeSpecificTextColor(specificText: "\($0)%", normalString: "를 모았어요!") }
         
+        #warning("TODO: - ")
         self.remainedDailyExpense = self.dailyExpenseText
             .compactMap { Int($0) }
             .debug("📌")
@@ -66,6 +67,7 @@ class DailyBudgetVM {
         
     }
     
+    // 한 문장 내에서 특정 부분 텍스트 색깔 바꾸기
     func changeSpecificTextColor(specificText: String, normalString: String) -> NSMutableAttributedString {
         let mainString = specificText + normalString
         let range = (mainString as NSString).range(of: specificText)
@@ -74,7 +76,7 @@ class DailyBudgetVM {
         return mutableAttributedString
     }
     
-    // 오늘 소비한 금액 업데이트
+    // 오늘 소비한 금액 업데이트: Budget의 price들만 모두 더하기
     func updateDailySpend() {
         let sum = self.budgetList.value
             .compactMap { $0.price }
@@ -85,10 +87,12 @@ class DailyBudgetVM {
         
     }
     
+    // 테이블뷰에 새로운 Budget 추가
     func addToTableView(newTitle: String, newPrice: Int) {
         self.budgetList.accept(self.budgetList.value + [Budget(title: newTitle, price: newPrice)])
     }
     
+    // 테이블 뷰의 선택한 Budget 삭제
     func deleteTableViewItem(indexPath: IndexPath) {
         var currentBudgetList = self.budgetList.value
         currentBudgetList.remove(at: indexPath.row)

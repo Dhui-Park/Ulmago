@@ -58,6 +58,7 @@ class WholeCostSettingVC: UIViewController {
         textFieldSetting(self.wholeCostTextField, "50만원 / 100만원", keyboardType: .numberPad)
         self.wholeCostTextField.delegate = self
         
+        
         self.submitBtn.isEnabled = false
         self.submitBtn.alpha = 0.8
         
@@ -71,6 +72,7 @@ class WholeCostSettingVC: UIViewController {
             .disposed(by: disposeBag)
         
     }
+    
     
     @IBAction func submitBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- 총 비용 설정 완료 버튼 클릭")
