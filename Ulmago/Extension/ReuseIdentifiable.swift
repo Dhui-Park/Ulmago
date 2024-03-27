@@ -19,3 +19,5 @@ extension ReuseIdentifiable {
 }
 
 extension UIViewController: ReuseIdentifiable { }
+
+extension UIView: ReuseIdentifiable { }

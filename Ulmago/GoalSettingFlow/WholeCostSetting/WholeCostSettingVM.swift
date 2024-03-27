@@ -18,20 +18,28 @@ class WholeCostSettingVM {
     
     struct Output {
         let isTextFieldEmpty: Observable<Bool>
+        
     }
     
     func transform(input: Input) -> Output {
         
         isTextFieldEmpty = input.wholeCostInput
+            .debug("test 1")
             .map { $0.count }
+            .debug("test 2")
             .map { $0 == 0 }
+            .debug("test 3")
         
+
         return Output(isTextFieldEmpty: isTextFieldEmpty)
+
     }
     
     var textFieldtext: PublishRelay<String> = PublishRelay()
     
     var isTextFieldEmpty: Observable<Bool> = Observable.empty()
+    
+    
     
     init() {
         print(#fileID, #function, #line, "- ")

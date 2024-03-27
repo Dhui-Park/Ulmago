@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		B707182A2BB1603D00A50C64 /* DailyBudgetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70718292BB1603D00A50C64 /* DailyBudgetVM.swift */; };
 		B76465762BB2031C0020F130 /* Formatter+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76465752BB2031C0020F130 /* Formatter+Ext.swift */; };
+		B76465792BB2A2AE0020F130 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = B76465782BB2A2AE0020F130 /* FSCalendar */; };
+		B764657D2BB45BB40020F130 /* PreviousDailyBudgetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B764657C2BB45BB40020F130 /* PreviousDailyBudgetTableViewCell.xib */; };
+		B764657F2BB462420020F130 /* PreviousDailyBudgetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B764657E2BB462420020F130 /* PreviousDailyBudgetTableViewCell.swift */; };
 		B772A0AF2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B772A0AE2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard */; };
 		B772A0B12BA4A5DE001059B6 /* DailyExpenseSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B772A0B02BA4A5DE001059B6 /* DailyExpenseSettingVC.swift */; };
 		B772A0B42BA55404001059B6 /* DailyMainVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B772A0B32BA55404001059B6 /* DailyMainVC.storyboard */; };
@@ -71,6 +74,8 @@
 		B70718282BB155A200A50C64 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B70718292BB1603D00A50C64 /* DailyBudgetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyBudgetVM.swift; sourceTree = "<group>"; };
 		B76465752BB2031C0020F130 /* Formatter+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+Ext.swift"; sourceTree = "<group>"; };
+		B764657C2BB45BB40020F130 /* PreviousDailyBudgetTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreviousDailyBudgetTableViewCell.xib; sourceTree = "<group>"; };
+		B764657E2BB462420020F130 /* PreviousDailyBudgetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousDailyBudgetTableViewCell.swift; sourceTree = "<group>"; };
 		B772A0AE2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DailyExpenseSettingVC.storyboard; sourceTree = "<group>"; };
 		B772A0B02BA4A5DE001059B6 /* DailyExpenseSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyExpenseSettingVC.swift; sourceTree = "<group>"; };
 		B772A0B32BA55404001059B6 /* DailyMainVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DailyMainVC.storyboard; sourceTree = "<group>"; };
@@ -117,6 +122,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7742B622BB0853200B2480B /* SwiftAlertView in Frameworks */,
+				B76465792BB2A2AE0020F130 /* FSCalendar in Frameworks */,
 				B7F012452B9F44F1004027CA /* RxSwift in Frameworks */,
 				B7F012432B9F44F1004027CA /* RxRelay in Frameworks */,
 				B7F012412B9F44F1004027CA /* RxCocoa in Frameworks */,
@@ -215,6 +221,8 @@
 			children = (
 				B7C0BF992BABF41700EEB03F /* PreviousDailyBudgetVC.storyboard */,
 				B7C0BF952BABF40400EEB03F /* PreviousDailyBudgetVC.swift */,
+				B764657C2BB45BB40020F130 /* PreviousDailyBudgetTableViewCell.xib */,
+				B764657E2BB462420020F130 /* PreviousDailyBudgetTableViewCell.swift */,
 				B7C0BF972BABF40E00EEB03F /* PreviousDailyBudgetVM.swift */,
 			);
 			path = PreviousDailyBudget;
@@ -322,6 +330,7 @@
 				B7F012442B9F44F1004027CA /* RxSwift */,
 				B772A0BE2BA5BD9B001059B6 /* ALProgressView */,
 				B7742B612BB0853200B2480B /* SwiftAlertView */,
+				B76465782BB2A2AE0020F130 /* FSCalendar */,
 			);
 			productName = Ulmago;
 			productReference = B7F0120C2B9F2E74004027CA /* Ulmago.app */;
@@ -399,6 +408,7 @@
 				B7F0123F2B9F44F1004027CA /* XCRemoteSwiftPackageReference "RxSwift" */,
 				B772A0BD2BA5BD9B001059B6 /* XCRemoteSwiftPackageReference "ALProgressView" */,
 				B7742B602BB0853200B2480B /* XCRemoteSwiftPackageReference "SwiftAlertView" */,
+				B76465772BB2A2AE0020F130 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = B7F0120D2B9F2E74004027CA /* Products */;
 			projectDirPath = "";
@@ -425,6 +435,7 @@
 				B772A0B42BA55404001059B6 /* DailyMainVC.storyboard in Resources */,
 				B7C0BF9A2BABF41700EEB03F /* PreviousDailyBudgetVC.storyboard in Resources */,
 				B7CE47482BA314C700F2805F /* WholeCostSettingVC.storyboard in Resources */,
+				B764657D2BB45BB40020F130 /* PreviousDailyBudgetTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,6 +473,7 @@
 				B772A0B12BA4A5DE001059B6 /* DailyExpenseSettingVC.swift in Sources */,
 				B7CE474C2BA316A300F2805F /* StoryboardInstance.swift in Sources */,
 				B7C0BF982BABF40E00EEB03F /* PreviousDailyBudgetVM.swift in Sources */,
+				B764657F2BB462420020F130 /* PreviousDailyBudgetTableViewCell.swift in Sources */,
 				B7C0BF9C2BAC573600EEB03F /* NotificationName+Ext.swift in Sources */,
 				B79278FA2BA95D12002646F7 /* DailyExpenseSettingVM.swift in Sources */,
 				B76465762BB2031C0020F130 /* Formatter+Ext.swift in Sources */,
@@ -821,6 +833,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B76465772BB2A2AE0020F130 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.4;
+			};
+		};
 		B772A0BD2BA5BD9B001059B6 /* XCRemoteSwiftPackageReference "ALProgressView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/alxrguz/ALProgressView";
@@ -848,6 +868,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B76465782BB2A2AE0020F130 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B76465772BB2A2AE0020F130 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
+		};
 		B772A0BE2BA5BD9B001059B6 /* ALProgressView */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B772A0BD2BA5BD9B001059B6 /* XCRemoteSwiftPackageReference "ALProgressView" */;

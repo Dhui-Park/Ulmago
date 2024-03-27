@@ -26,7 +26,7 @@ class DailyBudgetVM {
     var dailyExpenseText: BehaviorRelay<String> = BehaviorRelay(value: "")
     
     
-    var budgetList: BehaviorRelay<[Budget]> = BehaviorRelay(value: [])
+    var budgetList: BehaviorRelay<[Budget]> = BehaviorRelay(value: [Budget(title: "치킨", price: 14000), Budget(title: "짜장면", price: 6500)])
     
     
     // 오늘 쓴 금액
@@ -34,6 +34,8 @@ class DailyBudgetVM {
     
     // 오늘 쓸 수 있는 남은 금액: dailyExpense - dailySpend
     var remainedDailyExpense: Observable<Int> = Observable.empty()
+    
+    var remainedGraphPercent: Observable<Float> = Observable.empty()
     
     // [{(하루 소비한도) - (1일차 소비한 금액)} + {(하루 소비한도) - (2일차 소비한 금액)} + {(하루 소비한도) - (3일차 소비한 금액)} + ... + {(하루 소비한도) - (가장 최근 날짜 소비한 금액)}] / 총 비용
     var progressPercent: BehaviorRelay<Int> = BehaviorRelay(value: 50)
@@ -56,11 +58,25 @@ class DailyBudgetVM {
         self.progressPercentText = self.progressPercent
             .map { self.changeSpecificTextColor(specificText: "\($0)%", normalString: "를 모았어요!") }
         
-        #warning("TODO: - ")
-        self.remainedDailyExpense = self.dailyExpenseText
+        let dailyExpenseObservable = self.dailyExpenseText
             .compactMap { Int($0) }
-            .debug("📌")
-            .map { $0 - self.dailySpend.value }
+        
+        
+        
+        #warning("TODO: - ")
+        self.remainedDailyExpense = Observable.combineLatest(dailyExpenseObservable, self.dailySpend.asObservable())
+            .debug("remained 1")
+            .map { dailyExpense, dailySpend in
+                return dailyExpense - dailySpend
+            }
+            .debug("remained 2")
+        
+        self.remainedGraphPercent = self.remainedDailyExpense
+            .do(onNext: {
+                print("percent 1 Float($0): \(Float($0)) dailyExpense: \((Float(self.dailyExpenseText.value) ?? 1)) ")
+            })
+            .map { Float($0) / (Float(self.dailyExpenseText.value) ?? 1)  } // part / whole
+            .debug("percent ")
         
 
         

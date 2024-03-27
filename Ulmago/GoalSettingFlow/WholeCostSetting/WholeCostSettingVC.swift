@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import RxSwift
+import RxRelay
 import RxCocoa
 
 class WholeCostSettingVC: UIViewController {
@@ -21,6 +22,8 @@ class WholeCostSettingVC: UIViewController {
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
     var vm: WholeCostSettingVM = WholeCostSettingVM()
+    
+    var userInputRelay : PublishRelay<String> = PublishRelay()
     
     var disposeBag: DisposeBag = DisposeBag()
     
@@ -57,12 +60,14 @@ class WholeCostSettingVC: UIViewController {
         
         textFieldSetting(self.wholeCostTextField, "50만원 / 100만원", keyboardType: .numberPad)
         self.wholeCostTextField.delegate = self
-        
+
         
         self.submitBtn.isEnabled = false
         self.submitBtn.alpha = 0.8
+
+        // 문제: 뷰컨에서 입력되는 텍스트필드의 텍스트를 뷰모델에 제대로 전달 X
         
-        let input = WholeCostSettingVM.Input(wholeCostInput: self.wholeCostTextField.rx.text.orEmpty.asObservable())
+        let input = WholeCostSettingVM.Input(wholeCostInput: self.userInputRelay.asObservable())
         
         let output = self.vm.transform(input: input)
         
@@ -70,7 +75,7 @@ class WholeCostSettingVC: UIViewController {
             .isTextFieldEmpty
             .bind(to: self.submitBtn.rx.disabled)
             .disposed(by: disposeBag)
-        
+
     }
     
     
@@ -91,12 +96,61 @@ class WholeCostSettingVC: UIViewController {
 
 extension WholeCostSettingVC: UITextFieldDelegate {
     
+    
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if CharacterSet(charactersIn: "0123456789").isSuperset(of: CharacterSet(charactersIn: string)) {
+        
+        
+        
+//        if !CharacterSet(charactersIn: "0123456789").isSuperset(of: CharacterSet(charactersIn: string)) {
+//            return false
+//        }
+        
+        print(#fileID, #function, #line, "- 🚩")
+        
+        let formatter = NumberFormatter()
+        formatter.usesGroupingSeparator = true
+        formatter.numberStyle = .decimal
+        formatter.decimalSeparator = ","
+        formatter.groupingSeparator = ","
+                
+         let completeString = textField.text!.replacingOccurrences(of: formatter.groupingSeparator, with: "") + string
+                
+        let value = Int64(completeString) ?? 0
+        
+        print(#fileID, #function, #line, "🚩 - value : \(value) completeString: \(completeString)")
+        
+        var numberFromTextField = value
+        
+
+        let newString = NSString(string: textField.text ?? "").replacingCharacters(in: range, with: string)
+
+        if newString.isEmpty {
+            self.userInputRelay.accept("")
+        } else {
+            self.userInputRelay.accept(completeString)
+        }
+        
+        let formattedNumber = formatter.string(from: NSNumber(value: value)) ?? ""
+        textField.text = formattedNumber
+        
+
+        
+        if string.isEmpty {
+            
             return true
         }
         
-        return false
+
+        
+        return string == formatter.decimalSeparator
+        
+        
+        
+//
+//        
+//        return false
+//        return true
     }
 }
 

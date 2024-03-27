@@ -71,18 +71,14 @@ class DailyMainVC: UIViewController {
             .bind(to: self.rx.progressRing)
             .disposed(by: disposeBag)
         
-        vm.remainedDailyExpense
-            .map { Double($0) }
-            .map { Float($0 * 0.01) }
-            .debug("😁")
+        
+        vm.remainedGraphPercent
             .observe(on: MainScheduler.instance)
             .map { self.setDailyProgressBar(progressBar: self.dailyProgressBar, value: $0) }
             .bind(to: self.rx.dailyProgressBar)
             .disposed(by: disposeBag)
         
         print(#fileID, #function, #line, "- After Notification")
-        
-        
         
         vm.goalTextLabel
             .compactMap { $0 }
@@ -137,10 +133,7 @@ class DailyMainVC: UIViewController {
     @IBAction func previousBudgetSubmitBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- ")
         
-        let storyboard = UIStoryboard(name: PreviousDailyBudgetVC.reuseIdentifier, bundle: .main)
-        let vc = storyboard.instantiateViewController(identifier: PreviousDailyBudgetVC.reuseIdentifier, creator: { coder in
-            return PreviousDailyBudgetVC(coder: coder)
-        })
+        guard let vc: PreviousDailyBudgetVC = PreviousDailyBudgetVC.createInstance() else { return }
         
         self.navigationController?.pushViewController(vc, animated: true)
     }

@@ -1,34 +1,39 @@
 //
-//  DailyBudgetTableViewCell.swift
+//  PreviousDailyBudgetTableViewCell.swift
 //  Ulmago
 //
-//  Created by dhui on 3/23/24.
+//  Created by dhui on 3/27/24.
 //
 
 import Foundation
 import UIKit
+import RxSwift
+import RxRelay
+import RxCocoa
 import SwiftAlertView
 
-class DailyBudgetTableViewCell: UITableViewCell {
+class PreviousDailyBudgetTableViewCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
+    
     @IBOutlet weak var priceLabel: UILabel!
     
     @IBOutlet weak var editBtn: UIButton!
-    @IBOutlet weak var deleteBtn: UIButton!
     
-    var vm: DailyBudgetVM = DailyBudgetVM.shared
+    @IBOutlet weak var deleteBtn: UIButton!
     
     var cellData: Budget? = nil
     
     var indexPath: IndexPath? = nil
     
+    var vm: DailyBudgetVM = DailyBudgetVM.shared
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         print(#fileID, #function, #line, "- ")
     }
-    
     @IBAction func editBtnClicked(_ sender: UIButton) {
+        print(#fileID, #function, #line, "- ")
         print(#fileID, #function, #line, "- ")
         // 목표: 테이블뷰쎌의 해당 버튼을 클릭하면 Budget의 title과 price를 변경할 수 있게 한다.
         // 1. 클릭한 쎌의 인덱스패스로 어떤 쎌인지 받아온다.
@@ -91,13 +96,10 @@ class DailyBudgetTableViewCell: UITableViewCell {
                 print("Username text changed: ", text ?? "")
             }
         }
-        
-        
-        
     }
     
     @IBAction func deleteBtnClicked(_ sender: UIButton) {
-        print(#fileID, #function, #line, "- sender: \(sender)")
+        print(#fileID, #function, #line, "- ")
         // 목표: 테이블뷰쎌의 해당 쎌의 삭제 버튼을 클릭하면 해당 쎌을 테이블뷰에서 삭제한다.
         // 0. 삭제하시겠습니까? 경고 얼럿 화면을 띄운다.
         SwiftAlertView.show(title: "삭제하시겠습니까?", buttonTitles: "취소", "삭제") { alertView in
@@ -123,13 +125,12 @@ class DailyBudgetTableViewCell: UITableViewCell {
                 print("default btn clicked")
             }
         })
-
     }
     
     
 }
 
-extension DailyBudgetTableViewCell: UITextFieldDelegate {
+extension PreviousDailyBudgetTableViewCell: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if CharacterSet(charactersIn: "0123456789").isSuperset(of: CharacterSet(charactersIn: string)) {

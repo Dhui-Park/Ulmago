@@ -51,7 +51,7 @@ class DailyBudgetVC: UIViewController {
         // 화면 상단에 사용자가 이전에 설정한 오늘의 소비한도금액 표시
         #warning("TODO: - dailyExpense - dailySpend 로 연동하기")
         vm.remainedDailyExpense
-            .map { $0 > 0 ? "오늘의 남은 소비 한도: \($0)원" : "오늘은 \(abs($0))원 더 썼어요ㅠㅠ" }
+            .map { $0 > 0 ? "오늘의 남은 소비 한도: \($0.formattedWithSeparator)원" : "오늘은 \(abs($0).formattedWithSeparator)원 더 썼어요ㅠㅠ" }
             .bind(to: self.todaysExpenseLabel.rx.text)
             .disposed(by: disposeBag)
         
