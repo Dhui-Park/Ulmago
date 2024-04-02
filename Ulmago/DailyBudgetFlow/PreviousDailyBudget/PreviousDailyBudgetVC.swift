@@ -23,7 +23,10 @@ class PreviousDailyBudgetVC: UIViewController {
     
     @IBOutlet weak var submitBtn: UIButton!
     
-    var dummies: [String] = ["dummyData1","dummyData2","dummyData3","dummyData4","dummyData5","dummyData6"]
+    var dummies: [Budget] = []
+    
+    // 딕셔너리로 가공
+    var dataDictionary: [String: [Budget]] = [:]
     
     var vm: DailyBudgetVM = DailyBudgetVM.shared
     
@@ -52,6 +55,7 @@ class PreviousDailyBudgetVC: UIViewController {
             self.dailyTableView.bottomAnchor.constraint(equalTo: self.addBtn.topAnchor, constant: -10)
         ])
         
+        #warning("TODO: - tableView 백그라운드 컬러 나중에 바꾸기")
         self.dailyTableView.backgroundColor = UIColor.systemCyan
         
         self.dailyTableView.isHidden = true
@@ -64,10 +68,19 @@ class PreviousDailyBudgetVC: UIViewController {
         // 테이블뷰 삭제, 수정 기능
         vm.budgetList
             .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { _ in
+            .subscribe(onNext: { (budgetList: [Budget]) in
+                
+                // 목표: budgetList의 date를 키값으로 하는 딕셔너리를 만들어서 테이블뷰에 보여준다.
+                // 1. budgetList의 date를 받아온다.
+                // 2. dateDictionary의 키값으로 budgetList의 date를 넣고 value를 Budget으로 만든다.
+//                Dictionary(grouping: statEvents, by: { $0.name })
+                self.dataDictionary = Dictionary(grouping: budgetList, by: { $0.date.toDateString() })
+                // 3. 테이블뷰에 보여줄 데이터를 dateDictionary로 교체한다.
                 self.dailyTableView.reloadData()
             })
             .disposed(by: disposeBag)
+        
+    
         
     }
     
@@ -83,14 +96,10 @@ class PreviousDailyBudgetVC: UIViewController {
     
     @IBAction func addBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- ")
-        if(self.myCalendarView.scope == .month){// 월간인경우
+        if self.myCalendarView.scope == .month {
             self.changeCalendarKind(myCalendar: self.myCalendarView, month: false)
-            //주간으로 변경
-            
-        }else{// 주간인경우
+        } else {
             self.changeCalendarKind(myCalendar: self.myCalendarView, month: true)
-            //월간으로 변경
-            
         }
     }
     
@@ -98,9 +107,12 @@ class PreviousDailyBudgetVC: UIViewController {
         print(#fileID, #function, #line, "- ")
     }
     
-    func changeCalendarKind(myCalendar : FSCalendar, month : Bool){ // 주간 or 월간
+    func changeCalendarKind(myCalendar : FSCalendar, month : Bool){
         print(#fileID, #function, #line, "- dailyTableView.isHidden: \(self.dailyTableView.isHidden)")
-        myCalendar.setScope(month ? .month : .week, animated: true) // 애니메이션 효과 적용
+        
+        // 애니메이션 효과 적용
+        myCalendar.setScope(month ? .month : .week, animated: true)
+        
         if month {
             // 그냥 toggle()을 하면 테이블뷰가 사라질 때 너무 확 사라져서 0.2초의 딜레이를 주어 애니메이션 효과를 준 것처럼 보이게 했다.
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
@@ -113,6 +125,20 @@ class PreviousDailyBudgetVC: UIViewController {
         }
     }
     
+    func getBugets(for date: Date) -> [Budget] {
+        // 목표: 선택한 날짜의 date로 테이블뷰의 아이템들을 바꿔준다.
+        // 1. 선택한 날짜의 date.toDateString()으로 date를 파싱한다.
+        let selectedDate = date.toDateString()
+        
+        // 2. 파싱한 date와 딕셔너리의 키값이 맞는 것을 가져온다.
+        if let selectedDictionaryValue: [Budget] = self.dataDictionary[selectedDate] {
+            // 3. 딕셔너리의 아이템을 테이블뷰에 보여준다.
+            return selectedDictionaryValue
+        } else {
+            return []
+        }
+    }
+    
 }
 
 extension PreviousDailyBudgetVC: FSCalendarDataSource {
@@ -122,12 +148,23 @@ extension PreviousDailyBudgetVC: FSCalendarDataSource {
 extension PreviousDailyBudgetVC: FSCalendarDelegate {
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        print(#fileID, #function, #line, "- didSelect: \(date), monthPosition: \(monthPosition)")
+        print(#fileID, #function, #line, "- didSelect: \(date.toDateString()), monthPosition: \(monthPosition)")
+        #warning("TODO: - Date를 파싱하는 법")
+       
+        // index - at
+        //
+        self.dummies = self.getBugets(for: date)
+        
+        DispatchQueue.main.async {
+            self.dailyTableView.reloadData()
+        }
+        
         
     }
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
-        calendarHeight.constant = bounds.height // 높이 설정 변경
+        // 높이 설정 변경
+        calendarHeight.constant = bounds.height
         UIView.animate(withDuration: 0.5){
             self.view.layoutIfNeeded()
             calendar.reloadData()
@@ -138,13 +175,14 @@ extension PreviousDailyBudgetVC: FSCalendarDelegate {
 extension PreviousDailyBudgetVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.vm.budgetList.value.count
+        return self.dummies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PreviousDailyBudgetTableViewCell.reuseIdentifier, for: indexPath) as? PreviousDailyBudgetTableViewCell else { return UITableViewCell() }
         
-        let cellData = self.vm.budgetList.value[indexPath.row]
+        let cellData = self.dummies[indexPath.row]
+        
         cell.cellData = cellData
         cell.indexPath = indexPath
         

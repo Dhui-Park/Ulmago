@@ -62,6 +62,7 @@ class DailyMainVC: UIViewController {
         
         vm.updateDailySpend()
         
+        //MARK: - Rx
         vm.progressPercent
             .map { Double($0) }
             .map { Float($0 * 0.01) }
@@ -98,7 +99,7 @@ class DailyMainVC: UIViewController {
     }
     
     
-    
+    //MARK: - ALProgressView
     func setProgressRing(progressRing: ALProgressRing, value: Float) -> ALProgressRing {
         
 //        // Setting progress

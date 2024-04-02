@@ -26,8 +26,7 @@ class DailyBudgetVM {
     var dailyExpenseText: BehaviorRelay<String> = BehaviorRelay(value: "")
     
     
-    var budgetList: BehaviorRelay<[Budget]> = BehaviorRelay(value: [Budget(title: "치킨", price: 14000), Budget(title: "짜장면", price: 6500)])
-    
+    var budgetList: BehaviorRelay<[Budget]> = BehaviorRelay(value: [])
     
     // 오늘 쓴 금액
     var dailySpend: BehaviorRelay<Int> = BehaviorRelay(value: 0)
@@ -41,6 +40,8 @@ class DailyBudgetVM {
     var progressPercent: BehaviorRelay<Int> = BehaviorRelay(value: 50)
     var progressPercentText: Observable<NSMutableAttributedString> = Observable.empty()
     
+    
+    
     convenience init(goalText: String, wholeCostText: String, dailyExpense: String) {
         self.init()
         self.goalText.accept(goalText)
@@ -50,6 +51,11 @@ class DailyBudgetVM {
     
     init() {
         print(#fileID, #function, #line, "- ")
+        
+        //
+        
+        self.budgetList.accept(BudgetRepository.shared.fetchBudgets())
+        
         self.updateDailySpend()
         
         self.goalTextLabel = self.goalText

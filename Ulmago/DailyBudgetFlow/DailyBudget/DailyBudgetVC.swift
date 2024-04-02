@@ -32,6 +32,8 @@ class DailyBudgetVC: UIViewController {
     
     var disposeBag: DisposeBag = DisposeBag()
     
+    var tempBudgetList: [Budget] = []
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         print(#fileID, #function, #line, "- ")
@@ -42,6 +44,7 @@ class DailyBudgetVC: UIViewController {
         print(#fileID, #function, #line, "- ")
         
         
+        //MARK: - Rx
         // 화면 상단에 사용자가 이전에 설정한 목표 금액 표시
         vm.wholeCostText
             .map { "목표가 얼마고? : " + $0 + "만원" }
@@ -64,7 +67,11 @@ class DailyBudgetVC: UIViewController {
         // 테이블뷰 삭제, 수정 기능
         vm.budgetList
             .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { _ in
+            .subscribe(onNext: { (budgetList: [Budget]) in
+                // 1. 날짜가 오늘인 budget을 가져온다.
+                self.tempBudgetList = budgetList.filter({ $0.date.toDateString() == Date.now.toDateString() })
+                print(#fileID, #function, #line, "- budgetList: \(budgetList) temp: \(self.tempBudgetList)")
+                // 2. 테이블뷰 리로드
                 self.dailyBudgetTableView.reloadData()
             })
             .disposed(by: disposeBag)
@@ -78,6 +85,7 @@ class DailyBudgetVC: UIViewController {
         
     }
     
+    //MARK: - SwiftAlertView
     @IBAction func addBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- ")
         SwiftAlertView.show(title: "추가하시겠습니까?", message: "무엇에 얼마를 썼나요?", buttonTitles: "취소", "추가") { alertView in
@@ -174,14 +182,14 @@ extension DailyBudgetVC: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return vm.budgetList.value.count
+        return self.tempBudgetList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "DailyBudgetTableViewCell") as? DailyBudgetTableViewCell else { return UITableViewCell() }
         
         
-        let cellData = vm.budgetList.value[indexPath.row]
+        let cellData = self.tempBudgetList[indexPath.row]
         cell.cellData = cellData
         cell.indexPath = indexPath
         

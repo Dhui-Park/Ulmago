@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,6 +16,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+//        print(Realm.Configuration.defaultConfiguration.filRL ?? "")
+        
+        if let id = try? ObjectId(string: "660b9fbc179e877f2bab8a6c") {
+            BudgetRepository.shared.editBudget(at: id, updatedTitle: "짬뽕", updatedPrice: 30000)
+        }
+        
+        
+        
+        if let realm = try? Realm() {
+            print("Realm Path : \(realm.configuration.fileURL?.absoluteURL)")
+        }
+        
+    
         return true
     }
 

@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -36,18 +37,18 @@
                                     <outlet property="delegate" destination="Y6W-OH-hqX" id="0Vm-A4-RZx"/>
                                 </connections>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="Xbs-Uw-Q99">
-                                <rect key="frame" x="30" y="625.33333333333337" width="333" height="99.333333333333371"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Xbs-Uw-Q99">
+                                <rect key="frame" x="30" y="679.33333333333337" width="333" height="78.666666666666629"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cYa-Hb-gTW">
-                                        <rect key="frame" x="0.0" y="0.0" width="333" height="33"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="333" height="34.333333333333336"/>
                                         <color key="tintColor" name="redBean"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled">
                                             <attributedString key="attributedTitle">
                                                 <fragment content="내역">
                                                     <attributes>
-                                                        <font key="NSFont" size="17" name=".AppleSDGothicNeoI-Regular"/>
+                                                        <font key="NSFont" metaFont="system" size="17"/>
                                                         <font key="NSOriginalFont" metaFont="smallSystem"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
@@ -60,7 +61,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rA3-KP-LD4">
-                                        <rect key="frame" x="0.0" y="65" width="333" height="34.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="44.333333333333258" width="333" height="34.333333333333343"/>
                                         <color key="tintColor" name="redBean"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="완료">
@@ -81,7 +82,7 @@
                             <constraint firstItem="Xbs-Uw-Q99" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="JbG-xf-ugt"/>
                             <constraint firstItem="Xbs-Uw-Q99" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="Sf8-3f-0Mt"/>
                             <constraint firstItem="YFg-ve-EpV" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="UXd-ea-21M"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="Xbs-Uw-Q99" secondAttribute="bottom" constant="93.333333333333258" id="cVH-ov-iDF"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="Xbs-Uw-Q99" secondAttribute="bottom" constant="60" id="cVH-ov-iDF"/>
                         </constraints>
                     </view>
                     <connections>

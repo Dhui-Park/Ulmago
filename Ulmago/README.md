@@ -28,9 +28,16 @@
 
 ## 데이터 Data
 
+UserGoal - 사용자가 직접 설정한 목표들
+        목표: String
+        총 목표 금액: Int
+        하루 소비 한도 금액: Int
+
 Budget - 일일 가계부 화면에서 사용자가 입력한 내역, 금액
-        title 내역
-        price 금액
+        id: UUID - Primary Key
+        제목: String
+        소비 금액: Int
+        날짜: Date
         
 
 ## 오픈소스 Open Source
@@ -41,5 +48,7 @@ Budget - 일일 가계부 화면에서 사용자가 입력한 내역, 금액
     https://github.com/alxrguz/ALProgressView
 - SwiftAlertView
     https://github.com/dinhquan/SwiftAlertView
-
-
+- FSCalendar
+    https://github.com/WenchaoD/FSCalendar
+- realm
+    https://github.com/realm/realm-swift
