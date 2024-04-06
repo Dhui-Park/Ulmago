@@ -11,12 +11,15 @@ import RxSwift
 import RxRelay
 import RxCocoa
 import ALProgressView
+import SwiftAlertView
 
 
 class DailyMainVC: UIViewController {
     
     @IBOutlet weak var goalTextLabel: UILabel!
     @IBOutlet weak var progressTextLabel: UILabel!
+    
+    @IBOutlet weak var todaysExpenseLabel: UILabel!
     
     @IBOutlet weak var progressRing: ALProgressRing!
     @IBOutlet weak var dailyProgressBar: ALProgressBar!
@@ -55,10 +58,7 @@ class DailyMainVC: UIViewController {
         
         let newBackButton = UIBarButtonItem(title: "다시 설정하기", style: UIBarButtonItem.Style.plain, target: self, action: #selector(backAction(_:)))
         self.navigationItem.leftBarButtonItem = newBackButton
-        
-        print(#fileID, #function, #line, "- Before Notification")
-        #warning("TODO: - 왜 NotificationCenter가 작동이 안될까?")
-        NotificationCenter.default.addObserver(self, selector: #selector(handleUsersCostSetting(_:)), name: .usersCostSettings, object: nil)
+       
         
         vm.updateDailySpend()
         
@@ -89,6 +89,11 @@ class DailyMainVC: UIViewController {
         vm.progressPercentText
             .compactMap { $0 }
             .bind(to: self.progressTextLabel.rx.attributedText)
+            .disposed(by: disposeBag)
+        
+        vm.remainedDailyExpense
+            .map { $0 > 0 ? "오늘의 남은 소비 한도: \($0.formattedWithSeparator)원" : "오늘은 \(abs($0).formattedWithSeparator)원 더 썼어요ㅠㅠ" }
+            .bind(to: self.todaysExpenseLabel.rx.text)
             .disposed(by: disposeBag)
         
         self.dailyBudgetSubmitBtn.submitButtonSetting()
@@ -146,31 +151,29 @@ extension DailyMainVC {
     
     @objc func backAction(_ sender: UIBarButtonItem) {
 
-        let alertController = UIAlertController(title: "목표나 금액을 다시 설정할까요?", message: nil, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "다시 설정하기", style: .default) { (result : UIAlertAction) -> Void in
-            self.navigationController?.popViewController(animated: true)
+        // 목표: 다시 설정하기 버튼을 누르면 UserGoal을 다시 설정하시겠습니까? 물어보는 얼럿창을 띄우고 확인을 누르면 이전 화면으로 돌아가기.
+        
+        // 1. "목표나 금액을 다시 설정할까요?" 얼럿창 띄우기
+        SwiftAlertView.show(title: "목표나 금액을 다시 설정할까요?", buttonTitles: "다시 설정하기", "취소") { alertView in
+            alertView.backgroundColor = .backgroundColor
+            alertView.buttonTitleColor = .primaryColor ?? .black
         }
-
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-        alertController.addAction(okAction)
-        alertController.addAction(cancelAction)
-        self.present(alertController, animated: true)
+        .onButtonClicked({ [weak self] alertView, buttonIndex in
+            guard let self = self else { return }
+            switch buttonIndex {
+            case 0:
+                // 1-1. 다시 설정하기 버튼 클릭 -> 이전 화면으로 돌아가기
+                print("buttonIndex: \(buttonIndex)")
+                self.navigationController?.popViewController(animated: true)
+            case 1:
+                // 1-2. 취소 -> 얼럿창 dismiss
+                print("buttonIndex: \(buttonIndex)")
+                alertView.dismiss()
+            default:
+                print("default btn clicked")
+            }
+        })
     }
     
-    #warning("TODO: - Notification 안됨")
-    @objc fileprivate func handleUsersCostSetting(_ sender: Notification) {
-        print(#fileID, #function, #line, "⭐️ - sender: \(sender)")
-        
-        guard let goalText = sender.userInfo?["goalText"] as? String,
-              let wholeCost = sender.userInfo?["wholeCost"] as? String,
-              let dailyExpense = sender.userInfo?["dailyExpense"] as? String else { return }
-        
-        print(#fileID, #function, #line, "⭐️ - goalText: \(goalText), wholeCost: \(wholeCost), dailyExpense: \(dailyExpense)")
-        
-//        self.goalText = goalText
-//        self.wholeCostText = "\(wholeCost)"
-//        self.dailyExpenseText = dailyExpense
-        
-    }
 }
 

@@ -100,8 +100,6 @@ class DailyExpenseSettingVC: UIViewController {
         self.submitBtn.alpha = 0.8
         self.submitBtn.submitButtonSetting()
         
-//        self.submitBtn.addTarget(self, action: #selector(sendUsersCostSettings(_:)), for: .touchUpInside)
-        
         guard let vm = self.vm else { return }
         
         let input = DailyExpenseSettingVM.Input(expenseInput: self.dailyExpenseTextField.rx.text.orEmpty.asObservable()) // Observable<String>
@@ -122,41 +120,22 @@ class DailyExpenseSettingVC: UIViewController {
         initializeHideKeyboard()
     }
     
-    @objc fileprivate func sendUsersCostSettings(_ sender: UIButton) {
-        print(#fileID, #function, #line, "- ")
-        
-//        guard let dailyExpense = self.dailyExpenseTextField.text else { return }
-//        
-//        let dataToSend = ["goalText" : goalText, "wholeCost" : "\(wholeCost)", "dailyExpense" : dailyExpense]
-//        
-//        print(#fileID, #function, #line, "⭐️ - dataToSend: \(dataToSend)")
-//        
-//        // 방송을 보낸다.
-////        NotificationCenter.default.post(name: .usersCostSettings, object: self, userInfo: dataToSend)
-////        NotificationCenter.default.post(name: .usersCostSettings, object: self)
-//        NotificationCenter.default.post(name: .usersCostSettings, object: self, userInfo: dataToSend)
-        
-    }
     
     @IBAction func submitBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- ")
         
         guard let dailyExpense = self.dailyExpenseTextField.text else { return }
-        
-//        let dataToSend = ["goalText" : goalText, "wholeCost" : "\(wholeCost)", "dailyExpense" : dailyExpense]
-//        
-//        print(#fileID, #function, #line, "⭐️ - dataToSend: \(dataToSend)")
-//        
-//        // 방송을 보낸다.
-////        NotificationCenter.default.post(name: .usersCostSettings, object: self, userInfo: dataToSend)
-////        NotificationCenter.default.post(name: .usersCostSettings, object: self)
-//        NotificationCenter.default.post(name: .usersCostSettings, object: self, userInfo: dataToSend)
-//        
+       
         let storyboard = UIStoryboard(name: DailyMainVC.reuseIdentifier, bundle: .main)
         
         let vc = storyboard.instantiateViewController(identifier: DailyMainVC.reuseIdentifier, creator: { coder in
             return DailyMainVC(coder: coder, goalText: self.goalText, wholeCostText: "\(self.wholeCost / 10000)", dailyExpense: dailyExpense)
         })
+        
+        if let userGoal = UserGoalRepository.shared.fetchUserGoalEntities().first {
+            UserGoalRepository.shared.editUserGoal(at: userGoal._id, updatedGoalTitle: nil, updatedGoalPrice: self.wholeCost, updatedDailyExpenseLimit: Int(dailyExpense) ?? 0)
+        }
+        
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

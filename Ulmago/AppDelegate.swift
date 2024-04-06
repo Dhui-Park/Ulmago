@@ -18,10 +18,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 //        print(Realm.Configuration.defaultConfiguration.filRL ?? "")
         
-        if let id = try? ObjectId(string: "660b9fbc179e877f2bab8a6c") {
-            BudgetRepository.shared.editBudget(at: id, updatedTitle: "짬뽕", updatedPrice: 30000)
-        }
+//        if let id = try? ObjectId(string: "660b9fbc179e877f2bab8a6c") {
+//            BudgetRepository.shared.editBudget(at: id, updatedTitle: "짬뽕", updatedPrice: 30000)
+//        }
         
+//        BudgetRepository.shared.deleteAllBudgets()
+        UserGoalRepository.shared.deleteAllUserGoals()
         
         
         if let realm = try? Realm() {

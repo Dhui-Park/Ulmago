@@ -45,8 +45,12 @@ class PreviousDailyBudgetVC: UIViewController {
         
         self.dailyTableView.translatesAutoresizingMaskIntoConstraints = false
         
-        self.view.addSubview(self.dailyTableView)
         
+        
+        self.view.addSubview(self.dailyTableView)
+        self.dailyTableView.layer.borderColor = UIColor.primaryColor?.withAlphaComponent(0.3).cgColor
+        self.dailyTableView.layer.borderWidth = 1
+        self.dailyTableView.layer.cornerRadius = 10
         NSLayoutConstraint.activate([
             self.dailyTableView.topAnchor.constraint(equalTo: self.myCalendarView.bottomAnchor, constant: 10),
             self.dailyTableView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
@@ -55,8 +59,7 @@ class PreviousDailyBudgetVC: UIViewController {
             self.dailyTableView.bottomAnchor.constraint(equalTo: self.addBtn.topAnchor, constant: -10)
         ])
         
-        #warning("TODO: - tableView 백그라운드 컬러 나중에 바꾸기")
-        self.dailyTableView.backgroundColor = UIColor.systemCyan
+        self.dailyTableView.backgroundColor = UIColor.backgroundColor?.withAlphaComponent(0.9)
         
         self.dailyTableView.isHidden = true
         let cellNib = UINib(nibName: PreviousDailyBudgetTableViewCell.reuseIdentifier, bundle: .main)
@@ -69,7 +72,7 @@ class PreviousDailyBudgetVC: UIViewController {
         vm.budgetList
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { (budgetList: [Budget]) in
-                
+                self.dummies = budgetList.filter({ $0.date.toDateString() == Date.now.toDateString() })
                 // 목표: budgetList의 date를 키값으로 하는 딕셔너리를 만들어서 테이블뷰에 보여준다.
                 // 1. budgetList의 date를 받아온다.
                 // 2. dateDictionary의 키값으로 budgetList의 date를 넣고 value를 Budget으로 만든다.
@@ -149,7 +152,6 @@ extension PreviousDailyBudgetVC: FSCalendarDelegate {
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print(#fileID, #function, #line, "- didSelect: \(date.toDateString()), monthPosition: \(monthPosition)")
-        #warning("TODO: - Date를 파싱하는 법")
        
         // index - at
         //
@@ -186,11 +188,11 @@ extension PreviousDailyBudgetVC: UITableViewDataSource {
         cell.cellData = cellData
         cell.indexPath = indexPath
         
-        guard let title = cellData.title,
-              let price = cellData.price else { return cell }
+//        guard let title = cellData.title,
+//              let price = cellData.price else { return cell }
         
-        cell.titleLabel.text = title
-        cell.priceLabel.text = "\(price)원"
+        cell.titleLabel.text = cellData.title
+        cell.priceLabel.text = "\(cellData.price)원"
         
         
         return cell

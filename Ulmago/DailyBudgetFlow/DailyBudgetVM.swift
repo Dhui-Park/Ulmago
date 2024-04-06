@@ -9,6 +9,8 @@ import Foundation
 import RxSwift
 import RxRelay
 import RxCocoa
+import Realm
+import RealmSwift
 import UIKit
 
 class DailyBudgetVM {
@@ -54,7 +56,7 @@ class DailyBudgetVM {
         
         //
         
-        self.budgetList.accept(BudgetRepository.shared.fetchBudgets())
+        self.budgetList.accept(BudgetRepository.shared.fetchBudgetsFromBudgetEntity())
         
         self.updateDailySpend()
         
@@ -111,12 +113,30 @@ class DailyBudgetVM {
     
     // 테이블뷰에 새로운 Budget 추가
     func addToTableView(newTitle: String, newPrice: Int) {
-        self.budgetList.accept(self.budgetList.value + [Budget(title: newTitle, price: newPrice)])
+        BudgetRepository.shared.createBudget(title: newTitle, price: newPrice, date: Date.now)
+        self.budgetList.accept(BudgetRepository.shared.fetchBudgetsFromBudgetEntity())
+        
     }
     
     // 테이블 뷰의 선택한 Budget 삭제
     func deleteTableViewItem(indexPath: IndexPath) {
         var currentBudgetList = self.budgetList.value
+        print(#fileID, #function, #line, "- currentBudgetList: \(currentBudgetList)")
+
+        #warning("TODO: - 왜 삭제가 바로바로 적용이 안될까? - 1.objectId가 제대로 들어오지 않나? 2. BudgetRepository의 deleteABudget이 제대로 작동하지 않나?")
+        #warning("TODO: - 아하!! 테이블뷰에 추가할때 vm의 budgetList에 realm에 추가된거까지 제대로 반영이 되지 않고 있었다.")
+        print(#fileID, #function, #line, "- \(currentBudgetList[indexPath.row].id)")
+        // realm에서 지우기
+        guard let deletingItemObjectId: String = currentBudgetList[indexPath.row].id else {
+            print(#fileID, #function, #line, "- id를 못찾겠군요")
+            return
+        }
+        let objectId = try! ObjectId(string: deletingItemObjectId)
+        BudgetRepository.shared.deleteABudget(at: objectId)
+        
+//        BudgetRepository.shared.deleteAllBudgets()
+        
+        // UI dataList에서 지우기
         currentBudgetList.remove(at: indexPath.row)
         self.budgetList.accept(currentBudgetList)
     }

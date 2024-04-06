@@ -89,6 +89,10 @@ class WholeCostSettingVC: UIViewController {
             return DailyExpenseSettingVC(coder: coder, goalText: self.goalText, wholeCost: Int(wholeCostText) ?? 0)
         })
         
+        if let userGoal = UserGoalRepository.shared.fetchUserGoalEntities().first {
+            UserGoalRepository.shared.editUserGoal(at: userGoal._id, updatedGoalTitle: nil, updatedGoalPrice: Int(wholeCostText) ?? 0)
+        }
+        
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

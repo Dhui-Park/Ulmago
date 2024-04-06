@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+import Realm
+import RealmSwift
 import SwiftAlertView
 
 class DailyBudgetTableViewCell: UITableViewCell {
@@ -76,8 +78,13 @@ class DailyBudgetTableViewCell: UITableViewCell {
                     // 3. 사용자가 수정하면 수정한 내용을 데이터리스트에 수정한다.
                     // 4. 수정한 내용을 테이블뷰에 반영한다.
                     var editedBudgetList = vm.budgetList.value
-                    editedBudgetList[indexPath.row] = Budget(title: breakdown, price: Int(amountOfMoney) ?? 0)
-                    vm.budgetList.accept(editedBudgetList)
+                    if let editingItemObjectId = editedBudgetList[indexPath.row].id {
+                        let objectId = try! ObjectId(string: editingItemObjectId)
+//                        BudgetRepository.shared.editBudget(at: objectId, params: ["title" : breakdown,
+//                                                                                  "price" : Int(amountOfMoney) ?? 0])
+                        BudgetRepository.shared.editBudget(at: objectId, updatedTitle: breakdown, updatedPrice: Int(amountOfMoney) ?? 0)
+                    }
+                    vm.budgetList.accept(BudgetRepository.shared.fetchBudgetsFromBudgetEntity())
                     vm.updateDailySpend()
                     alertView.dismiss()
                 }
@@ -119,6 +126,7 @@ class DailyBudgetTableViewCell: UITableViewCell {
                 self.vm.deleteTableViewItem(indexPath: indexPath)
                 // 오늘 하루 소비 금액 업데이트
                 self.vm.updateDailySpend()
+                
             default:
                 print("default btn clicked")
             }

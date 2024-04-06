@@ -10,6 +10,10 @@ import UIKit
 
 extension Date {
     
+    
+    /// Date를 String으로 변환시켜준다.
+    /// - Parameter dateFormat: 어떤 Date 타입으로 변환할지 포매팅 타입
+    /// - Returns: String
     func toDateString(dateFormat: String = "yyyy-MM-dd") -> String {
         
         let dateFormatter = DateFormatter()
@@ -23,6 +27,10 @@ extension Date {
 
 extension String {
     
+    
+    /// String을 Date 타입으로 변환시켜준다.
+    /// - Parameter dateFormat: 어떤 Date 타입으로 변환할지 포매팅 타입
+    /// - Returns: Date
     func toDate(dateFormat: String = "yyyy-MM-dd") -> Date {
         
         let dateFormatter = DateFormatter()

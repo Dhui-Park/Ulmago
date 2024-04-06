@@ -65,13 +65,22 @@ class BudgetEntity: Object {
         self.price = price
         self.date = date
     }
+    
+    
 }
 
 
 class BudgetRepository {
     
+    // Singleton Pattern
     static let shared = BudgetRepository()
+   
     
+    /// 로컬에 single Budget 추가하기
+    /// - Parameters:
+    ///   - title: 추가할 Budget의 제목
+    ///   - price: 추가할 Budget의 금액
+    ///   - date: 추가할 Budget의 날짜. 넣지 않으면 현재 날짜로 추가된다.
     func createBudget(title: String, price: Int, date: Date) {
         
         let newBudget = BudgetEntity(title: title, price: price, date: date)
@@ -83,10 +92,10 @@ class BudgetRepository {
             // Add the instance to the realm.
             realm.add(newBudget)
         }
-        
-        
     }
     
+    /// All Budgets 조회하기
+    /// - Returns: Array of BudgetEntities
     func fetchBudgetEntities() -> [BudgetEntity] {
         let realm = try! Realm()
         // Access all dogs in the realm
@@ -95,6 +104,10 @@ class BudgetRepository {
         return allBudgets.map{ $0 }
     }
     
+    
+    /// Single Budget 조회하기
+    /// - Parameter forPrimaryKey: 조회할 Budget의 PrimaryKey
+    /// - Returns: single BudgetEntity or nil
     func fetchABudget(at forPrimaryKey: ObjectId) -> BudgetEntity? {
         let realm = try! Realm()
         let specificBudget = realm.object(ofType: BudgetEntity.self, forPrimaryKey: forPrimaryKey)
@@ -102,6 +115,7 @@ class BudgetRepository {
         return specificBudget
     }
     
+    /// All Budgets 삭제하기
     func deleteAllBudgets() {
         let realm = try! Realm()
         
@@ -112,17 +126,28 @@ class BudgetRepository {
         }
     }
     
+    /// Single Budget 삭제하기
+    /// - Parameter forPrimaryKey: 삭제할 Budget의 PrimaryKey
     func deleteABudget(at forPrimaryKey: ObjectId) {
         
         if let budgetToDelete = self.fetchABudget(at: forPrimaryKey) {
+            print(#fileID, #function, #line, "- fetchABudget: \(budgetToDelete)")
             let realm = try! Realm()
             // Delete the instance from the realm.
             try! realm.write {
                 realm.delete(budgetToDelete)
             }
+        } else {
+            if let budgetToDelete = self.fetchBudgetEntities().filter({ $0._id == forPrimaryKey }).first {
+                let realm = try! Realm()
+                // Delete the instance from the realm.
+                try! realm.write {
+                    realm.delete(budgetToDelete)
+                }
+            }
         }
-        
     }
+    
     
     struct UpdateParms {
         var title : String?
@@ -130,13 +155,17 @@ class BudgetRepository {
     }
     
     func someTest (){
-        editBudget(at: ObjectId(), params: ["title" : "sdfsdf", 
-                                            "price" : 123])
+//        editBudget(at: ObjectId(), params: ["title" : "sdfsdf", 
+//                                            "price" : 123])
     }
     
     
-    func editBudget(at forPrimaryKey: ObjectId, params: [String: Any]) {
-//    func editBudget(at forPrimaryKey: ObjectId, updatedTitle: String?, updatedPrice: Int?) {
+    /// Single Budget 수정하기
+    /// - Parameters:
+    ///   - forPrimaryKey: 수정할 Budget의 PrimaryKey
+    ///   - params: 수정할 내용
+//    func editBudget(at forPrimaryKey: ObjectId, params: [String: Any]) {
+    func editBudget(at forPrimaryKey: ObjectId, updatedTitle: String?, updatedPrice: Int?) {
         
         let realm = try! Realm()
         // Get a dog to update
@@ -144,18 +173,15 @@ class BudgetRepository {
             // Open a thread-safe transaction
             try! realm.write {
                 
-                if case let updatedTitle? = params["title"] as? String {
-                    budgetToEdit.title = updatedTitle
-                }
-                
-                // Update some properties on the instance.
-                // These changes are saved to the realm
-//                if case let updatedTitle? = updatedTitle {
+//                if case let updatedTitle? = params["title"] as? String {
 //                    budgetToEdit.title = updatedTitle
 //                }
-//                if case let updatedPrice? = updatedPrice {
-//                    budgetToEdit.price = updatedPrice
-//                }
+                if let updatedTitle = updatedTitle {
+                    budgetToEdit.title = updatedTitle
+                }
+                if let updatedPrice = updatedPrice {
+                    budgetToEdit.price = updatedPrice
+                }
             }
             
         }
@@ -163,9 +189,15 @@ class BudgetRepository {
     
     // ======
     
-    func fetchBudgets() -> [Budget] {
+    
+    /// BudgetEntity를 Budget으로 바꿔주기
+    /// - Returns: Array of Budget
+    func fetchBudgetsFromBudgetEntity() -> [Budget] {
         
         return fetchBudgetEntities().map({ Budget(entity: $0) })
         
     }
+    
+    
+    
 }

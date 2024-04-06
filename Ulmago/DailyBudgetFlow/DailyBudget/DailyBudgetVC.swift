@@ -151,7 +151,7 @@ class DailyBudgetVC: UIViewController {
             // 경고 얼럿 화면 띄우기
             SwiftAlertView.show(title: "내역 입력 없이 돌아가시겠습니까?", message: "오늘의 소비를 입력하지 않았습니다.", buttonTitles: "메인으로", "입력하기") { alertView in
                 alertView.backgroundColor = .backgroundColor
-                alertView.cancelButtonIndex = 1
+                alertView.cancelButtonIndex = 0
                 alertView.buttonTitleColor = .primaryColor ?? .black
                 alertView.transitionType = .fade
             }
@@ -192,12 +192,12 @@ extension DailyBudgetVC: UITableViewDataSource {
         let cellData = self.tempBudgetList[indexPath.row]
         cell.cellData = cellData
         cell.indexPath = indexPath
+//        
+//        guard let title = cellData.title,
+//              let price = cellData.price else { return cell }
         
-        guard let title = cellData.title,
-              let price = cellData.price else { return cell }
-        
-        cell.titleLabel.text = title
-        cell.priceLabel.text = "\(price)원"
+        cell.titleLabel.text = cellData.title
+        cell.priceLabel.text = "\(cellData.price)원"
         
         return cell
     }

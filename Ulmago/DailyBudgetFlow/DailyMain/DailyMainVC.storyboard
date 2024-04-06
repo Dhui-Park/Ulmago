@@ -33,27 +33,27 @@
                                     <constraint firstItem="GiT-uc-Nzh" firstAttribute="top" secondItem="hag-DM-Ji6" secondAttribute="top" constant="45" id="uao-3q-UUn"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U1D-nq-7ij">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="목표를 위해" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U1D-nq-7ij">
                                 <rect key="frame" x="30" y="112.33333333333333" width="333" height="26.333333333333329"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Cf-kj-7ob">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="몇% 썼어요" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Cf-kj-7ob">
                                 <rect key="frame" x="30" y="408.66666666666669" width="333" height="26.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Omx-Di-ISd" customClass="ALProgressBar" customModule="ALProgressView">
-                                <rect key="frame" x="30" y="485" width="333" height="30"/>
+                                <rect key="frame" x="30" y="505" width="333" height="30"/>
                                 <color key="backgroundColor" name="backgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="2b3-IB-fgB"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오늘은 이만큼 쓸 수 있어요!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yIe-i1-8ZV">
-                                <rect key="frame" x="30" y="535" width="333" height="26.333333333333371"/>
+                                <rect key="frame" x="30" y="555" width="333" height="26.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -87,15 +87,23 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="남은 소비 한도" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nbf-hk-HWt">
+                                <rect key="frame" x="30" y="458.66666666666669" width="333" height="26.333333333333314"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
+                            <constraint firstItem="nbf-hk-HWt" firstAttribute="trailing" secondItem="1Cf-kj-7ob" secondAttribute="trailing" id="6vQ-rK-g6l"/>
+                            <constraint firstItem="Omx-Di-ISd" firstAttribute="top" secondItem="nbf-hk-HWt" secondAttribute="bottom" constant="20" id="BPA-EI-RAE"/>
                             <constraint firstItem="U1D-nq-7ij" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="CEb-4k-2ij"/>
                             <constraint firstItem="hag-DM-Ji6" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="Eis-lL-3m5"/>
-                            <constraint firstItem="Fbk-55-2di" firstAttribute="top" secondItem="yIe-i1-8ZV" secondAttribute="bottom" constant="50" id="Fpv-x1-qZL"/>
+                            <constraint firstItem="Fbk-55-2di" firstAttribute="top" secondItem="yIe-i1-8ZV" secondAttribute="bottom" constant="30" id="Fpv-x1-qZL"/>
                             <constraint firstItem="yIe-i1-8ZV" firstAttribute="top" secondItem="Omx-Di-ISd" secondAttribute="bottom" constant="20" id="Hj0-xM-fHD"/>
-                            <constraint firstItem="Omx-Di-ISd" firstAttribute="top" secondItem="1Cf-kj-7ob" secondAttribute="bottom" constant="50" id="Hk7-Pi-HrK"/>
+                            <constraint firstItem="Omx-Di-ISd" firstAttribute="top" secondItem="1Cf-kj-7ob" secondAttribute="bottom" constant="70" id="Hk7-Pi-HrK"/>
                             <constraint firstItem="hag-DM-Ji6" firstAttribute="top" secondItem="U1D-nq-7ij" secondAttribute="bottom" constant="30" id="Hnd-U8-TV9"/>
                             <constraint firstItem="Omx-Di-ISd" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="PaE-RF-tee"/>
                             <constraint firstItem="yIe-i1-8ZV" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="SFG-pB-bav"/>
@@ -105,6 +113,7 @@
                             <constraint firstItem="hag-DM-Ji6" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="76" id="fC9-BW-nb3"/>
                             <constraint firstItem="Fbk-55-2di" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="jUo-DG-V7w"/>
                             <constraint firstItem="Omx-Di-ISd" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="kiC-K1-hl7"/>
+                            <constraint firstItem="nbf-hk-HWt" firstAttribute="leading" secondItem="1Cf-kj-7ob" secondAttribute="leading" id="pok-b7-z2Y"/>
                             <constraint firstItem="U1D-nq-7ij" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="53.333333333333329" id="rMd-iN-6dR"/>
                             <constraint firstItem="1Cf-kj-7ob" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="v3E-nT-P1Y"/>
                             <constraint firstItem="1Cf-kj-7ob" firstAttribute="top" secondItem="hag-DM-Ji6" secondAttribute="bottom" constant="20" id="w4h-GC-FTr"/>
@@ -118,6 +127,7 @@
                         <outlet property="previousBudgetSubmitBtn" destination="DFb-Ay-QzB" id="zDd-VP-Wxp"/>
                         <outlet property="progressRing" destination="hag-DM-Ji6" id="vvy-ux-kap"/>
                         <outlet property="progressTextLabel" destination="1Cf-kj-7ob" id="lFw-dV-p3F"/>
+                        <outlet property="todaysExpenseLabel" destination="nbf-hk-HWt" id="1ib-B5-bwU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -11,6 +11,7 @@
 		B72CDB6F2BBB1C550026EEB0 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = B72CDB6E2BBB1C550026EEB0 /* Realm */; };
 		B72CDB712BBB1C550026EEB0 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B72CDB702BBB1C550026EEB0 /* RealmSwift */; };
 		B72CDB732BBBBD010026EEB0 /* Date+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72CDB722BBBBD010026EEB0 /* Date+String.swift */; };
+		B72CDB752BC11D260026EEB0 /* UserGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72CDB742BC11D260026EEB0 /* UserGoal.swift */; };
 		B76465762BB2031C0020F130 /* Formatter+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76465752BB2031C0020F130 /* Formatter+Ext.swift */; };
 		B76465792BB2A2AE0020F130 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = B76465782BB2A2AE0020F130 /* FSCalendar */; };
 		B764657D2BB45BB40020F130 /* PreviousDailyBudgetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B764657C2BB45BB40020F130 /* PreviousDailyBudgetTableViewCell.xib */; };
@@ -77,6 +78,7 @@
 		B70718282BB155A200A50C64 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B70718292BB1603D00A50C64 /* DailyBudgetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyBudgetVM.swift; sourceTree = "<group>"; };
 		B72CDB722BBBBD010026EEB0 /* Date+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+String.swift"; sourceTree = "<group>"; };
+		B72CDB742BC11D260026EEB0 /* UserGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGoal.swift; sourceTree = "<group>"; };
 		B76465752BB2031C0020F130 /* Formatter+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+Ext.swift"; sourceTree = "<group>"; };
 		B764657C2BB45BB40020F130 /* PreviousDailyBudgetTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreviousDailyBudgetTableViewCell.xib; sourceTree = "<group>"; };
 		B764657E2BB462420020F130 /* PreviousDailyBudgetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousDailyBudgetTableViewCell.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				B7B300972BAEA4CB0082982F /* Budget.swift */,
+				B72CDB742BC11D260026EEB0 /* UserGoal.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -470,6 +473,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B72CDB752BC11D260026EEB0 /* UserGoal.swift in Sources */,
 				B72CDB732BBBBD010026EEB0 /* Date+String.swift in Sources */,
 				B7CE474A2BA314D800F2805F /* WholeCostSettingVC.swift in Sources */,
 				B7F012142B9F2E74004027CA /* ViewController.swift in Sources */,

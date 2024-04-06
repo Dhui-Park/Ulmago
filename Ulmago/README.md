@@ -34,7 +34,7 @@ UserGoal - 사용자가 직접 설정한 목표들
         하루 소비 한도 금액: Int
 
 Budget - 일일 가계부 화면에서 사용자가 입력한 내역, 금액
-        id: UUID - Primary Key
+        id: ObjectID - Primary Key
         제목: String
         소비 금액: Int
         날짜: Date

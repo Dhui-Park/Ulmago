@@ -78,12 +78,14 @@ class ViewController: UIViewController {
     @IBAction func submitBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- 목표 설정 완료 버튼 클릭")
         
-        guard let dataToSend: String = self.goalTextField.text else { return }
+        guard let goalTitle: String = self.goalTextField.text else { return }
         
         let storyboard = UIStoryboard(name: WholeCostSettingVC.reuseIdentifier, bundle: .main)
         let vc = storyboard.instantiateViewController(identifier: WholeCostSettingVC.reuseIdentifier, creator: { coder in
-            return WholeCostSettingVC(coder: coder, goalText: dataToSend)
+            return WholeCostSettingVC(coder: coder, goalText: goalTitle)
         })
+        
+        UserGoalRepository.shared.createUserGoal(goalTitle: goalTitle)
         
         self.navigationController?.pushViewController(vc, animated: true)
         
