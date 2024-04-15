@@ -18,13 +18,50 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-//        let uiWindow = UIWindow(windowScene: windowScene)
+        let uiWindow = UIWindow(windowScene: windowScene)
 //        
-//        uiWindow.rootViewController = PreviousDailyBudgetVC.createInstance() ?? UIViewController()
+//        // 사용자가 이전에 접속해서 UserGoal을 이미 작성했을 때(UserGoal이 이미 존재할 때)
+        if let userGoal = UserGoalRepository.shared.fetchUserGoalEntities().first {
+            if userGoal.goalPrice == 0 {
+                let storyboard = UIStoryboard(name: WholeCostSettingVC.reuseIdentifier, bundle: .main)
+                let vc = storyboard.instantiateViewController(identifier: WholeCostSettingVC.reuseIdentifier, creator: { coder in
+                    return WholeCostSettingVC(coder: coder, goalText: userGoal.goalTitle)
+                })/* as? PreviousDailyBudgetVC*/
+                
+                let navigationController = UINavigationController(rootViewController: vc)
+                
+                uiWindow.rootViewController = navigationController
+                
+                
+            } else if userGoal.dailyExpenseLimit == 0 {
+                let storyboard = UIStoryboard(name: DailyExpenseSettingVC.reuseIdentifier, bundle: .main)
+                let vc = storyboard.instantiateViewController(identifier: DailyExpenseSettingVC.reuseIdentifier, creator: { coder in
+                    return DailyExpenseSettingVC(coder: coder, goalText: userGoal.goalTitle, wholeCost: userGoal.goalPrice)
+                })/* as? PreviousDailyBudgetVC*/
+                let navigationController = UINavigationController(rootViewController: vc)
+                
+                uiWindow.rootViewController = navigationController
+            } else {
+                let storyboard = UIStoryboard(name: DailyMainVC.reuseIdentifier, bundle: .main)
+                let vc = storyboard.instantiateViewController(identifier: DailyMainVC.reuseIdentifier, creator: { coder in
+                    return DailyMainVC(coder: coder, goalText: "\(userGoal.goalTitle)", wholeCostText: "\(userGoal.goalPrice)", dailyExpense: "\(userGoal.dailyExpenseLimit)")
+                })/* as? PreviousDailyBudgetVC*/
+                let navigationController = UINavigationController(rootViewController: vc)
+                
+                uiWindow.rootViewController = navigationController
+                #warning("TODO: - 뒤로 가기가 안된다. rootViewController가 DailyMainVC이기 때문에")
+            }
 //        
-//        window = uiWindow
+//        let vc = PreviousDailyBudgetVC.createInstance()
+//        uiWindow.rootViewController = vc
 //        
-//        uiWindow.makeKeyAndVisible()
+        window = uiWindow
+        
+        uiWindow.makeKeyAndVisible()
+            
+            
+        }
+        
         
     }
 

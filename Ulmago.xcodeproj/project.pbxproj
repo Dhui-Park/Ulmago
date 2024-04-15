@@ -25,6 +25,7 @@
 		B772A0C32BA609D4001059B6 /* DailyBudgetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B772A0C22BA609D4001059B6 /* DailyBudgetVC.swift */; };
 		B7742B622BB0853200B2480B /* SwiftAlertView in Frameworks */ = {isa = PBXBuildFile; productRef = B7742B612BB0853200B2480B /* SwiftAlertView */; };
 		B7742B642BB08B9100B2480B /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7742B632BB08B9100B2480B /* UIColor+Ext.swift */; };
+		B786B44F2BC6B3C10023F4D5 /* UGAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B786B44E2BC6B3C10023F4D5 /* UGAlertView.swift */; };
 		B79278F82BA93EC9002646F7 /* UIButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79278F72BA93EC9002646F7 /* UIButton+Ext.swift */; };
 		B79278FA2BA95D12002646F7 /* DailyExpenseSettingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79278F92BA95D12002646F7 /* DailyExpenseSettingVM.swift */; };
 		B79279012BA9F817002646F7 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79279002BA9F817002646F7 /* UIViewController+Ext.swift */; };
@@ -89,6 +90,7 @@
 		B772A0C02BA609A5001059B6 /* DailyBudgetVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DailyBudgetVC.storyboard; sourceTree = "<group>"; };
 		B772A0C22BA609D4001059B6 /* DailyBudgetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyBudgetVC.swift; sourceTree = "<group>"; };
 		B7742B632BB08B9100B2480B /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
+		B786B44E2BC6B3C10023F4D5 /* UGAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UGAlertView.swift; sourceTree = "<group>"; };
 		B79278F72BA93EC9002646F7 /* UIButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
 		B79278F92BA95D12002646F7 /* DailyExpenseSettingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyExpenseSettingVM.swift; sourceTree = "<group>"; };
 		B79279002BA9F817002646F7 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
@@ -164,6 +166,14 @@
 				B7C0BF942BABF3EA00EEB03F /* PreviousDailyBudget */,
 			);
 			path = DailyBudgetFlow;
+			sourceTree = "<group>";
+		};
+		B786B44D2BC6B39F0023F4D5 /* AlertView */ = {
+			isa = PBXGroup;
+			children = (
+				B786B44E2BC6B3C10023F4D5 /* UGAlertView.swift */,
+			);
+			path = AlertView;
 			sourceTree = "<group>";
 		};
 		B79278FB2BA95D64002646F7 /* DailyExpenseSetting */ = {
@@ -287,6 +297,7 @@
 		B7F0120E2B9F2E74004027CA /* Ulmago */ = {
 			isa = PBXGroup;
 			children = (
+				B786B44D2BC6B39F0023F4D5 /* AlertView */,
 				B70718282BB155A200A50C64 /* README.md */,
 				B7B300962BAEA4BA0082982F /* Data */,
 				B7CE47442BA2FE9600F2805F /* Extension */,
@@ -500,6 +511,7 @@
 				B7B300982BAEA4CB0082982F /* Budget.swift in Sources */,
 				B79278F82BA93EC9002646F7 /* UIButton+Ext.swift in Sources */,
 				B707182A2BB1603D00A50C64 /* DailyBudgetVM.swift in Sources */,
+				B786B44F2BC6B3C10023F4D5 /* UGAlertView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

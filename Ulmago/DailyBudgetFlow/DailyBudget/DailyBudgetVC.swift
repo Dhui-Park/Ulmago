@@ -54,9 +54,19 @@ class DailyBudgetVC: UIViewController {
         // 화면 상단에 사용자가 이전에 설정한 오늘의 소비한도금액 표시
         #warning("TODO: - dailyExpense - dailySpend 로 연동하기")
         vm.remainedDailyExpense
-            .map { $0 > 0 ? "오늘의 남은 소비 한도: \($0.formattedWithSeparator)원" : "오늘은 \(abs($0).formattedWithSeparator)원 더 썼어요ㅠㅠ" }
+            .map { $0 >= 0 ? "오늘의 남은 소비 한도: \($0.formattedWithSeparator)원" : "오늘은 \(abs($0).formattedWithSeparator)원 더 썼어요ㅠㅠ" }
             .bind(to: self.todaysExpenseLabel.rx.text)
             .disposed(by: disposeBag)
+        
+        // 목표: 완료 버튼을 누르면 [목표금액 / 모든 날들의 남은 소비 한도]를 적용시키기
+        // 1. 완료버튼 누르는 이벤트를 가져온다.
+        // 2. 각 날짜의 남은 소비 한도를 모두 더해준다.
+        // 3. 목표 금액을 모든 날들의 남은 소비한도로 나눠준다.
+        // 4. 그것을 vm의 progressPercent에 반영한다.
+        self.submitBtn.rx.tap
+            .subscribe(onNext: {
+                
+            })
         
         // 테이블뷰 하단에 오늘 소비한 금액 표시
         vm.dailySpend
@@ -85,10 +95,11 @@ class DailyBudgetVC: UIViewController {
         
     }
     
-    //MARK: - SwiftAlertView
+    // 추가 버튼 클릭시
     @IBAction func addBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- ")
         SwiftAlertView.show(title: "추가하시겠습니까?", message: "무엇에 얼마를 썼나요?", buttonTitles: "취소", "추가") { alertView in
+//            alertView.cancelButtonIndex = 1
             alertView.addTextField { textField in
                 textField.placeholder = "내역"
                 textField.tintColor = .primaryColor ?? .black
@@ -142,16 +153,18 @@ class DailyBudgetVC: UIViewController {
         
     }
     
+    // 완료 버튼 클릭시
     @IBAction func submitBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- ")
         
-        
+        #warning("TODO: - budgetList에 date 상관없이 isEmpty로 해서 버그가 일어남 - 해결")
         // 1. tableView에 아무 내역도 없으면 경고 얼럿 띄우기
-        if vm.budgetList.value.isEmpty {
+        if !vm.budgetList.value.contains(where: { $0.date.toDateString() == Date.now.toDateString() }) {
+            
             // 경고 얼럿 화면 띄우기
             SwiftAlertView.show(title: "내역 입력 없이 돌아가시겠습니까?", message: "오늘의 소비를 입력하지 않았습니다.", buttonTitles: "메인으로", "입력하기") { alertView in
                 alertView.backgroundColor = .backgroundColor
-                alertView.cancelButtonIndex = 0
+                alertView.cancelButtonIndex = 1
                 alertView.buttonTitleColor = .primaryColor ?? .black
                 alertView.transitionType = .fade
             }
@@ -174,10 +187,9 @@ class DailyBudgetVC: UIViewController {
         }
         
     }
-    
-    
 }
 
+//MARK: - UITableViewDataSource
 extension DailyBudgetVC: UITableViewDataSource {
     
     
@@ -205,12 +217,14 @@ extension DailyBudgetVC: UITableViewDataSource {
     
 }
 
+//MARK: - UITableViewDelegate
 extension DailyBudgetVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(#fileID, #function, #line, "- indexPath: \(indexPath.row)")
     }
 }
 
+//MARK: - UITextFieldDelegate
 extension DailyBudgetVC: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

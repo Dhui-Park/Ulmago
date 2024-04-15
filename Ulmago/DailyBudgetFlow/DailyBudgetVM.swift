@@ -71,7 +71,7 @@ class DailyBudgetVM {
         
         
         
-        #warning("TODO: - ")
+        // 오늘 남은 소비한도
         self.remainedDailyExpense = Observable.combineLatest(dailyExpenseObservable, self.dailySpend.asObservable())
             .debug("remained 1")
             .map { dailyExpense, dailySpend in
@@ -103,6 +103,7 @@ class DailyBudgetVM {
     // 오늘 소비한 금액 업데이트: Budget의 price들만 모두 더하기
     func updateDailySpend() {
         let sum = self.budgetList.value
+            .filter({ $0.date.toDateString() == Date.now.toDateString() })
             .compactMap { $0.price }
             .reduce(0, +)
         
@@ -111,33 +112,54 @@ class DailyBudgetVM {
         
     }
     
+    // 모든 남은 소비 금액들 더하기
+    func updateWholeDailySpend() {
+        let wholeSum = self.budgetList.value
+            .filter({ $0.date.toDateString() == Date.now.toDateString() })
+            .compactMap { $0.price }
+            .reduce(0, +)
+    }
+    
     // 테이블뷰에 새로운 Budget 추가
-    func addToTableView(newTitle: String, newPrice: Int) {
-        BudgetRepository.shared.createBudget(title: newTitle, price: newPrice, date: Date.now)
+    func addToTableView(newTitle: String, newPrice: Int, date: Date = Date.now) {
+        BudgetRepository.shared.createBudget(title: newTitle, price: newPrice, date: date)
         self.budgetList.accept(BudgetRepository.shared.fetchBudgetsFromBudgetEntity())
-        
+    }
+    
+    func editTableViewItem(at: ObjectId, newTitle: String, newPrice: Int) {
+        BudgetRepository.shared.editBudget(at: at, updatedTitle: newTitle, updatedPrice: newPrice)
+        self.budgetList.accept(BudgetRepository.shared.fetchBudgetsFromBudgetEntity())
     }
     
     // 테이블 뷰의 선택한 Budget 삭제
-    func deleteTableViewItem(indexPath: IndexPath) {
+    func deleteTableViewItem(_ deletingBudget: Budget) {
         var currentBudgetList = self.budgetList.value
         print(#fileID, #function, #line, "- currentBudgetList: \(currentBudgetList)")
 
         #warning("TODO: - 왜 삭제가 바로바로 적용이 안될까? - 1.objectId가 제대로 들어오지 않나? 2. BudgetRepository의 deleteABudget이 제대로 작동하지 않나?")
         #warning("TODO: - 아하!! 테이블뷰에 추가할때 vm의 budgetList에 realm에 추가된거까지 제대로 반영이 되지 않고 있었다.")
-        print(#fileID, #function, #line, "- \(currentBudgetList[indexPath.row].id)")
+        print(#fileID, #function, #line, "- \(currentBudgetList)")
         // realm에서 지우기
-        guard let deletingItemObjectId: String = currentBudgetList[indexPath.row].id else {
-            print(#fileID, #function, #line, "- id를 못찾겠군요")
+        
+        guard let deletingItemObjectId = deletingBudget.objectId else {
             return
         }
-        let objectId = try! ObjectId(string: deletingItemObjectId)
-        BudgetRepository.shared.deleteABudget(at: objectId)
+        let date = deletingBudget.date
+        
+        BudgetRepository.shared.deleteABudget(at: deletingItemObjectId)
         
 //        BudgetRepository.shared.deleteAllBudgets()
         
         // UI dataList에서 지우기
-        currentBudgetList.remove(at: indexPath.row)
-        self.budgetList.accept(currentBudgetList)
+        
+        // 버젯리스트에서 삭제할 해당 쎌을 찾는다.
+        var dummies = self.budgetList.value.filter({ $0.date.toDateString() == date.toDateString() })
+        
+        if let deletingIndex: Int = dummies.firstIndex(where: {
+            return deletingItemObjectId.stringValue == ($0.id ?? "")
+        }) {
+            currentBudgetList.remove(at: deletingIndex)
+            self.budgetList.accept(currentBudgetList)
+        }
     }
 }

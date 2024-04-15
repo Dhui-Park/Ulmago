@@ -17,10 +17,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hag-DM-Ji6" customClass="ALProgressRing" customModule="ALProgressView">
-                                <rect key="frame" x="76" y="168.66666666666663" width="241" height="220"/>
+                                <rect key="frame" x="76" y="212.66666666666663" width="241" height="220"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_letsGo" translatesAutoresizingMaskIntoConstraints="NO" id="GiT-uc-Nzh">
-                                        <rect key="frame" x="40" y="45" width="161" height="130"/>
+                                        <rect key="frame" x="40" y="45.000000000000028" width="161" height="130"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" name="backgroundColor"/>
@@ -34,32 +34,32 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="목표를 위해" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U1D-nq-7ij">
-                                <rect key="frame" x="30" y="112.33333333333333" width="333" height="26.333333333333329"/>
+                                <rect key="frame" x="30" y="156.33333333333334" width="333" height="26.333333333333343"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="몇% 썼어요" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Cf-kj-7ob">
-                                <rect key="frame" x="30" y="408.66666666666669" width="333" height="26.333333333333314"/>
+                                <rect key="frame" x="30" y="452.66666666666669" width="333" height="26.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Omx-Di-ISd" customClass="ALProgressBar" customModule="ALProgressView">
-                                <rect key="frame" x="30" y="505" width="333" height="30"/>
+                                <rect key="frame" x="30" y="549" width="333" height="30"/>
                                 <color key="backgroundColor" name="backgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="2b3-IB-fgB"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오늘은 이만큼 쓸 수 있어요!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yIe-i1-8ZV">
-                                <rect key="frame" x="30" y="555" width="333" height="26.333333333333371"/>
+                                <rect key="frame" x="30" y="599" width="333" height="26.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Fbk-55-2di">
-                                <rect key="frame" x="30" y="611.33333333333337" width="333" height="78.666666666666629"/>
+                                <rect key="frame" x="30" y="655.33333333333337" width="333" height="78.666666666666629"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eLt-gP-3I5">
                                         <rect key="frame" x="0.0" y="0.0" width="333" height="34.333333333333336"/>
@@ -88,7 +88,7 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="남은 소비 한도" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nbf-hk-HWt">
-                                <rect key="frame" x="30" y="458.66666666666669" width="333" height="26.333333333333314"/>
+                                <rect key="frame" x="30" y="502.66666666666669" width="333" height="26.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -120,6 +120,7 @@
                             <constraint firstItem="1Cf-kj-7ob" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="zlH-fx-xpT"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="8OP-9d-G6h"/>
                     <connections>
                         <outlet property="dailyBudgetSubmitBtn" destination="eLt-gP-3I5" id="eHU-d2-Wpz"/>
                         <outlet property="dailyProgressBar" destination="Omx-Di-ISd" id="pXQ-OG-3OW"/>
@@ -132,7 +133,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="140" y="-2"/>
+            <point key="canvasLocation" x="1066.4122137404579" y="-2.1126760563380285"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="LFu-SP-ez7">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="x7S-NG-CEk" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FaN-mM-3Bh">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="UCJ-ad-cPH"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3xB-dy-wPI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="139.69465648854961" y="-2.1126760563380285"/>
         </scene>
     </scenes>
     <resources>

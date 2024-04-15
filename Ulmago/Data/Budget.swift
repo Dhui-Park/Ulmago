@@ -16,6 +16,12 @@ struct Budget {
     var date: Date
     var id: String? = nil
     
+    var objectId : ObjectId? {
+        get {
+            return try? ObjectId(string: id ?? "")
+        }
+    }
+    
     init(title: String, price: Int = 0, date: Date = Date()) {
         self.title = title
         self.price = price

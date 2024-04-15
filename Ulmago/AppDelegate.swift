@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        }
         
 //        BudgetRepository.shared.deleteAllBudgets()
-        UserGoalRepository.shared.deleteAllUserGoals()
+//        UserGoalRepository.shared.deleteAllUserGoals()
         
         
         if let realm = try? Realm() {

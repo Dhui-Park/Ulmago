@@ -78,6 +78,14 @@ class WholeCostSettingVC: UIViewController {
 
     }
     
+    class func createInstance() -> WholeCostSettingVC? {
+        let storyboard = UIStoryboard(name: WholeCostSettingVC.reuseIdentifier, bundle: .main)
+        let vc = storyboard.instantiateViewController(identifier: WholeCostSettingVC.reuseIdentifier, creator: { coder in
+            return WholeCostSettingVC(coder: coder)
+        })/* as? PreviousDailyBudgetVC*/
+        return vc
+    }
+    
     
     @IBAction func submitBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- 총 비용 설정 완료 버튼 클릭")
