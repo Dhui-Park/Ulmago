@@ -30,6 +30,19 @@ class PreviousDailyBudgetVC: UIViewController {
     
     var selectedDate: String = Date.now.toDateString()
     
+    // 데이터 기반으로 생각하기!!
+//    var budgetListIsOpen: Bool = false {
+//        didSet {
+//            if budgetListIsOpen {
+//                self.lookBtn.setTitle("내역 닫기", for: .normal)
+//                self.dailyTableView.isHidden = true
+//            } else {
+//                self.lookBtn.setTitle("내역 보기", for: .normal)
+//                self.dailyTableView.isHidden = false
+//            }
+//        }
+//    }
+    
     // 딕셔너리로 가공
     var dataDictionary: [String: [Budget]] = [:]
     
@@ -86,6 +99,7 @@ class PreviousDailyBudgetVC: UIViewController {
                 self.dataDictionary = Dictionary(grouping: budgetList, by: { $0.date.toDateString() })
                 // 3. 테이블뷰에 보여줄 데이터를 dateDictionary로 교체한다.
                 self.dailyTableView.reloadData()
+                self.myCalendarView.reloadData()
             })
             .disposed(by: disposeBag)
         
@@ -93,8 +107,13 @@ class PreviousDailyBudgetVC: UIViewController {
         // 1. 추가하기 버튼을 tap 한것을 가져온다.
         // 2. 당일날의 테이블뷰에 Budget이 하나 추가된다.
         
+        // 목표: budgetListIsOpen으로 버튼 타이틀 바꾸기
+        // 1. viewModel의 budgetListIsOpen을 구독한다.
+        self.vm.budgetListIsOpen
+            .observe(on: MainScheduler.instance)
+            .bind(to: self.rx.budgetListIsOpen)
+            .disposed(by: disposeBag)
     
-        
     }
     
     class func createInstance() -> PreviousDailyBudgetVC? {
@@ -109,7 +128,9 @@ class PreviousDailyBudgetVC: UIViewController {
     
     @IBAction func lookBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- ")
-//        sender.titleLabel?.text = self.dailyTableView.isHidden ? "내역 보기" : "내역 ㅂ닫기"
+        // UI로 건드리지 말고 데이터에 기반해서 생각하자!
+        self.vm.toggleBudgetListIsOpen()
+        
         if self.myCalendarView.scope == .month {
             self.changeCalendarKind(myCalendar: self.myCalendarView, month: false)
         } else {
@@ -161,8 +182,9 @@ class PreviousDailyBudgetVC: UIViewController {
                         self.vm.addToTableView(newTitle: breakdown, newPrice: Int(amountOfMoney) ?? 0, date: self.selectedDate.toDate())
                         print(#fileID, #function, #line, "- budgetList: \(self.vm.budgetList)")
                         self.vm.updateDailySpend()
-                        self.dummies = self.getBugets(for: self.selectedDate.toDate())
-                        self.dailyTableView.reloadData()
+//                        self.dummies = self.getBugets(for: self.selectedDate.toDate())
+//                        self.dailyTableView.reloadData()
+//                        self.myCalendarView.reloadData()
                     }
                     alertView.dismiss()
                 }
@@ -219,6 +241,22 @@ class PreviousDailyBudgetVC: UIViewController {
 }
 
 extension PreviousDailyBudgetVC: FSCalendarDataSource {
+    
+    func calendar(_ calendar: FSCalendar, subtitleFor date: Date) -> String? {
+        
+        // 활용할 수 있는 데이터: date
+        // 메모가 있을 때 메모의 갯수를 subtitle에 표시한다.
+        // 1. 해당 날짜의 budget 개수를 가져온다.
+        print("\(self.vm.budgetList.value)")
+        var tempBudgetList = self.vm.budgetList.value
+        var budgetsForThatDate = tempBudgetList.filter({ $0.date.toDateString() == date.toDateString() })
+        // 2. 개수를 문자열로 반환해준다.
+        var count = budgetsForThatDate.count
+        if count == 0 {
+            return nil
+        }
+        return "\(count)"
+    }
     
 }
 
@@ -364,5 +402,19 @@ extension PreviousDailyBudgetVC: UITextFieldDelegate {
         }
         
         return false
+    }
+}
+
+private extension Reactive where Base: PreviousDailyBudgetVC {
+    var budgetListIsOpen: Binder<Bool> {
+        return Binder(base) { viewController, isOpen in
+            if isOpen {
+                viewController.lookBtn.setTitle("내역 닫기", for: .normal)
+                viewController.dailyTableView.isHidden = true
+            } else {
+                viewController.lookBtn.setTitle("내역 보기", for: .normal)
+                viewController.dailyTableView.isHidden = false
+            }
+        }
     }
 }

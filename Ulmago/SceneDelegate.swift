@@ -48,6 +48,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 })/* as? PreviousDailyBudgetVC*/
                 let navigationController = UINavigationController(rootViewController: vc)
                 
+                
+//                uiWindow.rootViewController = SecondVC(nibName: "SecondVC", bundle: nil)
+                
+//                uiWindow.rootViewController = TestVC.createInstance()
+                
                 uiWindow.rootViewController = navigationController
                 #warning("TODO: - 뒤로 가기가 안된다. rootViewController가 DailyMainVC이기 때문에")
             }

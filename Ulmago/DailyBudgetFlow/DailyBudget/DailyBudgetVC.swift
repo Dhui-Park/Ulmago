@@ -76,6 +76,7 @@ class DailyBudgetVC: UIViewController {
         
         // 테이블뷰 삭제, 수정 기능
         vm.budgetList
+            .debug("🚩")
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { (budgetList: [Budget]) in
                 // 1. 날짜가 오늘인 budget을 가져온다.
@@ -187,6 +188,8 @@ class DailyBudgetVC: UIViewController {
         }
         
     }
+    
+    
 }
 
 //MARK: - UITableViewDataSource
@@ -197,19 +200,100 @@ extension DailyBudgetVC: UITableViewDataSource {
         return self.tempBudgetList.count
     }
     
+    fileprivate func showEditingAlertView(_ budget: Budget) {
+        // 목표: 테이블뷰쎌의 해당 버튼을 클릭하면 Budget의 title과 price를 변경할 수 있게 한다.
+        // 1. 클릭한 쎌의 인덱스패스로 어떤 쎌인지 받아온다.
+        
+        // 2. 해당 쎌의 title과 price를 변경할 수 있게 수정 얼럿 화면을 띄운다.
+        SwiftAlertView.show(title: "수정하시겠습니까?", buttonTitles: "취소", "수정") { alertView in
+            alertView.addTextField { textField in
+                // 2-1. 수정 얼럿 화면에는 원래 title과 price가 각 텍스트필드의 text로 자리잡고 있다.
+                textField.text = budget.title
+                textField.tintColor = .primaryColor ?? .black
+            }
+            alertView.addTextField { textField in
+                textField.text = "\(budget.price)"
+                textField.keyboardType = .numberPad
+                textField.tintColor = .primaryColor ?? .black
+                textField.delegate = self
+            }
+            alertView.isEnabledValidationLabel = true
+            alertView.isDismissOnActionButtonClicked = false
+            alertView.backgroundColor = .backgroundColor
+            alertView.buttonTitleColor = .primaryColor ?? .blue
+        }
+        .onActionButtonClicked { [weak self] alertView, buttonIndex in
+            
+            guard let self = self else { return }
+            
+            guard let breakdown = alertView.textField(at: 0)?.text,
+                  let amountOfMoney = alertView.textField(at: 1)?.text else { return }
+            
+            switch buttonIndex {
+            case 0:
+                print(#fileID, #function, #line, "- cancel btn clicked")
+            case 1:
+                print(#fileID, #function, #line, "- ok btn clicked")
+                if breakdown.isEmpty {
+                    alertView.validationLabel.text = "내역이 비어있습니다."
+                } else if amountOfMoney.isEmpty {
+                    alertView.validationLabel.text = "금액을 입력해주세요"
+                } else {
+                    // 3. 사용자가 수정하면 수정한 내용을 데이터리스트에 수정한다.
+                    // 4. 수정한 내용을 테이블뷰에 반영한다.
+                    guard let objectId = budget.objectId else { return }
+                    vm.editTableViewItem(at: objectId, newTitle: breakdown, newPrice: Int(amountOfMoney) ?? 0)
+                    vm.updateDailySpend()
+                    alertView.dismiss()
+                }
+                
+            default:
+                print(#fileID, #function, #line, "- ")
+            }
+        }
+        .onTextChanged { _, text, textFieldIndex in
+            if textFieldIndex == 0 {
+                print("Username text changed: ", text ?? "")
+            }
+        }
+    }
+    
+    #warning("TODO: - 왜 tableView reload가 되지 않지?")
+    fileprivate func showDeletingAlertView(_ budget: Budget) {
+        SwiftAlertView.show(title: "삭제하시겠습니까?", buttonTitles: "취소", "삭제") { alertView in
+            alertView.backgroundColor = .backgroundColor
+            alertView.buttonTitleColor = .primaryColor ?? .black
+        }
+        .onButtonClicked({ [weak self] alertView, buttonIndex in
+            guard let self = self else { return }
+            switch buttonIndex {
+            case 0:
+                print("buttonIndex: \(buttonIndex)")
+            case 1:
+                print("buttonIndex: \(buttonIndex)")
+                
+                // 1. 클릭한 쎌의 인덱스패스로 어떤 쎌인지 받아온다.
+                // 2. 해당 쎌을 데이터리스트에서 삭제한다.
+                // 3. 삭제한 내용을 테이블뷰에 반영한다.
+                
+                self.vm.deleteTableViewItem(budget)
+                // 뷰컨에 삭제 이벤트만 전달 후 뷰컨에서 삭제
+                
+                // 오늘 하루 소비 금액 업데이트
+                self.vm.updateDailySpend()
+            default:
+                print("default btn clicked")
+            }
+        })
+    }
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "DailyBudgetTableViewCell") as? DailyBudgetTableViewCell else { return UITableViewCell() }
         
         
-        let cellData = self.tempBudgetList[indexPath.row]
-        cell.cellData = cellData
-        cell.indexPath = indexPath
-//        
-//        guard let title = cellData.title,
-//              let price = cellData.price else { return cell }
-        
-        cell.titleLabel.text = cellData.title
-        cell.priceLabel.text = "\(cellData.price)원"
+        cell.configureUI(cellData: self.tempBudgetList[indexPath.row],
+                         deletingBtnClicked: self.showDeletingAlertView(_:), editBtnClicked: self.showEditingAlertView(_:))
         
         return cell
     }

@@ -24,13 +24,9 @@ class PreviousDailyBudgetTableViewCell: UITableViewCell {
     
     var cellData: Budget? = nil
     
-//    var indexPath: IndexPath? = nil
-    
     var editBtnClicked: ((Budget) -> Void)? = nil
     
     var deleteBtnClicked: ((Budget) -> Void)? = nil
-    
-//    var vm: DailyBudgetVM = DailyBudgetVM.shared
     
     override func awakeFromNib() {
         super.awakeFromNib()

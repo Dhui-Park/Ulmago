@@ -16,6 +16,12 @@
 		B76465792BB2A2AE0020F130 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = B76465782BB2A2AE0020F130 /* FSCalendar */; };
 		B764657D2BB45BB40020F130 /* PreviousDailyBudgetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B764657C2BB45BB40020F130 /* PreviousDailyBudgetTableViewCell.xib */; };
 		B764657F2BB462420020F130 /* PreviousDailyBudgetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B764657E2BB462420020F130 /* PreviousDailyBudgetTableViewCell.swift */; };
+		B76CED112BCFFEE600CDF974 /* FiftyCongratulationVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B76CED102BCFFEE600CDF974 /* FiftyCongratulationVC.storyboard */; };
+		B76CED132BCFFEF100CDF974 /* FiftyCongratulationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76CED122BCFFEF100CDF974 /* FiftyCongratulationVC.swift */; };
+		B76CED152BD0027300CDF974 /* TestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76CED142BD0027300CDF974 /* TestVC.swift */; };
+		B76CED172BD0030A00CDF974 /* TestVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B76CED162BD0030A00CDF974 /* TestVC.xib */; };
+		B76CED1A2BD0046D00CDF974 /* SecondVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76CED182BD0046D00CDF974 /* SecondVC.swift */; };
+		B76CED1B2BD0046D00CDF974 /* SecondVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B76CED192BD0046D00CDF974 /* SecondVC.xib */; };
 		B772A0AF2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B772A0AE2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard */; };
 		B772A0B12BA4A5DE001059B6 /* DailyExpenseSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B772A0B02BA4A5DE001059B6 /* DailyExpenseSettingVC.swift */; };
 		B772A0B42BA55404001059B6 /* DailyMainVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B772A0B32BA55404001059B6 /* DailyMainVC.storyboard */; };
@@ -83,6 +89,12 @@
 		B76465752BB2031C0020F130 /* Formatter+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+Ext.swift"; sourceTree = "<group>"; };
 		B764657C2BB45BB40020F130 /* PreviousDailyBudgetTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreviousDailyBudgetTableViewCell.xib; sourceTree = "<group>"; };
 		B764657E2BB462420020F130 /* PreviousDailyBudgetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousDailyBudgetTableViewCell.swift; sourceTree = "<group>"; };
+		B76CED102BCFFEE600CDF974 /* FiftyCongratulationVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FiftyCongratulationVC.storyboard; sourceTree = "<group>"; };
+		B76CED122BCFFEF100CDF974 /* FiftyCongratulationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiftyCongratulationVC.swift; sourceTree = "<group>"; };
+		B76CED142BD0027300CDF974 /* TestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVC.swift; sourceTree = "<group>"; };
+		B76CED162BD0030A00CDF974 /* TestVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestVC.xib; sourceTree = "<group>"; };
+		B76CED182BD0046D00CDF974 /* SecondVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondVC.swift; sourceTree = "<group>"; };
+		B76CED192BD0046D00CDF974 /* SecondVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecondVC.xib; sourceTree = "<group>"; };
 		B772A0AE2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DailyExpenseSettingVC.storyboard; sourceTree = "<group>"; };
 		B772A0B02BA4A5DE001059B6 /* DailyExpenseSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyExpenseSettingVC.swift; sourceTree = "<group>"; };
 		B772A0B32BA55404001059B6 /* DailyMainVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DailyMainVC.storyboard; sourceTree = "<group>"; };
@@ -157,6 +169,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B76CED0F2BCFFEAC00CDF974 /* Congratulation */ = {
+			isa = PBXGroup;
+			children = (
+				B76CED102BCFFEE600CDF974 /* FiftyCongratulationVC.storyboard */,
+				B76CED122BCFFEF100CDF974 /* FiftyCongratulationVC.swift */,
+				B76CED142BD0027300CDF974 /* TestVC.swift */,
+				B76CED162BD0030A00CDF974 /* TestVC.xib */,
+				B76CED182BD0046D00CDF974 /* SecondVC.swift */,
+				B76CED192BD0046D00CDF974 /* SecondVC.xib */,
+			);
+			path = Congratulation;
+			sourceTree = "<group>";
+		};
 		B772A0B22BA553C8001059B6 /* DailyBudgetFlow */ = {
 			isa = PBXGroup;
 			children = (
@@ -303,6 +328,7 @@
 				B7CE47442BA2FE9600F2805F /* Extension */,
 				B7CE473F2BA2DCE400F2805F /* GoalSettingFlow */,
 				B772A0B22BA553C8001059B6 /* DailyBudgetFlow */,
+				B76CED0F2BCFFEAC00CDF974 /* Congratulation */,
 				B7F0120F2B9F2E74004027CA /* AppDelegate.swift */,
 				B7F012112B9F2E74004027CA /* SceneDelegate.swift */,
 				B7F012182B9F2E76004027CA /* Assets.xcassets */,
@@ -455,8 +481,11 @@
 				B772A0AF2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard in Resources */,
 				B7F012172B9F2E74004027CA /* Base in Resources */,
 				B7C0BF9E2BADFE1D00EEB03F /* DailyBudgetTableViewCell.xib in Resources */,
+				B76CED112BCFFEE600CDF974 /* FiftyCongratulationVC.storyboard in Resources */,
+				B76CED1B2BD0046D00CDF974 /* SecondVC.xib in Resources */,
 				B772A0C12BA609A5001059B6 /* DailyBudgetVC.storyboard in Resources */,
 				B772A0B42BA55404001059B6 /* DailyMainVC.storyboard in Resources */,
+				B76CED172BD0030A00CDF974 /* TestVC.xib in Resources */,
 				B7C0BF9A2BABF41700EEB03F /* PreviousDailyBudgetVC.storyboard in Resources */,
 				B7CE47482BA314C700F2805F /* WholeCostSettingVC.storyboard in Resources */,
 				B764657D2BB45BB40020F130 /* PreviousDailyBudgetTableViewCell.xib in Resources */,
@@ -487,6 +516,7 @@
 				B72CDB752BC11D260026EEB0 /* UserGoal.swift in Sources */,
 				B72CDB732BBBBD010026EEB0 /* Date+String.swift in Sources */,
 				B7CE474A2BA314D800F2805F /* WholeCostSettingVC.swift in Sources */,
+				B76CED1A2BD0046D00CDF974 /* SecondVC.swift in Sources */,
 				B7F012142B9F2E74004027CA /* ViewController.swift in Sources */,
 				B79279012BA9F817002646F7 /* UIViewController+Ext.swift in Sources */,
 				B7C0BF922BAAD08D00EEB03F /* String+Ext.swift in Sources */,
@@ -494,6 +524,7 @@
 				B772A0B62BA5540B001059B6 /* DailyMainVC.swift in Sources */,
 				B772A0C32BA609D4001059B6 /* DailyBudgetVC.swift in Sources */,
 				B7F012122B9F2E74004027CA /* SceneDelegate.swift in Sources */,
+				B76CED152BD0027300CDF974 /* TestVC.swift in Sources */,
 				B7C0BF962BABF40400EEB03F /* PreviousDailyBudgetVC.swift in Sources */,
 				B7742B642BB08B9100B2480B /* UIColor+Ext.swift in Sources */,
 				B772A0B12BA4A5DE001059B6 /* DailyExpenseSettingVC.swift in Sources */,
@@ -510,6 +541,7 @@
 				B79279032BA9FC50002646F7 /* WholeCostSettingVM.swift in Sources */,
 				B7B300982BAEA4CB0082982F /* Budget.swift in Sources */,
 				B79278F82BA93EC9002646F7 /* UIButton+Ext.swift in Sources */,
+				B76CED132BCFFEF100CDF974 /* FiftyCongratulationVC.swift in Sources */,
 				B707182A2BB1603D00A50C64 /* DailyBudgetVM.swift in Sources */,
 				B786B44F2BC6B3C10023F4D5 /* UGAlertView.swift in Sources */,
 			);

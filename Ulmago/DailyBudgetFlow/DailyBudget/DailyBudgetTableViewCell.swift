@@ -25,6 +25,8 @@ class DailyBudgetTableViewCell: UITableViewCell {
     
     var indexPath: IndexPath? = nil
     
+    var editBtnClicked: ((Budget) -> Void)? = nil
+    
     var deleteBtnClicked: ((Budget) -> Void)? = nil
     
     override func awakeFromNib() {
@@ -32,83 +34,26 @@ class DailyBudgetTableViewCell: UITableViewCell {
         print(#fileID, #function, #line, "- ")
     }
     
-    @IBAction func editBtnClicked(_ sender: UIButton) {
-        print(#fileID, #function, #line, "- ")
-        // 목표: 테이블뷰쎌의 해당 버튼을 클릭하면 Budget의 title과 price를 변경할 수 있게 한다.
-        // 1. 클릭한 쎌의 인덱스패스로 어떤 쎌인지 받아온다.
-        guard let indexPath = indexPath,
-              let title = cellData?.title,
-              let price = cellData?.price else {
-            print(#fileID, #function, #line, "- cellData가 아니야")
-            return
-        }
-        // 2. 해당 쎌의 title과 price를 변경할 수 있게 수정 얼럿 화면을 띄운다.
-        SwiftAlertView.show(title: "수정하시겠습니까?", buttonTitles: "취소", "수정") { alertView in
-            alertView.addTextField { textField in
-                // 2-1. 수정 얼럿 화면에는 원래 title과 price가 각 텍스트필드의 text로 자리잡고 있다.
-                textField.text = title
-                textField.tintColor = .primaryColor ?? .black
-            }
-            alertView.addTextField { textField in
-                textField.text = "\(price)"
-                textField.keyboardType = .numberPad
-                textField.tintColor = .primaryColor ?? .black
-                textField.delegate = self
-            }
-            alertView.isEnabledValidationLabel = true
-            alertView.isDismissOnActionButtonClicked = false
-            alertView.backgroundColor = .backgroundColor
-            alertView.buttonTitleColor = .primaryColor ?? .blue
-        }
-        .onActionButtonClicked { [weak self] alertView, buttonIndex in
-            
-            guard let self = self else { return }
-            
-            guard let breakdown = alertView.textField(at: 0)?.text,
-                  let amountOfMoney = alertView.textField(at: 1)?.text else { return }
-            
-            switch buttonIndex {
-            case 0:
-                print(#fileID, #function, #line, "- cancel btn clicked")
-            case 1:
-                print(#fileID, #function, #line, "- ok btn clicked")
-                if breakdown.isEmpty {
-                    alertView.validationLabel.text = "내역이 비어있습니다."
-                } else if amountOfMoney.isEmpty {
-                    alertView.validationLabel.text = "금액을 입력해주세요"
-                } else {
-                    // 3. 사용자가 수정하면 수정한 내용을 데이터리스트에 수정한다.
-                    // 4. 수정한 내용을 테이블뷰에 반영한다.
-                    var editedBudgetList = vm.budgetList.value
-                    if let editingItemObjectId = editedBudgetList[indexPath.row].id {
-                        let objectId = try! ObjectId(string: editingItemObjectId)
-                        
-                        BudgetRepository.shared.editBudget(at: objectId, updatedTitle: breakdown, updatedPrice: Int(amountOfMoney) ?? 0)
-                    }
-                    vm.budgetList.accept(BudgetRepository.shared.fetchBudgetsFromBudgetEntity())
-                    vm.updateDailySpend()
-                    alertView.dismiss()
-                }
-                
-            default:
-                print(#fileID, #function, #line, "- ")
-            }
-        }
-        .onTextChanged { _, text, textFieldIndex in
-            if textFieldIndex == 0 {
-                print("Username text changed: ", text ?? "")
-            }
-        }
-        
-        
-        
+    func configureUI(cellData: Budget, deletingBtnClicked: ((Budget) -> Void)? = nil, editBtnClicked: ((Budget) -> Void)? = nil){
+        self.cellData = cellData
+        self.titleLabel.text = cellData.title
+        self.priceLabel.text = "\(cellData.price)원"
+        self.deleteBtnClicked = deletingBtnClicked
+        self.editBtnClicked = editBtnClicked
     }
     
+    #warning("TODO: - 수정 기능 구현")
+    @IBAction func editBtnClicked(_ sender: UIButton) {
+        print(#fileID, #function, #line, "- ")
+        guard let cellData = cellData else { return }
+        self.editBtnClicked?(cellData)
+    }
+    
+    #warning("TODO: - 삭제 기능 구현")
     @IBAction func deleteBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- sender: \(sender)")
         guard let cellData = cellData else { return }
         self.deleteBtnClicked?(cellData)
-        
         
     }
 }

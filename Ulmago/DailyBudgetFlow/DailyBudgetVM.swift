@@ -42,6 +42,22 @@ class DailyBudgetVM {
     var progressPercent: BehaviorRelay<Int> = BehaviorRelay(value: 50)
     var progressPercentText: Observable<NSMutableAttributedString> = Observable.empty()
     
+    // 데이터 기반으로 생각하기!!
+//    var budgetListIsOpen: Bool = false {
+//        didSet {
+//            if budgetListIsOpen {
+//                self.lookBtn.setTitle("내역 닫기", for: .normal)
+//                self.dailyTableView.isHidden = true
+//            } else {
+//                self.lookBtn.setTitle("내역 보기", for: .normal)
+//                self.dailyTableView.isHidden = false
+//            }
+//        }
+//    }
+    
+    var budgetListIsOpen: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    
+    
     
     
     convenience init(goalText: String, wholeCostText: String, dailyExpense: String) {
@@ -71,6 +87,8 @@ class DailyBudgetVM {
         
         
         
+        
+        
         // 오늘 남은 소비한도
         self.remainedDailyExpense = Observable.combineLatest(dailyExpenseObservable, self.dailySpend.asObservable())
             .debug("remained 1")
@@ -89,6 +107,12 @@ class DailyBudgetVM {
 
         
         
+    }
+    
+    func toggleBudgetListIsOpen() {
+        var tempBudgetListIsOpen: Bool = self.budgetListIsOpen.value
+        tempBudgetListIsOpen.toggle()
+        self.budgetListIsOpen.accept(tempBudgetListIsOpen)
     }
     
     // 한 문장 내에서 특정 부분 텍스트 색깔 바꾸기
@@ -121,6 +145,7 @@ class DailyBudgetVM {
     }
     
     // 테이블뷰에 새로운 Budget 추가
+    #warning("TODO: - 이름 바꾸기!!")
     func addToTableView(newTitle: String, newPrice: Int, date: Date = Date.now) {
         BudgetRepository.shared.createBudget(title: newTitle, price: newPrice, date: date)
         self.budgetList.accept(BudgetRepository.shared.fetchBudgetsFromBudgetEntity())
@@ -131,35 +156,42 @@ class DailyBudgetVM {
         self.budgetList.accept(BudgetRepository.shared.fetchBudgetsFromBudgetEntity())
     }
     
+    //
     // 테이블 뷰의 선택한 Budget 삭제
     func deleteTableViewItem(_ deletingBudget: Budget) {
+        // 현재 budgetList의 value를 tempArray에 담는다.
         var currentBudgetList = self.budgetList.value
         print(#fileID, #function, #line, "- currentBudgetList: \(currentBudgetList)")
 
-        #warning("TODO: - 왜 삭제가 바로바로 적용이 안될까? - 1.objectId가 제대로 들어오지 않나? 2. BudgetRepository의 deleteABudget이 제대로 작동하지 않나?")
-        #warning("TODO: - 아하!! 테이블뷰에 추가할때 vm의 budgetList에 realm에 추가된거까지 제대로 반영이 되지 않고 있었다.")
         print(#fileID, #function, #line, "- \(currentBudgetList)")
         // realm에서 지우기
         
+        // 삭제할 아이템의 objectId를 가져온다.
         guard let deletingItemObjectId = deletingBudget.objectId else {
             return
         }
-        let date = deletingBudget.date
         
+        // 삭제할 아이템의 날짜를 가져온다.
+        let date = deletingBudget.date
+        // realm에 있는 BudgetRepository에서 삭제를 시행한다.
         BudgetRepository.shared.deleteABudget(at: deletingItemObjectId)
         
-//        BudgetRepository.shared.deleteAllBudgets()
         
         // UI dataList에서 지우기
         
         // 버젯리스트에서 삭제할 해당 쎌을 찾는다.
         var dummies = self.budgetList.value.filter({ $0.date.toDateString() == date.toDateString() })
         
-        if let deletingIndex: Int = dummies.firstIndex(where: {
-            return deletingItemObjectId.stringValue == ($0.id ?? "")
+        var objectIds : [ObjectId] = dummies.compactMap(\.objectId)
+        
+        if let deletingIndex: Int = objectIds.firstIndex(where: {
+            return deletingItemObjectId == $0
         }) {
-            currentBudgetList.remove(at: deletingIndex)
-            self.budgetList.accept(currentBudgetList)
+            
+//            currentBudgetList.remove(at: deletingIndex)
+//            
+//            self.budgetList.accept(currentBudgetList)
+            self.budgetList.accept(BudgetRepository.shared.fetchBudgetsFromBudgetEntity())
         }
     }
 }
