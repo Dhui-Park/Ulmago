@@ -78,7 +78,7 @@ class DailyBudgetVM {
             .map { self.changeSpecificTextColor(specificText: $0, normalString: "을/를 위해 우리는") }
         
         self.progressPercentText = self.progressPercent
-            .map { self.changeSpecificTextColor(specificText: "\(Int(ceil($0)))%", normalString: "를 모았어요!") }
+            .map { self.changeSpecificTextColor(specificText: "\(Int(ceil($0*100)))%", normalString: "를 모았어요!") }
         
         let dailyExpenseObservable = self.dailyExpenseText
             .compactMap { Int($0) }
@@ -97,7 +97,7 @@ class DailyBudgetVM {
         
         self.remainedGraphPercent = self.remainedDailyExpense
             .do(onNext: {
-                print("percent 1 Float($0): \(Float($0)) dailyExpense: \((Float(self.dailyExpenseText.value) ?? 1)) ")
+                print("percent 1 Float($0): \(Float($0)) dailyExpense: \((Float(self.dailyExpenseText.value) ?? 10)) ")
             })
             .map { Float($0) / (Float(self.dailyExpenseText.value) ?? 1)  } // part / whole
             .debug("percent ")
