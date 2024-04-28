@@ -59,13 +59,14 @@ class PreviousDailyBudgetVC: UIViewController {
         super.viewDidLoad()
         print(#fileID, #function, #line, "- ")
         
+        self.vm.budgetListIsOpen.accept(false)
+        
         self.myCalendarView.appearance.headerDateFormat = "yyyy년 MM월" // 날짜 디스플레이 양식
         
         self.dailyTableView.translatesAutoresizingMaskIntoConstraints = false
         
-        
-        
         self.view.addSubview(self.dailyTableView)
+        self.dailyTableView.isHidden = true
         self.dailyTableView.layer.borderColor = UIColor.primaryColor?.withAlphaComponent(0.3).cgColor
         self.dailyTableView.layer.borderWidth = 1
         self.dailyTableView.layer.cornerRadius = 10
@@ -76,10 +77,9 @@ class PreviousDailyBudgetVC: UIViewController {
             self.dailyTableView.trailingAnchor.constraint(equalTo: self.myCalendarView.trailingAnchor),
             self.dailyTableView.bottomAnchor.constraint(equalTo: self.lookBtn.topAnchor, constant: -10)
         ])
-        
+        print(#fileID, #function, #line, "- self.dailyTableView.isHidden: \(self.dailyTableView.isHidden)")
         self.dailyTableView.backgroundColor = UIColor.backgroundColor?.withAlphaComponent(0.9)
         
-        self.dailyTableView.isHidden = true
         let cellNib = UINib(nibName: PreviousDailyBudgetTableViewCell.reuseIdentifier, bundle: .main)
         self.dailyTableView.register(cellNib, forCellReuseIdentifier: PreviousDailyBudgetTableViewCell.reuseIdentifier)
         self.dailyTableView.dataSource = self
@@ -91,7 +91,7 @@ class PreviousDailyBudgetVC: UIViewController {
         vm.budgetList
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { (budgetList: [Budget]) in
-                self.dummies = budgetList.filter({ $0.date.toDateString() == Date.now.toDateString() })
+                self.dummies = budgetList.filter({ $0.date.toDateString() == self.vm.selectedDateString.value })
                 // 목표: budgetList의 date를 키값으로 하는 딕셔너리를 만들어서 테이블뷰에 보여준다.
                 // 1. budgetList의 date를 받아온다.
                 // 2. dateDictionary의 키값으로 budgetList의 date를 넣고 value를 Budget으로 만든다.
@@ -143,7 +143,6 @@ class PreviousDailyBudgetVC: UIViewController {
         // 목표: 선택한 날짜의 테이블뷰에 새로운 Budget 아이템을 추가한다.
         // 1. alert창을 띄워 추가할 내역과 금액을 받는다.
         UGAlertView.show(title: "추가하시겠습니까?", message: "무엇에 얼마를 썼나요?", buttonTitles: ["취소", "추가"], boldButtonIndex: 1) { alertView in
-//            alertView.cancelButtonIndex = 1
             alertView.addTextField { textField in
                 textField.placeholder = "내역"
                 textField.tintColor = .primaryColor ?? .black
@@ -179,12 +178,10 @@ class PreviousDailyBudgetVC: UIViewController {
                     DispatchQueue.main.async {
                         #warning("TODO: - 테이블뷰가 실시간 reload가 되지 않는 버그")
                         // 2. 선택한 날의 Date와 같은 날짜로 BudgetEntity를 만든다.
-                        self.vm.addToTableView(newTitle: breakdown, newPrice: Int(amountOfMoney) ?? 0, date: self.selectedDate.toDate())
+                        self.vm.addToBudgetRepository(newTitle: breakdown, newPrice: Int(amountOfMoney) ?? 0, date: self.selectedDate.toDate())
                         print(#fileID, #function, #line, "- budgetList: \(self.vm.budgetList)")
                         self.vm.updateDailySpend()
-//                        self.dummies = self.getBugets(for: self.selectedDate.toDate())
-//                        self.dailyTableView.reloadData()
-//                        self.myCalendarView.reloadData()
+                        
                     }
                     alertView.dismiss()
                 }
@@ -266,7 +263,7 @@ extension PreviousDailyBudgetVC: FSCalendarDelegate {
         print(#fileID, #function, #line, "- didSelect: \(date.toDateString()), monthPosition: \(monthPosition)")
        
         self.selectedDate = date.toDateString()
-        
+        self.vm.selectedDateString.accept(selectedDate)
         // index - at
         //
         self.dummies = self.getBugets(for: date)
@@ -335,7 +332,7 @@ extension PreviousDailyBudgetVC: UITableViewDataSource {
                     // 3. 사용자가 수정하면 수정한 내용을 데이터리스트에 수정한다.
                     // 4. 수정한 내용을 테이블뷰에 반영한다.
                     guard let objectId = budget.objectId else { return }
-                    vm.editTableViewItem(at: objectId, newTitle: breakdown, newPrice: Int(amountOfMoney) ?? 0)
+                    vm.editBudgetRepository(at: objectId, newTitle: breakdown, newPrice: Int(amountOfMoney) ?? 0)
                     vm.updateDailySpend()
                     alertView.dismiss()
                 }

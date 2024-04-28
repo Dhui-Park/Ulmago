@@ -97,6 +97,14 @@ class UserGoalRepository {
         return allUserGoals.map{ $0 }
     }
     
+    func fetchSingleUserGoalEntity() -> UserGoalEntity? {
+        let realm = try! Realm()
+        // Access all dogs in the realm
+        let aUserGoal: UserGoalEntity? = realm.objects(UserGoalEntity.self).first
+        
+        return aUserGoal
+    }
+    
     
     /// Single UserGoal 조회하기
     /// - Parameter forPrimaryKey: 조회할 UserGoal의 PrimaryKey

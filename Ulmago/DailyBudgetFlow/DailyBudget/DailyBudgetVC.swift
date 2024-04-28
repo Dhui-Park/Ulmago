@@ -39,6 +39,12 @@ class DailyBudgetVC: UIViewController {
         print(#fileID, #function, #line, "- ")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print(#fileID, #function, #line, "- ")
+        self.dailyBudgetTableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print(#fileID, #function, #line, "- ")
@@ -134,7 +140,7 @@ class DailyBudgetVC: UIViewController {
                     alertView.validationLabel.text = "금액을 입력해주세요"
                 } else {
                     DispatchQueue.main.async {
-                        self.vm.addToTableView(newTitle: breakdown, newPrice: Int(amountOfMoney) ?? 0)
+                        self.vm.addToBudgetRepository(newTitle: breakdown, newPrice: Int(amountOfMoney) ?? 0)
                         print(#fileID, #function, #line, "- budgetList: \(self.vm.budgetList)")
                         self.vm.updateDailySpend()
                         self.dailyBudgetTableView.reloadData()
@@ -242,7 +248,7 @@ extension DailyBudgetVC: UITableViewDataSource {
                     // 3. 사용자가 수정하면 수정한 내용을 데이터리스트에 수정한다.
                     // 4. 수정한 내용을 테이블뷰에 반영한다.
                     guard let objectId = budget.objectId else { return }
-                    vm.editTableViewItem(at: objectId, newTitle: breakdown, newPrice: Int(amountOfMoney) ?? 0)
+                    vm.editBudgetRepository(at: objectId, newTitle: breakdown, newPrice: Int(amountOfMoney) ?? 0)
                     vm.updateDailySpend()
                     alertView.dismiss()
                 }

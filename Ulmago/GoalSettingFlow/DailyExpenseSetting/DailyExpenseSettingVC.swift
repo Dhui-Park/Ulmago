@@ -130,6 +130,7 @@ class DailyExpenseSettingVC: UIViewController {
         
         let vc = storyboard.instantiateViewController(identifier: DailyMainVC.reuseIdentifier, creator: { coder in
             return DailyMainVC(coder: coder, goalText: self.goalText, wholeCostText: "\(self.wholeCost / 10000)", dailyExpense: dailyExpense)
+            
         })
         
         if let userGoal = UserGoalRepository.shared.fetchUserGoalEntities().first {

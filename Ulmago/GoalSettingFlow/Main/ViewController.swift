@@ -11,6 +11,9 @@ import RxCocoa
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var splashCoverView: UIView!
+    
+    @IBOutlet weak var splashImage: UIImageView!
     
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
@@ -41,6 +44,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        if UserGoalRepository.shared.fetchUserGoalEntities().isEmpty {
+            self.logoTransition()
+        } else {
+            UserGoalRepository.shared.deleteAllUserGoals()
+            self.splashCoverView.removeFromSuperview()
+        }
+        
         self.navigationItem.hidesBackButton = true
         textFieldSetting(self.goalTextField)
         self.goalTextField.delegate = self
@@ -73,7 +83,15 @@ class ViewController: UIViewController {
         
         
     } // viewDidLoad()
-   
+    
+    func logoTransition() {
+        UIView.transition(with: self.splashCoverView, duration: 3.0, options: .transitionCrossDissolve, animations: {
+            self.splashCoverView.alpha = 0.0
+        }, completion: { finished in
+            print(#fileID, #function, #line, "- 로고 애니메이션 끝났음2")
+            self.splashCoverView.removeFromSuperview()
+        })
+    }
 
     @IBAction func submitBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- 목표 설정 완료 버튼 클릭")
@@ -82,12 +100,14 @@ class ViewController: UIViewController {
         
         let storyboard = UIStoryboard(name: WholeCostSettingVC.reuseIdentifier, bundle: .main)
         let vc = storyboard.instantiateViewController(identifier: WholeCostSettingVC.reuseIdentifier, creator: { coder in
+            print(#fileID, #function, #line, "- ")
             return WholeCostSettingVC(coder: coder, goalText: goalTitle)
         })
         
         UserGoalRepository.shared.createUserGoal(goalTitle: goalTitle)
         
         self.navigationController?.pushViewController(vc, animated: true)
+        self.navigationController?.navigationBar.tintColor = UIColor.primaryColor
         
     }
     

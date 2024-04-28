@@ -37,7 +37,7 @@
                                     <outlet property="delegate" destination="Y6W-OH-hqX" id="0Vm-A4-RZx"/>
                                 </connections>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Xbs-Uw-Q99">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Xbs-Uw-Q99">
                                 <rect key="frame" x="30" y="635" width="333" height="123"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cYa-Hb-gTW">
@@ -69,7 +69,8 @@
                                         <color key="tintColor" name="redBean"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="완료">
-                                            <color key="baseBackgroundColor" name="redBean"/>
+                                            <color key="baseForegroundColor" name="redBean"/>
+                                            <color key="baseBackgroundColor" name="backgroundColor"/>
                                         </buttonConfiguration>
                                         <connections>
                                             <action selector="submitBtnClicked:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="DJA-Mt-fVw"/>

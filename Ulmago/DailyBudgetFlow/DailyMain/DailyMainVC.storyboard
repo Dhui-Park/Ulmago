@@ -79,7 +79,8 @@
                                         <color key="tintColor" name="redBean"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="이전 가계부들 보러가기">
-                                            <color key="baseBackgroundColor" name="redBean"/>
+                                            <color key="baseForegroundColor" name="redBean"/>
+                                            <color key="baseBackgroundColor" name="backgroundColor"/>
                                         </buttonConfiguration>
                                         <connections>
                                             <action selector="previousBudgetSubmitBtnClicked:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="mKv-jW-UPo"/>

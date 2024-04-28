@@ -35,21 +35,30 @@ class DailyMainVC: UIViewController {
 
     
     
-    init?(coder: NSCoder, goalText: String, wholeCostText: String, dailyExpense: String) {
-        super.init(coder: coder)
+    fileprivate func receiveUserGoal(_ goalText: String, _ wholeCostText: String, _ dailyExpense: String) {
         self.vm.goalText.accept(goalText)
         self.vm.wholeCostText.accept(wholeCostText)
         self.vm.dailyExpenseText.accept(dailyExpense)
+    }
+    
+    init?(coder: NSCoder, goalText: String, wholeCostText: String, dailyExpense: String) {
+        super.init(coder: coder)
+        receiveUserGoal(goalText, wholeCostText, dailyExpense)
         print(#fileID, #function, #line, "- goalText from ViewController: \(goalText), wholeCostText from WholeCostSettingVC: \(wholeCostText) ")
 
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
         print(#fileID, #function, #line, "- ")
+        super.init(coder: coder)
+        
     }
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print(#fileID, #function, #line, "- ")
+        vm.refreshProgressPercent()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,8 +73,6 @@ class DailyMainVC: UIViewController {
         
         //MARK: - Rx
         vm.progressPercent
-            .map { Double($0) }
-            .map { Float($0 * 0.01) }
             .debug("😁")
             .observe(on: MainScheduler.instance)
             .map { self.setProgressRing(progressRing: self.progressRing,value: $0) }
@@ -98,7 +105,7 @@ class DailyMainVC: UIViewController {
         
         self.dailyBudgetSubmitBtn.submitButtonSetting()
         self.previousBudgetSubmitBtn.submitButtonSetting()
-        
+        self.previousBudgetSubmitBtn.titleLabel?.font = .boldSystemFont(ofSize: 16)
         
         
     }
@@ -164,7 +171,15 @@ extension DailyMainVC {
             case 0:
                 // 1-1. 다시 설정하기 버튼 클릭 -> 이전 화면으로 돌아가기
                 print("buttonIndex: \(buttonIndex)")
-                self.navigationController?.popViewController(animated: true)
+            
+                let storyboard = UIStoryboard(name: "Main", bundle: .main)
+                let vc = storyboard.instantiateViewController(identifier: ViewController.reuseIdentifier, creator: { coder in
+                    return ViewController(coder: coder)
+                })
+                
+                self.navigationController?.pushViewController(vc, animated: true)
+                self.navigationController?.navigationBar.backItem?.hidesBackButton = true
+                
             case 1:
                 // 1-2. 취소 -> 얼럿창 dismiss
                 print("buttonIndex: \(buttonIndex)")

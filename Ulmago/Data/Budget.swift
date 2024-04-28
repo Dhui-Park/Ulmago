@@ -80,6 +80,7 @@ class BudgetRepository {
     
     // Singleton Pattern
     static let shared = BudgetRepository()
+    
    
     
     /// 로컬에 single Budget 추가하기
@@ -108,6 +109,38 @@ class BudgetRepository {
         let allBudgets = realm.objects(BudgetEntity.self)
         
         return allBudgets.map{ $0 }
+    }
+    
+    // 목표: 총 모은 금액을 가져온다.
+    
+    
+    
+    
+    
+    /// 총 모은 금액을 가져온다.
+    /// - Returns: 총 모은 금액
+    func fetchAllSavedMoney() -> Int {
+        // 1. 총 BudgetEntity를 조회한다.
+        var allBudgets: [BudgetEntity] = fetchBudgetEntities()
+        var allBudgetsWithFilteredDate = Set(allBudgets.map({ $0.date.toDateString() }))
+//        Dictionary(grouping: allBudgets, by: { item in
+//            item.date.toDateString()
+//        })
+//        var groupingBudgetsByDate = Dictionary(grouping: allBudgetsWithFilteredDate, by: \.date)
+//        print(#fileID, #function, #line, "- groupingBudgetsByDate: \(groupingBudgetsByDate.keys.count)")
+        print(#fileID, #function, #line, "- allBudgetsWithFilteredDate: \(allBudgetsWithFilteredDate)")
+        // 2. 총 사용금액을 더해서 가져온다.
+        let totalUsageAmount: Int  = allBudgets
+            .compactMap { $0.price }
+            .reduce(0, +)
+        // 3. 하루소비한도를 가져온다.
+        let dailyExpenseLimit: Int = UserGoalRepository.shared.fetchSingleUserGoalEntity()?.dailyExpenseLimit ?? 0
+        // 4. 하루소비한도를 가져온 BudgetEntity의 갯수만큼 곱해준다.
+        let wholeExpenseLimit: Int = dailyExpenseLimit * allBudgetsWithFilteredDate.count
+        // 5. 누적된 소비한도에서 총 사용금액을 빼준다. -> 총 모은 금액
+        let totalSavedMoneyAmount: Int = wholeExpenseLimit - totalUsageAmount
+    
+        return totalSavedMoneyAmount
     }
     
     

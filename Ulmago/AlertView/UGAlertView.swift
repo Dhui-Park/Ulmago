@@ -800,7 +800,7 @@ final class _HighlightButton: UIButton {
         }
     }
     
-    convenience init(isBold: Bool, buttonTitle: String, size: CGFloat = 30) {
+    convenience init(isBold: Bool, buttonTitle: String, size: CGFloat = 17) {
         self.init(type: .system)
         
         if isBold {

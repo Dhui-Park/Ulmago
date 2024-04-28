@@ -28,7 +28,8 @@ class SplashViewController: UIViewController {
             print(#fileID, #function, #line, "- 로고 애니메이션 끝났음")
             let storyboard = UIStoryboard(name: "Main", bundle: .main)
             guard let vc = storyboard.instantiateViewController(withIdentifier: ViewController.reuseIdentifier) as? ViewController else { return }
-            self.navigationController?.pushViewController(vc, animated: true)
+            #warning("TODO: - ")
+            self.navigationController?.pushViewController(vc, animated: false)
             
         })
     }

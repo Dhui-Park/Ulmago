@@ -17,18 +17,19 @@ class DailyBudgetVM {
     
     static let shared: DailyBudgetVM = DailyBudgetVM()
     
-    // 목표
+    // 목표 내용
     var goalText: BehaviorRelay<String> = BehaviorRelay(value: "")
     var goalTextLabel: Observable<NSMutableAttributedString> = Observable.empty()
 
-    // 총 비용
+    // 총 비용 - 총 모아야할 금액
     var wholeCostText: BehaviorRelay<String> = BehaviorRelay(value: "")
 
     // 소비 한도
     var dailyExpenseText: BehaviorRelay<String> = BehaviorRelay(value: "")
     
-    
     var budgetList: BehaviorRelay<[Budget]> = BehaviorRelay(value: [])
+    
+    var selectedDateString: BehaviorRelay<String> = BehaviorRelay(value: Date.now.toDateString())
     
     // 오늘 쓴 금액
     var dailySpend: BehaviorRelay<Int> = BehaviorRelay(value: 0)
@@ -39,7 +40,7 @@ class DailyBudgetVM {
     var remainedGraphPercent: Observable<Float> = Observable.empty()
     
     // [{(하루 소비한도) - (1일차 소비한 금액)} + {(하루 소비한도) - (2일차 소비한 금액)} + {(하루 소비한도) - (3일차 소비한 금액)} + ... + {(하루 소비한도) - (가장 최근 날짜 소비한 금액)}] / 총 비용
-    var progressPercent: BehaviorRelay<Int> = BehaviorRelay(value: 50)
+    var progressPercent: BehaviorRelay<Float> = BehaviorRelay(value: 90.0)
     var progressPercentText: Observable<NSMutableAttributedString> = Observable.empty()
     
     // 데이터 기반으로 생각하기!!
@@ -57,20 +58,17 @@ class DailyBudgetVM {
     
     var budgetListIsOpen: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     
-    
-    
-    
     convenience init(goalText: String, wholeCostText: String, dailyExpense: String) {
         self.init()
         self.goalText.accept(goalText)
         self.wholeCostText.accept(wholeCostText)
+        print(#fileID, #function, #line, "- wholeCostText: \(wholeCostText)")
         self.dailyExpenseText.accept(dailyExpense)
+        
     }
     
     init() {
         print(#fileID, #function, #line, "- ")
-        
-        //
         
         self.budgetList.accept(BudgetRepository.shared.fetchBudgetsFromBudgetEntity())
         
@@ -80,13 +78,13 @@ class DailyBudgetVM {
             .map { self.changeSpecificTextColor(specificText: $0, normalString: "을/를 위해 우리는") }
         
         self.progressPercentText = self.progressPercent
-            .map { self.changeSpecificTextColor(specificText: "\($0)%", normalString: "를 모았어요!") }
+            .map { self.changeSpecificTextColor(specificText: "\(Int(ceil($0)))%", normalString: "를 모았어요!") }
         
         let dailyExpenseObservable = self.dailyExpenseText
             .compactMap { Int($0) }
         
         
-        
+        //
         
         
         // 오늘 남은 소비한도
@@ -104,9 +102,21 @@ class DailyBudgetVM {
             .map { Float($0) / (Float(self.dailyExpenseText.value) ?? 1)  } // part / whole
             .debug("percent ")
         
-
         
+    }
+    
+    func refreshProgressPercent() {
+        //progressPercent
         
+        // 목표금액
+        guard let wholeCostAmount: Int = UserGoalRepository.shared.fetchSingleUserGoalEntity()?.goalPrice else { return }
+        // 모은금액
+        var wholeSavedMoneyAmount: Int = BudgetRepository.shared.fetchAllSavedMoney()
+        
+        var result : Double = Double(wholeSavedMoneyAmount) / Double(wholeCostAmount)
+        
+//        var percent: Int = Int(result * 100)
+        progressPercent.accept(Float(result))
     }
     
     func toggleBudgetListIsOpen() {
@@ -146,12 +156,12 @@ class DailyBudgetVM {
     
     // 테이블뷰에 새로운 Budget 추가
     #warning("TODO: - 이름 바꾸기!!")
-    func addToTableView(newTitle: String, newPrice: Int, date: Date = Date.now) {
+    func addToBudgetRepository(newTitle: String, newPrice: Int, date: Date = Date.now) {
         BudgetRepository.shared.createBudget(title: newTitle, price: newPrice, date: date)
         self.budgetList.accept(BudgetRepository.shared.fetchBudgetsFromBudgetEntity())
     }
     
-    func editTableViewItem(at: ObjectId, newTitle: String, newPrice: Int) {
+    func editBudgetRepository(at: ObjectId, newTitle: String, newPrice: Int) {
         BudgetRepository.shared.editBudget(at: at, updatedTitle: newTitle, updatedPrice: newPrice)
         self.budgetList.accept(BudgetRepository.shared.fetchBudgetsFromBudgetEntity())
     }
