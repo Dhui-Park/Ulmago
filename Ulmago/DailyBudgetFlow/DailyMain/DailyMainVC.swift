@@ -60,6 +60,8 @@ class DailyMainVC: UIViewController {
         vm.refreshProgressPercent()
     }
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print(#fileID, #function, #line, "- ")
@@ -79,6 +81,20 @@ class DailyMainVC: UIViewController {
             .bind(to: self.rx.progressRing)
             .disposed(by: disposeBag)
         
+        #warning("TODO: - progressPercent가 50을 넘을 때 한번만 타게끔 하기")
+        vm.progressPercent
+            .observe(on: MainScheduler.instance)
+            .map({ Int($0) })
+            .bind(onNext: self.pushToFiftyPercentCongratulationScreen(_:))
+            .disposed(by: disposeBag)
+        
+        
+        #warning("TODO: - progressPercent가 100일때 한번만 타게끔 하기")
+        vm.progressPercent
+            .observe(on: MainScheduler.instance)
+            .map({ Int($0) })
+            .bind(onNext: self.pushToAHundredPercentCongratulationScreen(_:))
+            .disposed(by: disposeBag)
         
         vm.remainedGraphPercent
             .observe(on: MainScheduler.instance)
@@ -108,6 +124,32 @@ class DailyMainVC: UIViewController {
         self.previousBudgetSubmitBtn.titleLabel?.font = .boldSystemFont(ofSize: 16)
         
         
+    }
+    
+    fileprivate func pushToFiftyPercentCongratulationScreen(_ percent: Int) {
+        if percent == 50 {
+            let storyboard = UIStoryboard(name: FiftyCongratulationVC.reuseIdentifier, bundle: .main)
+            let vc = storyboard.instantiateViewController(identifier: FiftyCongratulationVC.reuseIdentifier, creator: { coder in
+                return FiftyCongratulationVC(coder: coder)
+            })
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+                self.navigationController?.pushViewController(vc, animated: true)
+                self.navigationController?.navigationBar.isHidden = true
+            })
+        }
+    }
+    
+    fileprivate func pushToAHundredPercentCongratulationScreen(_ percent: Int) {
+        if percent == 100 {
+            let storyboard = UIStoryboard(name: AHundredCongratulationVC.reuseIdentifier, bundle: .main)
+            let vc = storyboard.instantiateViewController(identifier: AHundredCongratulationVC.reuseIdentifier, creator: { coder in
+                return AHundredCongratulationVC(coder: coder)
+            })
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+                self.navigationController?.pushViewController(vc, animated: true)
+                self.navigationController?.navigationBar.isHidden = true
+            })
+        }
     }
     
     

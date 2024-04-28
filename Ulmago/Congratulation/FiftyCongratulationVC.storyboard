@@ -3,8 +3,8 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -15,33 +15,49 @@
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50%를 모았어요!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qnO-9g-bcr">
+                                <rect key="frame" x="51" y="414.66666666666669" width="291" height="48"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y5y-No-z75">
+                                <rect key="frame" x="150.33333333333334" y="517.66666666666663" width="92.333333333333343" height="35"/>
+                                <color key="tintColor" name="redBean"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="힘을 내요!">
+                                    <color key="baseBackgroundColor" name="redBean"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="submitBtnClicked:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="O4l-fB-KIH"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="backgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="qnO-9g-bcr" firstAttribute="centerY" secondItem="vDu-zF-Fre" secondAttribute="centerY" id="KZz-2E-B9S"/>
+                            <constraint firstItem="Y5y-No-z75" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="PVw-bJ-lbn"/>
+                            <constraint firstItem="Y5y-No-z75" firstAttribute="top" secondItem="qnO-9g-bcr" secondAttribute="bottom" constant="55" id="Sow-10-TMy"/>
+                            <constraint firstItem="qnO-9g-bcr" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="TxN-r8-iel"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="submitBtn" destination="Y5y-No-z75" id="RGo-ge-uuK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="114" y="-14"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="aKG-Ee-mWu">
-            <objects>
-                <viewController id="5Ys-aq-iTE" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="92I-VG-Ago">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="vnW-cA-nur"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qDQ-mv-YDm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1007" y="-29"/>
+            <point key="canvasLocation" x="-407" y="-76"/>
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <namedColor name="backgroundColor">
+            <color red="0.94901960784313721" green="0.9137254901960784" blue="0.88235294117647056" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="redBean">
+            <color red="0.77647058823529413" green="0.396078431372549" blue="0.32941176470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

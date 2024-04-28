@@ -40,8 +40,10 @@ class DailyBudgetVM {
     var remainedGraphPercent: Observable<Float> = Observable.empty()
     
     // [{(하루 소비한도) - (1일차 소비한 금액)} + {(하루 소비한도) - (2일차 소비한 금액)} + {(하루 소비한도) - (3일차 소비한 금액)} + ... + {(하루 소비한도) - (가장 최근 날짜 소비한 금액)}] / 총 비용
-    var progressPercent: BehaviorRelay<Float> = BehaviorRelay(value: 90.0)
+    var progressPercent: BehaviorRelay<Float> = BehaviorRelay(value: 0.0)
     var progressPercentText: Observable<NSMutableAttributedString> = Observable.empty()
+    
+    var reachedToFiftyPercent: Observable<Bool> = Observable.empty()
     
     // 데이터 기반으로 생각하기!!
 //    var budgetListIsOpen: Bool = false {
@@ -78,7 +80,8 @@ class DailyBudgetVM {
             .map { self.changeSpecificTextColor(specificText: $0, normalString: "을/를 위해 우리는") }
         
         self.progressPercentText = self.progressPercent
-            .map { self.changeSpecificTextColor(specificText: "\(Int(ceil($0*100)))%", normalString: "를 모았어요!") }
+            .map({ Int(ceil($0 * 100)) })
+            .map { self.changeSpecificTextColor(specificText: "\($0)%", normalString: "를 모았어요!") }
         
         let dailyExpenseObservable = self.dailyExpenseText
             .compactMap { Int($0) }
@@ -102,6 +105,7 @@ class DailyBudgetVM {
             .map { Float($0) / (Float(self.dailyExpenseText.value) ?? 1)  } // part / whole
             .debug("percent ")
         
+          
         
     }
     

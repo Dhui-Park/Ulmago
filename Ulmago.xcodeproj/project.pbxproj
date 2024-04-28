@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		B707182A2BB1603D00A50C64 /* DailyBudgetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70718292BB1603D00A50C64 /* DailyBudgetVM.swift */; };
+		B72833942BDE89D0008D97A3 /* CongratulationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72833932BDE89D0008D97A3 /* CongratulationVM.swift */; };
+		B72833962BDE91AF008D97A3 /* AHundredCongratulationVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B72833952BDE91AF008D97A3 /* AHundredCongratulationVC.storyboard */; };
+		B72833982BDE91B6008D97A3 /* AHundredCongratulationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72833972BDE91B6008D97A3 /* AHundredCongratulationVC.swift */; };
 		B72CDB6F2BBB1C550026EEB0 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = B72CDB6E2BBB1C550026EEB0 /* Realm */; };
 		B72CDB712BBB1C550026EEB0 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B72CDB702BBB1C550026EEB0 /* RealmSwift */; };
 		B72CDB732BBBBD010026EEB0 /* Date+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72CDB722BBBBD010026EEB0 /* Date+String.swift */; };
@@ -18,10 +21,6 @@
 		B764657F2BB462420020F130 /* PreviousDailyBudgetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B764657E2BB462420020F130 /* PreviousDailyBudgetTableViewCell.swift */; };
 		B76CED112BCFFEE600CDF974 /* FiftyCongratulationVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B76CED102BCFFEE600CDF974 /* FiftyCongratulationVC.storyboard */; };
 		B76CED132BCFFEF100CDF974 /* FiftyCongratulationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76CED122BCFFEF100CDF974 /* FiftyCongratulationVC.swift */; };
-		B76CED152BD0027300CDF974 /* TestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76CED142BD0027300CDF974 /* TestVC.swift */; };
-		B76CED172BD0030A00CDF974 /* TestVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B76CED162BD0030A00CDF974 /* TestVC.xib */; };
-		B76CED1A2BD0046D00CDF974 /* SecondVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76CED182BD0046D00CDF974 /* SecondVC.swift */; };
-		B76CED1B2BD0046D00CDF974 /* SecondVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B76CED192BD0046D00CDF974 /* SecondVC.xib */; };
 		B772A0AF2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B772A0AE2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard */; };
 		B772A0B12BA4A5DE001059B6 /* DailyExpenseSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B772A0B02BA4A5DE001059B6 /* DailyExpenseSettingVC.swift */; };
 		B772A0B42BA55404001059B6 /* DailyMainVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B772A0B32BA55404001059B6 /* DailyMainVC.storyboard */; };
@@ -44,6 +43,7 @@
 		B7C0BF9C2BAC573600EEB03F /* NotificationName+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C0BF9B2BAC573600EEB03F /* NotificationName+Ext.swift */; };
 		B7C0BF9E2BADFE1D00EEB03F /* DailyBudgetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7C0BF9D2BADFE1D00EEB03F /* DailyBudgetTableViewCell.xib */; };
 		B7C0BFA02BADFE7400EEB03F /* DailyBudgetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C0BF9F2BADFE7400EEB03F /* DailyBudgetTableViewCell.swift */; };
+		B7CC7D202BDE28E3009F5042 /* SPConfetti in Frameworks */ = {isa = PBXBuildFile; productRef = B7CC7D1F2BDE28E3009F5042 /* SPConfetti */; };
 		B7CE47462BA2FEAA00F2805F /* ReuseIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CE47452BA2FEAA00F2805F /* ReuseIdentifiable.swift */; };
 		B7CE47482BA314C700F2805F /* WholeCostSettingVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7CE47472BA314C700F2805F /* WholeCostSettingVC.storyboard */; };
 		B7CE474A2BA314D800F2805F /* WholeCostSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CE47492BA314D800F2805F /* WholeCostSettingVC.swift */; };
@@ -84,6 +84,9 @@
 /* Begin PBXFileReference section */
 		B70718282BB155A200A50C64 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B70718292BB1603D00A50C64 /* DailyBudgetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyBudgetVM.swift; sourceTree = "<group>"; };
+		B72833932BDE89D0008D97A3 /* CongratulationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratulationVM.swift; sourceTree = "<group>"; };
+		B72833952BDE91AF008D97A3 /* AHundredCongratulationVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AHundredCongratulationVC.storyboard; sourceTree = "<group>"; };
+		B72833972BDE91B6008D97A3 /* AHundredCongratulationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AHundredCongratulationVC.swift; sourceTree = "<group>"; };
 		B72CDB722BBBBD010026EEB0 /* Date+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+String.swift"; sourceTree = "<group>"; };
 		B72CDB742BC11D260026EEB0 /* UserGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGoal.swift; sourceTree = "<group>"; };
 		B76465752BB2031C0020F130 /* Formatter+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+Ext.swift"; sourceTree = "<group>"; };
@@ -91,10 +94,6 @@
 		B764657E2BB462420020F130 /* PreviousDailyBudgetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousDailyBudgetTableViewCell.swift; sourceTree = "<group>"; };
 		B76CED102BCFFEE600CDF974 /* FiftyCongratulationVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FiftyCongratulationVC.storyboard; sourceTree = "<group>"; };
 		B76CED122BCFFEF100CDF974 /* FiftyCongratulationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiftyCongratulationVC.swift; sourceTree = "<group>"; };
-		B76CED142BD0027300CDF974 /* TestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVC.swift; sourceTree = "<group>"; };
-		B76CED162BD0030A00CDF974 /* TestVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestVC.xib; sourceTree = "<group>"; };
-		B76CED182BD0046D00CDF974 /* SecondVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondVC.swift; sourceTree = "<group>"; };
-		B76CED192BD0046D00CDF974 /* SecondVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecondVC.xib; sourceTree = "<group>"; };
 		B772A0AE2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DailyExpenseSettingVC.storyboard; sourceTree = "<group>"; };
 		B772A0B02BA4A5DE001059B6 /* DailyExpenseSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyExpenseSettingVC.swift; sourceTree = "<group>"; };
 		B772A0B32BA55404001059B6 /* DailyMainVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DailyMainVC.storyboard; sourceTree = "<group>"; };
@@ -142,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B72CDB712BBB1C550026EEB0 /* RealmSwift in Frameworks */,
+				B7CC7D202BDE28E3009F5042 /* SPConfetti in Frameworks */,
 				B72CDB6F2BBB1C550026EEB0 /* Realm in Frameworks */,
 				B7742B622BB0853200B2480B /* SwiftAlertView in Frameworks */,
 				B76465792BB2A2AE0020F130 /* FSCalendar in Frameworks */,
@@ -174,10 +174,9 @@
 			children = (
 				B76CED102BCFFEE600CDF974 /* FiftyCongratulationVC.storyboard */,
 				B76CED122BCFFEF100CDF974 /* FiftyCongratulationVC.swift */,
-				B76CED142BD0027300CDF974 /* TestVC.swift */,
-				B76CED162BD0030A00CDF974 /* TestVC.xib */,
-				B76CED182BD0046D00CDF974 /* SecondVC.swift */,
-				B76CED192BD0046D00CDF974 /* SecondVC.xib */,
+				B72833932BDE89D0008D97A3 /* CongratulationVM.swift */,
+				B72833952BDE91AF008D97A3 /* AHundredCongratulationVC.storyboard */,
+				B72833972BDE91B6008D97A3 /* AHundredCongratulationVC.swift */,
 			);
 			path = Congratulation;
 			sourceTree = "<group>";
@@ -380,6 +379,7 @@
 				B76465782BB2A2AE0020F130 /* FSCalendar */,
 				B72CDB6E2BBB1C550026EEB0 /* Realm */,
 				B72CDB702BBB1C550026EEB0 /* RealmSwift */,
+				B7CC7D1F2BDE28E3009F5042 /* SPConfetti */,
 			);
 			productName = Ulmago;
 			productReference = B7F0120C2B9F2E74004027CA /* Ulmago.app */;
@@ -459,6 +459,7 @@
 				B7742B602BB0853200B2480B /* XCRemoteSwiftPackageReference "SwiftAlertView" */,
 				B76465772BB2A2AE0020F130 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				B72CDB6D2BBB1C550026EEB0 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				B7CC7D1E2BDE28E3009F5042 /* XCRemoteSwiftPackageReference "SPConfetti" */,
 			);
 			productRefGroup = B7F0120D2B9F2E74004027CA /* Products */;
 			projectDirPath = "";
@@ -476,16 +477,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B72833962BDE91AF008D97A3 /* AHundredCongratulationVC.storyboard in Resources */,
 				B7F012192B9F2E76004027CA /* Assets.xcassets in Resources */,
 				B7F0121C2B9F2E76004027CA /* Base in Resources */,
 				B772A0AF2BA4A5D5001059B6 /* DailyExpenseSettingVC.storyboard in Resources */,
 				B7F012172B9F2E74004027CA /* Base in Resources */,
 				B7C0BF9E2BADFE1D00EEB03F /* DailyBudgetTableViewCell.xib in Resources */,
 				B76CED112BCFFEE600CDF974 /* FiftyCongratulationVC.storyboard in Resources */,
-				B76CED1B2BD0046D00CDF974 /* SecondVC.xib in Resources */,
 				B772A0C12BA609A5001059B6 /* DailyBudgetVC.storyboard in Resources */,
 				B772A0B42BA55404001059B6 /* DailyMainVC.storyboard in Resources */,
-				B76CED172BD0030A00CDF974 /* TestVC.xib in Resources */,
 				B7C0BF9A2BABF41700EEB03F /* PreviousDailyBudgetVC.storyboard in Resources */,
 				B7CE47482BA314C700F2805F /* WholeCostSettingVC.storyboard in Resources */,
 				B764657D2BB45BB40020F130 /* PreviousDailyBudgetTableViewCell.xib in Resources */,
@@ -516,7 +516,6 @@
 				B72CDB752BC11D260026EEB0 /* UserGoal.swift in Sources */,
 				B72CDB732BBBBD010026EEB0 /* Date+String.swift in Sources */,
 				B7CE474A2BA314D800F2805F /* WholeCostSettingVC.swift in Sources */,
-				B76CED1A2BD0046D00CDF974 /* SecondVC.swift in Sources */,
 				B7F012142B9F2E74004027CA /* ViewController.swift in Sources */,
 				B79279012BA9F817002646F7 /* UIViewController+Ext.swift in Sources */,
 				B7C0BF922BAAD08D00EEB03F /* String+Ext.swift in Sources */,
@@ -524,7 +523,6 @@
 				B772A0B62BA5540B001059B6 /* DailyMainVC.swift in Sources */,
 				B772A0C32BA609D4001059B6 /* DailyBudgetVC.swift in Sources */,
 				B7F012122B9F2E74004027CA /* SceneDelegate.swift in Sources */,
-				B76CED152BD0027300CDF974 /* TestVC.swift in Sources */,
 				B7C0BF962BABF40400EEB03F /* PreviousDailyBudgetVC.swift in Sources */,
 				B7742B642BB08B9100B2480B /* UIColor+Ext.swift in Sources */,
 				B772A0B12BA4A5DE001059B6 /* DailyExpenseSettingVC.swift in Sources */,
@@ -543,6 +541,8 @@
 				B79278F82BA93EC9002646F7 /* UIButton+Ext.swift in Sources */,
 				B76CED132BCFFEF100CDF974 /* FiftyCongratulationVC.swift in Sources */,
 				B707182A2BB1603D00A50C64 /* DailyBudgetVM.swift in Sources */,
+				B72833982BDE91B6008D97A3 /* AHundredCongratulationVC.swift in Sources */,
+				B72833942BDE89D0008D97A3 /* CongratulationVM.swift in Sources */,
 				B786B44F2BC6B3C10023F4D5 /* UGAlertView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -924,6 +924,14 @@
 				minimumVersion = 2.2.1;
 			};
 		};
+		B7CC7D1E2BDE28E3009F5042 /* XCRemoteSwiftPackageReference "SPConfetti" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ivanvorobei/SPConfetti";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.2;
+			};
+		};
 		B7F0123F2B9F44F1004027CA /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
@@ -959,6 +967,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B7742B602BB0853200B2480B /* XCRemoteSwiftPackageReference "SwiftAlertView" */;
 			productName = SwiftAlertView;
+		};
+		B7CC7D1F2BDE28E3009F5042 /* SPConfetti */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B7CC7D1E2BDE28E3009F5042 /* XCRemoteSwiftPackageReference "SPConfetti" */;
+			productName = SPConfetti;
 		};
 		B7F012402B9F44F1004027CA /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;

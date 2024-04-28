@@ -12,4 +12,5 @@ import UIKit
 extension UIColor {
     static let backgroundColor = UIColor(named: "backgroundColor")
     static let primaryColor = UIColor(named: "redBean")
+    static let greenColor = UIColor(named: "greenColor")
 }

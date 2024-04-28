@@ -19,9 +19,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let uiWindow = UIWindow(windowScene: windowScene)
+        
+        //        let storyboard = UIStoryboard(name: FiftyCongratulationVC.reuseIdentifier, bundle: .main)
+        //        guard let vc = storyboard.instantiateInitialViewController(creator: { coder in
+        //            return FiftyCongratulationVC(coder: coder)
+        //        }) else { return }
         //
-#warning("TODO: - ")
-        //        // 사용자가 이전에 접속해서 UserGoal을 이미 작성했을 때(UserGoal이 이미 존재할 때)
+        //        let navigationController = UINavigationController(rootViewController: vc)
+        //        uiWindow.rootViewController = navigationController
+        
+        
+        // 사용자가 이전에 접속해서 UserGoal을 이미 작성했을 때(UserGoal이 이미 존재할 때)
         if let userGoal = UserGoalRepository.shared.fetchUserGoalEntities().first {
             if userGoal.goalPrice == 0 {
                 let storyboard = UIStoryboard(name: WholeCostSettingVC.reuseIdentifier, bundle: .main)
