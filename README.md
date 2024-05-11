@@ -1,8 +1,10 @@
 #  Ulmago App Flow : 얼마고 앱 흐름
 <br>
 
-<img src="https://github.com/Dhui-Park/Ulmago/assets/67443044/610bafc9-a67d-46f0-adbb-74205fec30f9" style="width:200px"></img> | <img src="https://github.com/Dhui-Park/Ulmago/assets/67443044/5474aa08-091b-49c3-b270-c03f01c82b11" style="width:200px"></img> | <img src="https://github.com/Dhui-Park/Ulmago/assets/67443044/cd88a269-f61e-475c-a2d5-d55e67791cb3" style="width:200px"></img> | <img src="https://github.com/Dhui-Park/Ulmago/assets/67443044/4500f0b6-0268-448e-8e50-9b5f5bcd85a5" style="width:200px"></img> | <img src="https://github.com/Dhui-Park/Ulmago/assets/67443044/c7887d84-e184-4d14-b480-406c43840c51" style="width:200px"></img>
----|---|---|---|---|
+|Splash|GoalSetting|Main|DailyBudget|PreviousBudget|
+|:---:|:---:|:---:|:---:|:---:|
+|<img src="https://github.com/Dhui-Park/Ulmago/assets/67443044/610bafc9-a67d-46f0-adbb-74205fec30f9" style="width:200px"></img> | <img src="https://github.com/Dhui-Park/Ulmago/assets/67443044/5474aa08-091b-49c3-b270-c03f01c82b11" style="width:200px"></img> | <img src="https://github.com/Dhui-Park/Ulmago/assets/67443044/cd88a269-f61e-475c-a2d5-d55e67791cb3" style="width:200px"></img> | <img src="https://github.com/Dhui-Park/Ulmago/assets/67443044/4500f0b6-0268-448e-8e50-9b5f5bcd85a5" style="width:200px"></img> | <img src="https://github.com/Dhui-Park/Ulmago/assets/67443044/c7887d84-e184-4d14-b480-406c43840c51" style="width:200px"></img>|
+
 
 
 
